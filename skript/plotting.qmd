@@ -1,0 +1,123 @@
+# Plot Creation
+With the method `pd.plot()`, Series and DataFrames can be visualized. Pandas relies on matplotlib for this. The syntax of Pandas is simpler, but the module offers fewer options than matplotlib. However, commands from Pandas and matplotlib can be combined for plot creation (see [Building Block Matplotlib](https://bausteine-der-datenanalyse.github.io/w-python-matplotlib/output/book/)).
+
+```{python}
+#| echo: false
+# recreate DataFrame from previous chapter
+import numpy as np
+import pandas as pd
+
+# create DataFrame
+temperatures_2021 = pd.Series([2, 4, 7, 12, 19, 23, 25, 23, 18, 15, 9, 5])
+temperatures_2022 = pd.Series([3, 6, 9, 13, 18, 21, 24, 23, 19, 14, 8, 4])
+temperatures_2023 = pd.Series([-3, -1, 4, 9, 15, 20, 20, 19, 16, 15, 7, 6])
+temperatures_2024 = pd.Series([-1, 2, 5, 8, 17, 24, 25, 20, 17, 14, 9, 2])
+
+temperatures = pd.concat([temperatures_2021, temperatures_2022, temperatures_2023, temperatures_2024], axis = 1)
+temperatures.columns = [2021, 2022, 2023, 2024]
+temperatures.index = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+# read guinea pigs dataset
+file_path = "01-daten/ToothGrowth.csv"
+guinea_pigs = pd.read_csv(filepath_or_buffer = file_path, sep = ',', header = 0, \
+  names = ['ID', 'len', 'supp', 'dose'], dtype = {'ID': 'int', 'len': 'float', 'dose': 'float', 'supp': 'category'})
+```
+
+## Series
+A Series is plotted against its index. By default, a line plot is drawn. The `xlabel` and `ylabel` parameters can be used to add axis labels.
+
+```{python}
+#| fig-alt: "Line plot of the index (0 to 59) against the length of tooth-forming cells in guinea pigs. The plot shows code execution and has no intrinsic meaning."
+
+guinea_pigs['len'].plot(xlabel = 'Index', ylabel = 'len')
+```
+
+The `kind` parameter can be used to change the type of plot. Some options are:
+
+  - `'line'`: default line plot
+  - `'bar'`: vertical bar chart
+  - `'hbar'`: horizontal bar chart
+  - `'hist'`: histogram
+  - `'box'`: box plot
+  - `'pie'`: pie chart
+
+Some useful parameters are:
+
+  - `colormap = palette` changes the color palette. A list of palettes available in matplotlib can be found in the [documentation](https://matplotlib.org/stable/users/explain/colors/colormaps.html).
+  - `figsize = (width, height)` tuple for figure size in inches
+  - `legend = True` adds a legend
+  - `title = 'Title'` adds a title
+  - `grid = True` adds grid lines
+  - `xlim = (min, max)` / `ylim = (min, max)` sets the axis limits
+
+```{python}
+#| fig-alt: "Pie chart of the Vitamin C doses in the guinea pigs dataset with three equally sized segments for doses 0.5, 1.0, and 2.0. The plot shows code execution and has no intrinsic meaning."
+
+guinea_pigs['dose'].value_counts().plot(kind = 'pie', ylabel = 'Dose', colormap = 'Blues', figsize = (6, 6), legend = True, title = 'Pie Chart of Vitamin C Dose')
+```
+
+## DataFrame
+For DataFrames, additional options are available. Using the `x` and `y` parameters, you can select columns or rows to be plotted on the respective axes. `y` can also be a list containing multiple entries.
+
+```{python}
+#| fig-alt: "Line plot of Vitamin C dose and the length of tooth-forming cells against the ID on the x-axis in the guinea pigs dataset. The plot shows code execution and has no intrinsic meaning."
+
+guinea_pigs.plot(x = 'ID', y = ['dose', 'len'])
+```
+
+&nbsp;
+
+For DataFrames, the scatter plot is available as a plot type.
+
+```{python}
+#| fig-alt: "Scatter plot of the length of tooth-forming cells against the ID on the x-axis in the guinea pigs dataset. The plot shows code execution and has no intrinsic meaning."
+
+guinea_pigs.plot(x = 'ID', y = 'len', kind = 'scatter')
+```
+
+## Subplots
+Using the argument `subplots = True` creates separate subplots. The argument `sharex = True` is automatically set, so both subplots share the same x-axis. The `title` parameter can be given a list of titles for each subplot.
+
+```{python}
+#| fig-alt: "Line plots of Vitamin C dose and the length of tooth-forming cells in two subplots against the ID on the x-axis in the guinea pigs dataset. The plot shows code execution and has no intrinsic meaning."
+
+guinea_pigs.plot(x = 'ID', y = ['dose', 'len'], subplots = True, title = ['Vitamin C Dose', 'Length of Tooth-Forming Cells']);
+```
+
+&nbsp;
+
+The argument `sharey = True` is also available. The `sharex` argument is set to False.
+
+```{python}
+#| fig-alt: "Line plots of Vitamin C dose and the length of tooth-forming cells in two subplots with a shared y-axis against the ID on the x-axis in the guinea pigs dataset. The plot shows code execution and has no intrinsic meaning."
+
+guinea_pigs.plot(x = 'ID', y = ['dose', 'len'], subplots = True, sharex = False, sharey = True, title = ['Vitamin C Dose', 'Length of Tooth-Forming Cells']);
+```
+
+&nbsp;
+
+To fix overlapping x-axis labels, a command from the `matplotlib.pyplot` module must be used.
+
+```{python}
+#| fig-alt: "Line plots of Vitamin C dose and the length of tooth-forming cells in two subplots against the ID on the x-axis in the guinea pigs dataset. The plot shows code execution and has no intrinsic meaning."
+
+import matplotlib.pyplot as plt
+
+guinea_pigs.plot(x = 'ID', y = ['dose', 'len'], subplots = True, sharex = False, sharey = True, title = ['Vitamin C Dose', 'Length of Tooth-Forming Cells']);
+plt.tight_layout()
+```
+
+&nbsp;
+
+To set a y-axis label for each subplot, matplotlib must also be used.
+
+```{python}
+#| fig-alt: "Line plots of Vitamin C dose and the length of tooth-forming cells in two subplots against the ID on the x-axis in the guinea pigs dataset. The plot shows code execution and has no intrinsic meaning."
+
+my_plot = guinea_pigs.plot(x = 'ID', y = ['dose', 'len'], subplots = True, sharex = False, sharey = True, title = ['Vitamin C Dose', 'Length of Tooth-Forming Cells']);
+
+my_plot[0].set_ylabel('Milligrams per Day')
+my_plot[1].set_ylabel('Micron')
+plt.tight_layout()
+plt.show()
+```

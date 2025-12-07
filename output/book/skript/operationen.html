@@ -1,0 +1,1936 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>2&nbsp; Operationen – Bausteine Computergestützter Datenanalyse</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../skript/plotting.html" rel="next">
+<link href="../skript/einleitung.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-41b50336b84d19d21e4f3e93c35ff765.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken",
+    "search-label": "Suchen"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<link rel="shortcut icon" href="skript/00-bilder/favicon_bcd_new.svg">
+<link rel="icon" type="image/x-icon" href="logo.ico">
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../skript/operationen.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Operationen</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../skript/00-bilder/logo_with_text_new.svg" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Werkzeugbaustein Pandas</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Suchen"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Werkzeugbaustein Pandas</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../skript/einleitung.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Einleitung</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../skript/operationen.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Operationen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../skript/plotting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Grafikerstellung</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../skript/datentypen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Datentypen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../skript/datetime.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Zeitreihen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../skript/dateien.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Dateien lesen und schreiben</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+  <li><a href="#zeilen--und-spaltenweise-operationen" id="toc-zeilen--und-spaltenweise-operationen" class="nav-link active" data-scroll-target="#zeilen--und-spaltenweise-operationen"><span class="header-section-number">2.1</span> Zeilen- und spaltenweise Operationen</a>
+  <ul class="collapse">
+  <li><a href="#arithmetische-funktionen" id="toc-arithmetische-funktionen" class="nav-link" data-scroll-target="#arithmetische-funktionen">arithmetische Funktionen</a></li>
+  <li><a href="#summarische-funktionen" id="toc-summarische-funktionen" class="nav-link" data-scroll-target="#summarische-funktionen">summarische Funktionen</a></li>
+  <li><a href="#boolsche-funktionen" id="toc-boolsche-funktionen" class="nav-link" data-scroll-target="#boolsche-funktionen">boolsche Funktionen</a></li>
+  <li><a href="#verwendung-der-methoden-.agg-und-.apply" id="toc-verwendung-der-methoden-.agg-und-.apply" class="nav-link" data-scroll-target="#verwendung-der-methoden-.agg-und-.apply">Verwendung der Methoden .agg() und .apply()</a></li>
+  </ul></li>
+  <li><a href="#aufgaben-operationen" id="toc-aufgaben-operationen" class="nav-link" data-scroll-target="#aufgaben-operationen"><span class="header-section-number">2.2</span> Aufgaben Operationen</a></li>
+  <li><a href="#suchen-und-ersetzen" id="toc-suchen-und-ersetzen" class="nav-link" data-scroll-target="#suchen-und-ersetzen"><span class="header-section-number">2.3</span> Suchen und ersetzen</a></li>
+  <li><a href="#aufgaben-suchen-und-ersetzen" id="toc-aufgaben-suchen-und-ersetzen" class="nav-link" data-scroll-target="#aufgaben-suchen-und-ersetzen"><span class="header-section-number">2.4</span> Aufgaben suchen und ersetzen</a></li>
+  <li><a href="#sortieren" id="toc-sortieren" class="nav-link" data-scroll-target="#sortieren"><span class="header-section-number">2.5</span> Sortieren</a></li>
+  <li><a href="#aufgaben-sortieren" id="toc-aufgaben-sortieren" class="nav-link" data-scroll-target="#aufgaben-sortieren"><span class="header-section-number">2.6</span> Aufgaben Sortieren</a></li>
+  <li><a href="#groupby" id="toc-groupby" class="nav-link" data-scroll-target="#groupby"><span class="header-section-number">2.7</span> GroupBy</a></li>
+  <li><a href="#aufgaben-groupby" id="toc-aufgaben-groupby" class="nav-link" data-scroll-target="#aufgaben-groupby"><span class="header-section-number">2.8</span> Aufgaben GroupBy</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Operationen</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Pandas erlaubt wie NumPy vektorisierte Operationen, dass heißt, Berechnungen mit einer Series oder einem DataFrame werden auf jedes Element angewendet. So können die Rechenoperatoren direkt verwendet werden.</p>
+<div id="abf86fc6" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Temperaturen in Celsius:"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">27</span> <span class="op">*</span> <span class="st">"="</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Temperaturen in Fahrenheit:"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">27</span> <span class="op">*</span> <span class="st">"="</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen  <span class="op">*</span> <span class="dv">9</span><span class="op">/</span><span class="dv">5</span> <span class="op">+</span> <span class="dv">32</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Temperaturen in Celsius:
+===========================
+     2021  2022  2023  2024
+Jan     2     3    -3    -1
+Feb     4     6    -1     2
+Mär     7     9     4     5
+Apr    12    13     9     8
+Mai    19    18    15    17
+Jun    23    21    20    24
+Jul    25    24    20    25
+Aug    23    23    19    20
+Sep    18    19    16    17
+Okt    15    14    15    14
+Nov     9     8     7     9
+Dez     5     4     6     2 
+
+Temperaturen in Fahrenheit:
+===========================
+     2021  2022  2023  2024
+Jan  35.6  37.4  26.6  30.2
+Feb  39.2  42.8  30.2  35.6
+Mär  44.6  48.2  39.2  41.0
+Apr  53.6  55.4  48.2  46.4
+Mai  66.2  64.4  59.0  62.6
+Jun  73.4  69.8  68.0  75.2
+Jul  77.0  75.2  68.0  77.0
+Aug  73.4  73.4  66.2  68.0
+Sep  64.4  66.2  60.8  62.6
+Okt  59.0  57.2  59.0  57.2
+Nov  48.2  46.4  44.6  48.2
+Dez  41.0  39.2  42.8  35.6</code></pre>
+</div>
+</div>
+<p>Auch boolsche Operationen können direkt ausgeführt werden.</p>
+<div id="d76dbd99" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Minusgrade:"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">27</span> <span class="op">*</span> <span class="st">"="</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen  <span class="op">&lt;</span> <span class="dv">0</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Minusgrade:
+===========================
+      2021   2022   2023   2024
+Jan  False  False   True   True
+Feb  False  False   True  False
+Mär  False  False  False  False
+Apr  False  False  False  False
+Mai  False  False  False  False
+Jun  False  False  False  False
+Jul  False  False  False  False
+Aug  False  False  False  False
+Sep  False  False  False  False
+Okt  False  False  False  False
+Nov  False  False  False  False
+Dez  False  False  False  False</code></pre>
+</div>
+</div>
+<section id="zeilen--und-spaltenweise-operationen" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="zeilen--und-spaltenweise-operationen"><span class="header-section-number">2.1</span> Zeilen- und spaltenweise Operationen</h2>
+<p>Pandas umfasst eine Vielzahl von Methoden, die arithmetische, summarische, boolsche und Indexfunktionen umsetzen. Eine vollständige Übersicht finden Sie hier: <a href="https://pandas.pydata.org/docs/reference/index.html" class="uri">https://pandas.pydata.org/docs/reference/index.html</a>.</p>
+<p>In der Regel werden die Funktionen standardmäßig spaltenweise angewendet. Mit dem Argument <code>axis = 1</code> wird die jeweilige Funktion zeilenweise ausgeführt. Die Funktionen sind auch für Series verfügbar.</p>
+<p>Im Folgenden werden einige Methoden exemplarisch vorgestellt.</p>
+<section id="arithmetische-funktionen" class="level3">
+<h3 class="anchored" data-anchor-id="arithmetische-funktionen">arithmetische Funktionen</h3>
+<p>Die Methoden <code>pd.DataFrame.add()</code>, <code>pd.DataFrame.sub()</code>, <code>pd.DataFrame.mul()</code>, <code>pd.DataFrame.div()</code>, <code>pd.DataFrame.floordiv()</code>, <code>pd.DataFrame.mod()</code> und <code>pd.DataFrame.pow()</code> entsprechen den Grundrechenarten mit den Operatoren +, -, *, /, //, %, **. Sie eignen sich gut für verkettete Operationen.</p>
+<div id="9a337a58" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Temperaturen in Fahrenheit:"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">27</span> <span class="op">*</span> <span class="st">"="</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.mul(<span class="dv">9</span>).div(<span class="dv">5</span>).add(<span class="dv">32</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Temperaturen in Fahrenheit:
+===========================
+     2021  2022  2023  2024
+Jan  35.6  37.4  26.6  30.2
+Feb  39.2  42.8  30.2  35.6
+Mär  44.6  48.2  39.2  41.0
+Apr  53.6  55.4  48.2  46.4
+Mai  66.2  64.4  59.0  62.6
+Jun  73.4  69.8  68.0  75.2
+Jul  77.0  75.2  68.0  77.0
+Aug  73.4  73.4  66.2  68.0
+Sep  64.4  66.2  60.8  62.6
+Okt  59.0  57.2  59.0  57.2
+Nov  48.2  46.4  44.6  48.2
+Dez  41.0  39.2  42.8  35.6</code></pre>
+</div>
+</div>
+<p>Außerdem kann mit dem Parameter <code>fill_value</code> ein Füllwert für fehlende Werte spezifiziert werden (dieser wird vor der Operation eingesetzt). Wie NumPys <code>np.nan</code> umfasst auch Pandas einen speziellen fehlenden Wert: <code>pd.NA</code> (achten Sie auf den Datentyp der Ausgabe). Der Umgang mit fehlenden Werten wird ausführlich im <a href="https://bausteine-der-datenanalyse.github.io/m-einlesen-strukturierter-datensaetze/output/book/">Methodenbaustein Einlesen strukturierter Datensätze</a> behandelt.</p>
+<div id="5da9a04c" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>missing_value <span class="op">=</span> pd.Series([<span class="dv">1</span>, pd.NA, <span class="dv">3</span>])</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(missing_value.add(<span class="dv">1</span>, fill_value <span class="op">=</span> <span class="op">-</span><span class="dv">999</span>), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(missing_value.add(<span class="dv">1</span>, fill_value <span class="op">=</span> np.nan), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(missing_value.add(<span class="dv">1</span>, fill_value <span class="op">=</span> pd.NA))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0      2
+1   -998
+2      4
+dtype: int64 
+
+0    2.0
+1    NaN
+2    4.0
+dtype: float64 
+
+0       2
+1    &lt;NA&gt;
+2       4
+dtype: object</code></pre>
+</div>
+</div>
+</section>
+<section id="summarische-funktionen" class="level3">
+<h3 class="anchored" data-anchor-id="summarische-funktionen">summarische Funktionen</h3>
+<ul>
+<li><code>pd.DataFrame.mean()</code> ermittelt den Durchschnitt.</li>
+<li><code>pd.DataFrame.median()</code> ermittelt den Median.</li>
+<li><code>pd.DataFrame.mode()</code> ermittelt den Modus.</li>
+<li><code>pd.DataFrame.sum()</code> ermittelt die Summe.</li>
+<li><code>pd.DataFrame.cumsum()</code> ermittelt die kummulierte Summe.</li>
+<li><code>pd.DataFrame.min()</code> und <code>pd.DataFrame.max()</code> ermitteln Minimum bzw. Maximum.</li>
+<li><code>pd.DataFrame.cummin()</code> und <code>pd.DataFrame.cummax()</code> ermittelt das kummulierte Minimum bzw. Maximum.</li>
+</ul>
+<div id="905a5b77" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># spaltenweise</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Mittlere Jahrestemperaturen"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">27</span> <span class="op">*</span> <span class="st">"="</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.mean(), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># zeilenweise</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Monatliche Mindesttemperatur"</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">28</span> <span class="op">*</span> <span class="st">"="</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.<span class="bu">min</span>(axis <span class="op">=</span> <span class="dv">1</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Mittlere Jahrestemperaturen
+===========================
+2021    13.500000
+2022    13.500000
+2023    10.583333
+2024    11.833333
+dtype: float64 
+
+Monatliche Mindesttemperatur
+============================
+Jan    -3
+Feb    -1
+Mär     4
+Apr     8
+Mai    15
+Jun    20
+Jul    20
+Aug    19
+Sep    16
+Okt    14
+Nov     7
+Dez     2
+dtype: int64</code></pre>
+</div>
+</div>
+</section>
+<section id="boolsche-funktionen" class="level3">
+<h3 class="anchored" data-anchor-id="boolsche-funktionen">boolsche Funktionen</h3>
+<p>Pandas bietet wie die Pythonbasis verschiedene boolsche Funktionen.</p>
+<p><code>pd.DataFrame.isin(values)</code> prüft für jedes Element des DataFrame, ob dieses in <code>values</code> enthalten ist. Mit dem Operator <code>~</code> kann geprüft werden, ob die Elemente eines DataFrame nicht in <code>values</code> enthalten sind: <code>~pd.DataFrame.isin(values)</code>.<br>
+Die Funktionsausführung ist abhängig vom Datentyp des in <code>values</code> übergebenen Objekts.</p>
+<ul>
+<li>Wenn <code>values</code> eine Liste oder ein NumPy-Array ist, ist das Ergebnis True, wenn es eine Übereinstimmung mit einem der enthaltenen Elemente gibt.</li>
+<li>Ist <code>value</code> eine Series oder ein DataFrame, wird die Übereinstimmung positionsbasiert überprüft (siehe Beispiel).</li>
+</ul>
+<div id="nte-isin" class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Beispiel&nbsp;2.1: klassenabhängige Funktionsausführung
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Einzelwerte oder Liste</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">NumPy-Array</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Series</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">DataFrame</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Für Einzelwerte oder eine Liste wird die Übereinstimmung elementweise überprüft.</p>
+<div id="a48b9a12" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.isin([<span class="dv">2</span>, <span class="dv">3</span>]))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     2021  2022  2023  2024
+Jan     2     3    -3    -1
+Feb     4     6    -1     2
+Mär     7     9     4     5
+Apr    12    13     9     8
+Mai    19    18    15    17
+Jun    23    21    20    24
+Jul    25    24    20    25
+Aug    23    23    19    20
+Sep    18    19    16    17
+Okt    15    14    15    14
+Nov     9     8     7     9
+Dez     5     4     6     2 
+
+      2021   2022   2023   2024
+Jan   True   True  False  False
+Feb  False  False  False   True
+Mär  False  False  False  False
+Apr  False  False  False  False
+Mai  False  False  False  False
+Jun  False  False  False  False
+Jul  False  False  False  False
+Aug  False  False  False  False
+Sep  False  False  False  False
+Okt  False  False  False  False
+Nov  False  False  False  False
+Dez  False  False  False   True</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>Für ein NumPy-Array wird die Übereinstimmung elementweise überprüft (vergleiche zum nächsten Reiter).</p>
+<div id="72d9fd96" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(temperaturen[<span class="dv">2021</span>].values), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.isin(temperaturen[<span class="dv">2021</span>].values))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'numpy.ndarray'&gt; 
+
+     2021   2022   2023   2024
+Jan  True  False  False  False
+Feb  True  False  False   True
+Mär  True   True   True   True
+Apr  True  False   True  False
+Mai  True   True   True  False
+Jun  True  False  False  False
+Jul  True  False  False   True
+Aug  True   True   True  False
+Sep  True   True  False  False
+Okt  True  False   True  False
+Nov  True  False   True   True
+Dez  True   True  False   True</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>Für eine Series wird die Übereinstimmung positionsweise geprüft (vergleiche zum vorherigen Reiter). Der Index muss übereinstimmen.</p>
+<div id="079aa8a6" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.isin(temperaturen[<span class="dv">2021</span>]), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>temperaturen_2021_falscher_index <span class="op">=</span> pd.Series([<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">12</span>, <span class="dv">19</span>, <span class="dv">23</span>, <span class="dv">25</span>, <span class="dv">23</span>, <span class="dv">18</span>, <span class="dv">15</span>, <span class="dv">9</span>, <span class="dv">5</span>])</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>temperaturen_2021_falscher_index.index <span class="op">=</span> [<span class="st">'A'</span>, <span class="st">'B'</span>, <span class="st">'C'</span>, <span class="st">'D'</span>, <span class="st">'E'</span>, <span class="st">'F'</span>, <span class="st">'Jul'</span>, <span class="st">'Aug'</span>, <span class="st">'Sep'</span>, <span class="st">'Okt'</span>, <span class="st">'Nov'</span>, <span class="st">'Dez'</span>]</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Der Index der Series lautet:</span><span class="ch">\n</span><span class="st">['A', 'B', 'C', 'D', 'E', 'F', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'].</span><span class="ch">\n</span><span class="st">Das Ergebnis an den Indexpositionen A-F ist immer False."</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.isin(temperaturen_2021_falscher_index))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     2021   2022   2023   2024
+Jan  True  False  False  False
+Feb  True  False  False  False
+Mär  True  False  False  False
+Apr  True  False  False  False
+Mai  True  False  False  False
+Jun  True  False  False  False
+Jul  True  False  False   True
+Aug  True   True  False  False
+Sep  True  False  False  False
+Okt  True  False   True  False
+Nov  True  False  False   True
+Dez  True  False  False  False 
+
+Der Index der Series lautet:
+['A', 'B', 'C', 'D', 'E', 'F', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'].
+Das Ergebnis an den Indexpositionen A-F ist immer False.
+      2021   2022   2023   2024
+Jan  False  False  False  False
+Feb  False  False  False  False
+Mär  False  False  False  False
+Apr  False  False  False  False
+Mai  False  False  False  False
+Jun  False  False  False  False
+Jul   True  False  False   True
+Aug   True   True  False  False
+Sep   True  False  False  False
+Okt   True  False   True  False
+Nov   True  False  False   True
+Dez   True  False  False  False</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p>Für einen DataFrame wird die Übereinstimmung positionsweise geprüft. Index und Spaltennamen müssen übereinstimmen (Index siehe Reiter Series).</p>
+<div id="85d5a314" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>temperaturen_2021_df <span class="op">=</span> pd.DataFrame(temperaturen[<span class="dv">2021</span>])</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.isin(temperaturen_2021_df), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>temperaturen_2021_df.columns <span class="op">=</span> [<span class="dv">2035</span>]</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.isin(temperaturen_2021_df), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     2021   2022   2023   2024
+Jan  True  False  False  False
+Feb  True  False  False  False
+Mär  True  False  False  False
+Apr  True  False  False  False
+Mai  True  False  False  False
+Jun  True  False  False  False
+Jul  True  False  False  False
+Aug  True  False  False  False
+Sep  True  False  False  False
+Okt  True  False  False  False
+Nov  True  False  False  False
+Dez  True  False  False  False 
+
+      2021   2022   2023   2024
+Jan  False  False  False  False
+Feb  False  False  False  False
+Mär  False  False  False  False
+Apr  False  False  False  False
+Mai  False  False  False  False
+Jun  False  False  False  False
+Jul  False  False  False  False
+Aug  False  False  False  False
+Sep  False  False  False  False
+Okt  False  False  False  False
+Nov  False  False  False  False
+Dez  False  False  False  False 
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tip-documentation" class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipp&nbsp;2.1: Überraschungen vermeiden
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Eine klassenabhängige Funktionsausführung kann, wenn das Verhalten unbemerkt bleibt, die Ergebnisse einer Datenanalyse verfälschen. Um dies zu verhindern, sollten Sie 3 allgemeine Ratschläge befolgen:</p>
+<ol type="1">
+<li><p>Schauen Sie in die Dokumentation der jeweiligen Funktion. Python und viele Module entwickeln sich dynamisch, sodass sich das Verhalten einer Funktion verändern kann.</p></li>
+<li><p>Gehen Sie schrittweise vor und lassen sich die Zwischenergebnisse von Arbeitsschritten mit der Funktion <code>print()</code> ausgeben.</p></li>
+<li><p>Bei großen Datenmengen ist es häufig einfacher, mit eigens erzeugten Testdaten zu arbeiten. Ein zehnzeiliger DataFrame mit den Datentypen und der Struktur der Arbeitsdaten, ist leichter zu überblicken. Nutzen Sie einen solchen Testdatensatz um die von Ihnen verwendeten Funktionen zu überprüfen.</p></li>
+</ol>
+</div>
+</div>
+<p>Eine Gruppe von Funktionen setzt logische Vergleiche um.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Funktion</th>
+<th>Vergleich</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>pd.DataFrame.lt(other)</code></td>
+<td>kleiner</td>
+</tr>
+<tr class="even">
+<td><code>pd.DataFrame.le(other)</code></td>
+<td>kleiner gleich</td>
+</tr>
+<tr class="odd">
+<td><code>pd.DataFrame.eq(other)</code></td>
+<td>gleich</td>
+</tr>
+<tr class="even">
+<td><code>pd.DataFrame.ne(other)</code></td>
+<td>ungleich</td>
+</tr>
+<tr class="odd">
+<td><code>pd.DataFrame.ge(other)</code></td>
+<td>größer gleich</td>
+</tr>
+<tr class="even">
+<td><code>pd.DataFrame.gt(other)</code></td>
+<td>größer</td>
+</tr>
+</tbody>
+</table>
+<div id="829c4bb8" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.le(<span class="dv">2</span>), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen[<span class="dv">2021</span>].gt(<span class="dv">5</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      2021   2022   2023   2024
+Jan   True  False   True   True
+Feb  False  False   True   True
+Mär  False  False  False  False
+Apr  False  False  False  False
+Mai  False  False  False  False
+Jun  False  False  False  False
+Jul  False  False  False  False
+Aug  False  False  False  False
+Sep  False  False  False  False
+Okt  False  False  False  False
+Nov  False  False  False  False
+Dez  False  False  False   True 
+
+Jan    False
+Feb    False
+Mär     True
+Apr     True
+Mai     True
+Jun     True
+Jul     True
+Aug     True
+Sep     True
+Okt     True
+Nov     True
+Dez    False
+Name: 2021, dtype: bool</code></pre>
+</div>
+</div>
+</section>
+<section id="verwendung-der-methoden-.agg-und-.apply" class="level3">
+<h3 class="anchored" data-anchor-id="verwendung-der-methoden-.agg-und-.apply">Verwendung der Methoden .agg() und .apply()</h3>
+<p>Pandas bringt zwei eigene Methoden mit, um Operationen zeilen- oder spaltenweise auszuführen. <code>DataFrame.agg()</code> (oder auch <code>DataFrame.aggregate()</code>) aggregiert einen DataFrame zeilen- oder spaltenweise durch eine Funktion. Die Pandas-Methode <code>DF.apply()</code> wendet eine Funktion zeilen- oder spaltenweise auf einen DataFrame an. Die Methoden sind also sehr ähnlich und führen in den meisten Fällen zum selben Ergebnis.</p>
+<p>Beide Funktionen führen mit dem Argument <code>axis = 1</code> Operationen zeilenweise aus.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Funktion</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Funktionsname</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Liste von Funktionen</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false">Dictionary von Funktionen</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div id="1d316080" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> my_plus_ten(x):</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> x <span class="op">+</span> <span class="dv">10</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> y</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.agg(my_plus_ten), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.<span class="bu">apply</span>(my_plus_ten))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     2021  2022  2023  2024
+Jan    12    13     7     9
+Feb    14    16     9    12
+Mär    17    19    14    15
+Apr    22    23    19    18
+Mai    29    28    25    27
+Jun    33    31    30    34
+Jul    35    34    30    35
+Aug    33    33    29    30
+Sep    28    29    26    27
+Okt    25    24    25    24
+Nov    19    18    17    19
+Dez    15    14    16    12 
+
+     2021  2022  2023  2024
+Jan    12    13     7     9
+Feb    14    16     9    12
+Mär    17    19    14    15
+Apr    22    23    19    18
+Mai    29    28    25    27
+Jun    33    31    30    34
+Jul    35    34    30    35
+Aug    33    33    29    30
+Sep    28    29    26    27
+Okt    25    24    25    24
+Nov    19    18    17    19
+Dez    15    14    16    12</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div id="34f6c29e" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.agg(<span class="st">"sum"</span>), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.<span class="bu">apply</span>(<span class="st">"sum"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2021    162
+2022    162
+2023    127
+2024    142
+dtype: int64 
+
+2021    162
+2022    162
+2023    127
+2024    142
+dtype: int64</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<div id="30b9c030" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.agg([<span class="st">"sum"</span>, <span class="st">"mean"</span>, <span class="st">"median"</span>]), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.<span class="bu">apply</span>([<span class="st">"sum"</span>, <span class="st">"mean"</span>, <span class="st">"median"</span>]))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         2021   2022        2023        2024
+sum     162.0  162.0  127.000000  142.000000
+mean     13.5   13.5   10.583333   11.833333
+median   13.5   13.5   12.000000   11.500000 
+
+         2021   2022        2023        2024
+sum     162.0  162.0  127.000000  142.000000
+mean     13.5   13.5   10.583333   11.833333
+median   13.5   13.5   12.000000   11.500000</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
+<div id="5d8691ea" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.agg({<span class="dv">2021</span>: <span class="st">"sum"</span>, <span class="dv">2022</span>: <span class="st">"mean"</span>, <span class="dv">2023</span>: <span class="st">"median"</span>, <span class="dv">2024</span>: <span class="st">"min"</span>}), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.<span class="bu">apply</span>({<span class="dv">2021</span>: <span class="st">"sum"</span>, <span class="dv">2022</span>: <span class="st">"mean"</span>, <span class="dv">2023</span>: <span class="st">"median"</span>, <span class="dv">2024</span>: <span class="st">"min"</span>}), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2021    162.0
+2022     13.5
+2023     12.0
+2024     -1.0
+dtype: float64 
+
+2021    162.0
+2022     13.5
+2023     12.0
+2024     -1.0
+dtype: float64 
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Besonders nützlich ist die Möglichkeit, Funktionen, die normalerweise auf eine Series angewendet werden, auf jedes Element der Series anzuwenden. Dafür wird die lambda Syntax verwendet: <code>lambda x: x + 1</code>. lambda ist ein Platzhalter und kann als “für jedes x tue:” gelesen werden. So kann beispielsweise die Anzahl der Zeichen in jeder Zeile bestimmt werden.</p>
+<div id="de9b05ec" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Auf die Series angewendet</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(<span class="bu">str</span>(temperaturen[<span class="dv">2021</span>])), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Elementweise angewendet</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen[<span class="dv">2021</span>].agg(<span class="kw">lambda</span> x: <span class="bu">len</span>(<span class="bu">str</span>(x))), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>) <span class="co"># deprecated</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen[<span class="dv">2021</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="bu">len</span>(<span class="bu">str</span>(x))), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>144 
+
+Jan    1
+Feb    1
+Mär    1
+Apr    2
+Mai    2
+Jun    2
+Jul    2
+Aug    2
+Sep    2
+Okt    2
+Nov    1
+Dez    1
+Name: 2021, dtype: int64 
+
+Jan    1
+Feb    1
+Mär    1
+Apr    2
+Mai    2
+Jun    2
+Jul    2
+Aug    2
+Sep    2
+Okt    2
+Nov    1
+Dez    1
+Name: 2021, dtype: int64 
+</code></pre>
+</div>
+</div>
+<p>Details zur Verwendung des <a href="https://docs.python.org/3/reference/expressions.html#lambda">Lambda-Ausdrucks</a> finden Sie in der Dokumentation.</p>
+<p>Der Vollständigkeit wegen ist zu erwähnen, dass mit den Methoden <code>.map()</code> und <code>.transform()</code> weitere, sehr ähnliche Alternativen bestehen. Bei Interesse können Sie die Unterschiede <a href="https://towardsdatascience.com/pandas-apply-map-or-transform-dd931659e9cf/">in diesem Artikel</a> nachlesen.</p>
+<div id="0e1b70bc" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print(temperaturen[2021].map(lambda x: len(str(x))))</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># print(temperaturen[2021].transform(lambda x: len(str(x))), "\n") </span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="aufgaben-operationen" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="aufgaben-operationen"><span class="header-section-number">2.2</span> Aufgaben Operationen</h2>
+<ol type="1">
+<li><p>Bestimmen Sie für den Dataframe temperaturen die monatliche Mediantemperatur.</p></li>
+<li><p>Ermitteln Sie die Monate mit einer Mediantemperatur größer gleich 21 Grad.</p></li>
+<li><p>Geben Sie die Indexbeschriftung dieser Monate aus.</p></li>
+</ol>
+<div id="tip-loesungoperationen" class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipp&nbsp;2.2: Musterlösung Aufgaben Operationen
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Aufgabe</li>
+</ol>
+<div id="bdc16be1" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.mean(axis <span class="op">=</span> <span class="dv">1</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Jan     0.25
+Feb     2.75
+Mär     6.25
+Apr    10.50
+Mai    17.25
+Jun    22.00
+Jul    23.50
+Aug    21.25
+Sep    17.50
+Okt    14.50
+Nov     8.25
+Dez     4.25
+dtype: float64</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Aufgabe</li>
+</ol>
+<div id="8621b54e" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.mean(axis <span class="op">=</span> <span class="dv">1</span>).ge(<span class="dv">21</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Jan    False
+Feb    False
+Mär    False
+Apr    False
+Mai    False
+Jun     True
+Jul     True
+Aug     True
+Sep    False
+Okt    False
+Nov    False
+Dez    False
+dtype: bool</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Aufgabe</li>
+</ol>
+<div id="197fa2b1" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.index[temperaturen.mean(axis <span class="op">=</span> <span class="dv">1</span>).ge(<span class="dv">21</span>)], <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># als Liste</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(temperaturen.index[temperaturen.mean(axis <span class="op">=</span> <span class="dv">1</span>).ge(<span class="dv">21</span>)]), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Index(['Jun', 'Jul', 'Aug'], dtype='object') 
+
+['Jun', 'Jul', 'Aug'] 
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="suchen-und-ersetzen" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="suchen-und-ersetzen"><span class="header-section-number">2.3</span> Suchen und ersetzen</h2>
+<p>Um die Indexposition eines bestimmten Werts zu bestimmen, kann die Numpy-Funktion <code>np.where()</code> verwendet werden. Diese gibt zwei Arrays mit den jeweiligen Zeilen- und Spaltennummern zurück.</p>
+<div id="fc0f58a4" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.where(temperaturen <span class="op">==</span> <span class="dv">4</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(array([ 1,  2, 11]), array([0, 2, 1]))</code></pre>
+</div>
+</div>
+<p>Unter anderem befindet sich der Wert 4 in Zeile 1 in Spalte 0 oder auch in Zeile 2 in Spalte 2.</p>
+<div id="2fd8e24d" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.iloc[<span class="dv">1</span>, <span class="dv">0</span>])</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.iloc[<span class="dv">2</span>, <span class="dv">2</span>])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>4
+4</code></pre>
+</div>
+</div>
+<p>Pandas bietet zwei Methoden, um Werte zu ersetzen.</p>
+<ul>
+<li><p><code>pd.DataFrame.replace(to_replace, value, *, inplace = False)</code> ersetzt <code>to_replace</code> mit <code>value</code>. Mit dem Argument <code>inplace = True</code> erfolgt dies direkt im Objekt.</p></li>
+<li><p><code>pd.where(cond, other = nan, inplace = False)</code> behält <code>cond</code> und ersetzt alle anderen Werte mit <code>other</code> (standardmäßig ein Platzhalter für fehlende Werte). Mit dem Argument <code>inplace = True</code> erfolgt dies direkt im Objekt.</p></li>
+</ul>
+<p>Die Syntax beider Funktionen unterscheidet sich leicht, wie im folgenden Beispiel zu sehen ist.</p>
+<div id="83b64709" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.replace(to_replace <span class="op">=</span> <span class="dv">25</span>, value <span class="op">=</span> <span class="dv">1000</span>), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.where(temperaturen <span class="op">==</span> <span class="dv">25</span>, other <span class="op">=</span> <span class="dv">1000</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     2021  2022  2023  2024
+Jan     2     3    -3    -1
+Feb     4     6    -1     2
+Mär     7     9     4     5
+Apr    12    13     9     8
+Mai    19    18    15    17
+Jun    23    21    20    24
+Jul  1000    24    20  1000
+Aug    23    23    19    20
+Sep    18    19    16    17
+Okt    15    14    15    14
+Nov     9     8     7     9
+Dez     5     4     6     2 
+
+     2021  2022  2023  2024
+Jan  1000  1000  1000  1000
+Feb  1000  1000  1000  1000
+Mär  1000  1000  1000  1000
+Apr  1000  1000  1000  1000
+Mai  1000  1000  1000  1000
+Jun  1000  1000  1000  1000
+Jul    25  1000  1000    25
+Aug  1000  1000  1000  1000
+Sep  1000  1000  1000  1000
+Okt  1000  1000  1000  1000
+Nov  1000  1000  1000  1000
+Dez  1000  1000  1000  1000</code></pre>
+</div>
+</div>
+</section>
+<section id="aufgaben-suchen-und-ersetzen" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="aufgaben-suchen-und-ersetzen"><span class="header-section-number">2.4</span> Aufgaben suchen und ersetzen</h2>
+<ol type="1">
+<li><p>Bestimmen Sie die Position der Werte im DataFrame ‘temperaturen’, die kleiner als 0 sind und geben Sie die Werte aus.</p></li>
+<li><p>Ersetzen Sie alle Werte im DataFrame temperaturen, die kleiner sind als 0 durch den Wert 0 und geben Sie das Ergebnis aus.</p></li>
+</ol>
+<div id="tip-loesung-suchenersetzen" class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipp&nbsp;2.3: Musterlösung suchen und ersetzen
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Aufgabe</li>
+</ol>
+<div id="47424650" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.where(temperaturen <span class="op">&lt;=</span> <span class="dv">0</span>))</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Anzahl Werte:"</span>, <span class="bu">len</span>(np.where(temperaturen <span class="op">&lt;=</span> <span class="dv">0</span>)[<span class="dv">0</span>]))</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(np.where(temperaturen <span class="op">&lt;=</span> <span class="dv">0</span>)[<span class="dv">0</span>])):</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(temperaturen.iloc[np.where(temperaturen <span class="op">&lt;=</span> <span class="dv">0</span>)[<span class="dv">0</span>][i], np.where(temperaturen <span class="op">&lt;=</span> <span class="dv">0</span>)[<span class="dv">1</span>][i]])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(array([0, 0, 1]), array([2, 3, 2]))
+Anzahl Werte: 3
+-3
+-1
+-1</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Aufgabe</li>
+</ol>
+<div id="7ed309d7" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.where(temperaturen <span class="op">&gt;</span> <span class="dv">0</span>, other <span class="op">=</span> <span class="dv">0</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     2021  2022  2023  2024
+Jan     2     3     0     0
+Feb     4     6     0     2
+Mär     7     9     4     5
+Apr    12    13     9     8
+Mai    19    18    15    17
+Jun    23    21    20    24
+Jul    25    24    20    25
+Aug    23    23    19    20
+Sep    18    19    16    17
+Okt    15    14    15    14
+Nov     9     8     7     9
+Dez     5     4     6     2</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="sortieren" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="sortieren"><span class="header-section-number">2.5</span> Sortieren</h2>
+<p>Die Methode <code>DataFrame.sort_index(axis = 0, ascending = True, inplace = False)</code> sortiert entlang einer Achse, standardmäßig aufsteigend nach dem Index. Durch die Übergabe des Arguments <code>axis = 1</code> werden die Spalten sortiert. Mit dem Argument <code>ascending = False</code> wird absteigend sortiert. Das Argument <code>inplace = True</code> sorgt, wie gewohnt, dafür, dass das Ergebnis des Sortiervorgangs direkt im Objekt gespeichert wird.</p>
+<div id="a2e109c4" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.sort_index(), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.sort_index(axis <span class="op">=</span> <span class="dv">1</span>, ascending <span class="op">=</span> <span class="va">False</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     2021  2022  2023  2024
+Apr    12    13     9     8
+Aug    23    23    19    20
+Dez     5     4     6     2
+Feb     4     6    -1     2
+Jan     2     3    -3    -1
+Jul    25    24    20    25
+Jun    23    21    20    24
+Mai    19    18    15    17
+Mär     7     9     4     5
+Nov     9     8     7     9
+Okt    15    14    15    14
+Sep    18    19    16    17 
+
+     2024  2023  2022  2021
+Jan    -1    -3     3     2
+Feb     2    -1     6     4
+Mär     5     4     9     7
+Apr     8     9    13    12
+Mai    17    15    18    19
+Jun    24    20    21    23
+Jul    25    20    24    25
+Aug    20    19    23    23
+Sep    17    16    19    18
+Okt    14    15    14    15
+Nov     9     7     8     9
+Dez     2     6     4     5</code></pre>
+</div>
+</div>
+<p>Die Methode <code>DataFrame.sort_values(by, *, axis = 0, ascending = True, inplace = False)</code> sortiert Werte entlang einer Achse, standardmäßig entlang des Index (<code>axis = 0</code>). Dem Parameter <code>by</code> sind <a href="https://pandas.pydata.org/pandas-docs/version/2.1/reference/api/pandas.DataFrame.sort_values.html">laut Dokumentation</a> der Spaltenname als string bzw. eine Liste von Spaltennamen als string zu übergeben, nach denen sortiert werden soll. Wie im folgenden Code-Beispiel zu sehen ist, muss die numerische Spaltenbeschriftung jedoch auch in numerischer Form übergeben werden.</p>
+<p>Wird mit dem Argument <code>axis = 1</code> entlang der zweiten Dimension sortiert, werden entsprechend Indexbeschriftungen übergeben.</p>
+<div id="da5fb2bf" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sortieren nach numerischen Spaltenbeschriftungen</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.sort_values(by <span class="op">=</span> <span class="dv">2021</span>), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(temperaturen.sort_values(by <span class="op">=</span> [<span class="dv">2021</span>, <span class="dv">2023</span>]), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Sortieren nach als string übergebenen Spaltenbeschriftungen</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="co"># führt zu KeyError, die Fehlermeldung wird nicht vollständig abgefangen</span></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(temperaturen.sort_values(by <span class="op">=</span> <span class="st">'2021'</span>))</span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> error:</span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(error)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     2021  2022  2023  2024
+Jan     2     3    -3    -1
+Feb     4     6    -1     2
+Dez     5     4     6     2
+Mär     7     9     4     5
+Nov     9     8     7     9
+Apr    12    13     9     8
+Okt    15    14    15    14
+Sep    18    19    16    17
+Mai    19    18    15    17
+Jun    23    21    20    24
+Aug    23    23    19    20
+Jul    25    24    20    25 
+
+     2021  2022  2023  2024
+Jan     2     3    -3    -1
+Feb     4     6    -1     2
+Dez     5     4     6     2
+Mär     7     9     4     5
+Nov     9     8     7     9
+Apr    12    13     9     8
+Okt    15    14    15    14
+Sep    18    19    16    17
+Mai    19    18    15    17
+Aug    23    23    19    20
+Jun    23    21    20    24
+Jul    25    24    20    25 
+
+'2021'</code></pre>
+</div>
+</div>
+</section>
+<section id="aufgaben-sortieren" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="aufgaben-sortieren"><span class="header-section-number">2.6</span> Aufgaben Sortieren</h2>
+<ol type="1">
+<li><p>Sortieren Sie den DataFrame meerschweinchen absteigend nach der Zahnlänge (‘len’). Welches Meerschweinchen hat die längste zahnbildende Zelle (gesucht ist die ID)?</p></li>
+<li><p>Welches Meerschweinchen, welches die Dosis 1.0 erhielt, hat die längste zahnbildende Zelle (gesucht ist die ID)?</p></li>
+</ol>
+<div id="tip-musterloesungsortieren" class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipp&nbsp;2.4: Musterlösung Sortieren
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Aufgabe</li>
+</ol>
+<div id="79b1c828" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(meerschweinchen.sort_values(by <span class="op">=</span> <span class="st">'len'</span>, ascending <span class="op">=</span> <span class="va">False</span>).head(), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Die ID lautet:"</span>, meerschweinchen.sort_values(by <span class="op">=</span> <span class="st">'len'</span>, ascending <span class="op">=</span> <span class="va">False</span>).iloc[<span class="dv">0</span>, <span class="dv">0</span>])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    ID   len supp  dose
+22  23  33.9   VC   2.0
+25  26  32.5   VC   2.0
+55  56  30.9   OJ   2.0
+29  30  29.5   VC   2.0
+58  59  29.4   OJ   2.0 
+
+Die ID lautet: 23</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Aufgabe</li>
+</ol>
+<div id="17c674a5" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>dose_1 <span class="op">=</span> meerschweinchen[meerschweinchen[<span class="st">'dose'</span>] <span class="op">==</span> <span class="fl">1.0</span>]</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(dose_1.sort_values(by <span class="op">=</span> <span class="st">'len'</span>, ascending <span class="op">=</span> <span class="va">False</span>).head(), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Die ID lautet:"</span>, dose_1.sort_values(by <span class="op">=</span> <span class="st">'len'</span>, ascending <span class="op">=</span> <span class="va">False</span>).iloc[<span class="dv">0</span>, <span class="dv">0</span>])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    ID   len supp  dose
+49  50  27.3   OJ   1.0
+43  44  26.4   OJ   1.0
+46  47  25.8   OJ   1.0
+45  46  25.2   OJ   1.0
+42  43  23.6   OJ   1.0 
+
+Die ID lautet: 50</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="groupby" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="groupby"><span class="header-section-number">2.7</span> GroupBy</h2>
+<p>Die Methode <code>pd.groupby()</code> teilt einen DataFrame (oder eine Series) in Gruppen auf und gibt ein GroupBy-Objekt zurück. Das GroupBy-Objekt hat dieselben Spalten- und Zeilenbeschriftungen wie der DataFrame, das GroupBy-Objekt ist aber nach der Gruppenaufteilung sortiert. Operationen, die auf das GroupBy-Objekt angewendet werden, werden für jede Gruppe separat ausgeführt.</p>
+<p>Dies kann am Datensatz ‘meerschweinchen’ im folgenden Panel nachvollzogen werden.</p>
+<ol type="1">
+<li><p>Reiter: Der Datensatz enthält 60 Einträge. Die ersten 30 Einträge haben in der Spalte ‘supp’ die Ausprägung VC für Vitamin C, die letzten 30 Einträge die Ausprägung OJ für Orangensaft.</p></li>
+<li><p>Reiter: Mit der Methode <code>pd.groupby('supp')</code> kann der Datensatz nach den Merkmalsausprägungen in der Spalte ‘dose’ (0.5, 1 und 2) gruppiert werden.</p></li>
+<li><p>Reiter: Auf das Groupby-Objekt können Operationen ausgeführt werden. Beispielsweise kann die Spalte ‘len’ ausgewählt und mit der Methode <code>.mean()</code> die mittlere Länge der zahnbildenden Zelle bestimmt werden.</p></li>
+<li><p>Reiter: Ebenso kann nach den Ausprägungen mehrerer Merkmale gruppiert werden, indem diese als Liste übergeben werden <code>pd.groupby(by = ['supp', 'dose'])</code>.</p></li>
+</ol>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">DataFrame meerschweinchen</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">meerschweinchen gruppiert nach Verabreichungsart</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Länge nach Verabreichungsart</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-4" role="tab" aria-controls="tabset-3-4" aria-selected="false">Länge nach Verabreichungsart und Dosis</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div id="e97a1228" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(meerschweinchen.head(n <span class="op">=</span> <span class="dv">12</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    ID   len supp  dose
+0    1   4.2   VC   0.5
+1    2  11.5   VC   0.5
+2    3   7.3   VC   0.5
+3    4   5.8   VC   0.5
+4    5   6.4   VC   0.5
+5    6  10.0   VC   0.5
+6    7  11.2   VC   0.5
+7    8  11.2   VC   0.5
+8    9   5.2   VC   0.5
+9   10   7.0   VC   0.5
+10  11  16.5   VC   1.0
+11  12  16.5   VC   1.0</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<p>Für die Methode <code>.head()</code> wurde das Argument n halbiert, um die gleiche Zeilenzahl in der Ausgabe anzeigen zu lassen, da auch diese Methode für jede der beiden Gruppen (VC und OJ) ausgeführt wird.</p>
+<div id="15f8fc27" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(meerschweinchen.groupby(<span class="st">'supp'</span>).head(n <span class="op">=</span> <span class="dv">6</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    ID   len supp  dose
+0    1   4.2   VC   0.5
+1    2  11.5   VC   0.5
+2    3   7.3   VC   0.5
+3    4   5.8   VC   0.5
+4    5   6.4   VC   0.5
+5    6  10.0   VC   0.5
+30  31  15.2   OJ   0.5
+31  32  21.5   OJ   0.5
+32  33  17.6   OJ   0.5
+33  34   9.7   OJ   0.5
+34  35  14.5   OJ   0.5
+35  36  10.0   OJ   0.5</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
+<div id="7d581c56" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(meerschweinchen.groupby(by <span class="op">=</span> <span class="st">'supp'</span>)[<span class="st">'len'</span>].mean())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>supp
+OJ    20.663333
+VC    16.963333
+Name: len, dtype: float64</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-3-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-4-tab">
+<div id="13666746" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(meerschweinchen.groupby(by <span class="op">=</span> [<span class="st">'supp'</span>, <span class="st">'dose'</span>])[<span class="st">'len'</span>].mean())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>supp  dose
+OJ    0.5     13.23
+      1.0     22.70
+      2.0     26.06
+VC    0.5      7.98
+      1.0     16.77
+      2.0     26.14
+Name: len, dtype: float64</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="aufgaben-groupby" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="aufgaben-groupby"><span class="header-section-number">2.8</span> Aufgaben GroupBy</h2>
+<p>Der Datensatz Motor Trend Car Road Tests (mtcars) stammt aus der us-amerikanischen Zeitschrift Motor Trend von 1974 und enthalt Daten für 32 Autos.</p>
+<div class="border">
+<div id="lst-readfile2">
+<div id="7cf73c5d" class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> <span class="st">"01-daten/mtcars.csv"</span>, sep <span class="op">=</span> <span class="st">","</span>)</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>mtcars.rename(columns <span class="op">=</span> {<span class="st">'Unnamed: 0'</span>: <span class="st">'car'</span>}, inplace <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>mtcars.head()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="34">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">car</th>
+<th data-quarto-table-cell-role="th">mpg</th>
+<th data-quarto-table-cell-role="th">cyl</th>
+<th data-quarto-table-cell-role="th">disp</th>
+<th data-quarto-table-cell-role="th">hp</th>
+<th data-quarto-table-cell-role="th">drat</th>
+<th data-quarto-table-cell-role="th">wt</th>
+<th data-quarto-table-cell-role="th">qsec</th>
+<th data-quarto-table-cell-role="th">vs</th>
+<th data-quarto-table-cell-role="th">am</th>
+<th data-quarto-table-cell-role="th">gear</th>
+<th data-quarto-table-cell-role="th">carb</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Mazda RX4</td>
+<td>21.0</td>
+<td>6</td>
+<td>160.0</td>
+<td>110</td>
+<td>3.90</td>
+<td>2.620</td>
+<td>16.46</td>
+<td>0</td>
+<td>1</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Mazda RX4 Wag</td>
+<td>21.0</td>
+<td>6</td>
+<td>160.0</td>
+<td>110</td>
+<td>3.90</td>
+<td>2.875</td>
+<td>17.02</td>
+<td>0</td>
+<td>1</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Datsun 710</td>
+<td>22.8</td>
+<td>4</td>
+<td>108.0</td>
+<td>93</td>
+<td>3.85</td>
+<td>2.320</td>
+<td>18.61</td>
+<td>1</td>
+<td>1</td>
+<td>4</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Hornet 4 Drive</td>
+<td>21.4</td>
+<td>6</td>
+<td>258.0</td>
+<td>110</td>
+<td>3.08</td>
+<td>3.215</td>
+<td>19.44</td>
+<td>1</td>
+<td>0</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Hornet Sportabout</td>
+<td>18.7</td>
+<td>8</td>
+<td>360.0</td>
+<td>175</td>
+<td>3.15</td>
+<td>3.440</td>
+<td>17.02</td>
+<td>0</td>
+<td>0</td>
+<td>3</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Spalte</th>
+<th>Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>mpg</td>
+<td>Kraftstoffverbrauch in Meilen pro Gallone</td>
+</tr>
+<tr class="even">
+<td>cyl</td>
+<td>Anzahl Zylinder</td>
+</tr>
+<tr class="odd">
+<td>disp</td>
+<td>Hubraum in Kubikzoll</td>
+</tr>
+<tr class="even">
+<td>hp</td>
+<td>Pferdestärken</td>
+</tr>
+<tr class="odd">
+<td>drat</td>
+<td>Hinterachsübersetzung</td>
+</tr>
+<tr class="even">
+<td>wt</td>
+<td>Gewicht in 1000 Pfund</td>
+</tr>
+<tr class="odd">
+<td>qsec</td>
+<td>Zeit auf der Viertelmeile</td>
+</tr>
+<tr class="even">
+<td>vs</td>
+<td>Motor (0 = V-Motor, 1 = Reihenmotor)</td>
+</tr>
+<tr class="odd">
+<td>am</td>
+<td>Schaltung (0 = Automatik, 1 = Handschaltung)</td>
+</tr>
+<tr class="even">
+<td>gear</td>
+<td>Anzahl der Vorwärtsgänge</td>
+</tr>
+<tr class="odd">
+<td>carb</td>
+<td>Anzahl der Vergaser</td>
+</tr>
+</tbody>
+</table>
+<p>Henderson and Velleman 1981. Building multiple regression models interactively. Biometrics 37: 391–411. Der Datensatz ist abrufbar auf <a href="https://gist.github.com/seankross/a412dfbd88b3db70b74b">GitHub</a> und in R verfügbar.</p>
+</div>
+<p>&nbsp;</p>
+<ol type="1">
+<li><p>Gruppieren Sie den Datensatz nach der Anzahl Zylinder und ermitteln Sie den durchschnittlichen Kraftstoffverbrauch für jede Gruppe.</p></li>
+<li><p>Wie viele Liter auf 100 Kilometer sind es?</p></li>
+<li><p>Gruppieren Sie den Datensatz nach der Anzahl der Zylinder und der Vergaser. Welche Gruppe ist am schnellsten auf der Viertelmeile?</p></li>
+</ol>
+<div id="tip-loesunggroupby" class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipp&nbsp;2.5: Musterlösung GroupBy
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Aufgabe</li>
+</ol>
+<div id="fd5102af" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>mtcars.groupby(by <span class="op">=</span> <span class="st">'cyl'</span>)[<span class="st">'mpg'</span>].mean() </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="35">
+<pre><code>cyl
+4    26.663636
+6    19.742857
+8    15.100000
+Name: mpg, dtype: float64</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Aufgabe</li>
+</ol>
+<div id="397b59a0" class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 Meile = 1.60934 Kilometer</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 Gallone = 3.78541 Liter</span></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>mpg <span class="op">=</span> mtcars.groupby(by <span class="op">=</span> <span class="st">'cyl'</span>)[<span class="st">'mpg'</span>].mean()</span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>liter_100km <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> mpg.mul(<span class="fl">1.60934</span>).div(<span class="fl">3.78541</span>).div(<span class="dv">100</span>)</span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(liter_100km)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>cyl
+4     8.821567
+6    11.913932
+8    15.577156
+Name: mpg, dtype: float64</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Aufgabe</li>
+</ol>
+<div id="39af702a" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mtcars.groupby(by <span class="op">=</span> [<span class="st">'cyl'</span>, <span class="st">'carb'</span>])[<span class="st">'qsec'</span>].mean(), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mtcars.groupby(by <span class="op">=</span> [<span class="st">'cyl'</span>, <span class="st">'carb'</span>])[<span class="st">'qsec'</span>].mean().index[<span class="op">-</span><span class="dv">1</span>], <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>cyl  carb
+4    1       19.378000
+     2       18.936667
+6    1       19.830000
+     4       17.670000
+     6       15.500000
+8    2       17.060000
+     3       17.666667
+     4       16.495000
+     8       14.600000
+Name: qsec, dtype: float64 
+
+(np.int64(8), np.int64(8)) 
+</code></pre>
+</div>
+</div>
+<p>Die Gruppe mit 8 Zylindern und 8 Vergasern ist am schnellsten. (Hinweis: Es handelt sich hierbei um einen sogenannten <a href="https://pandas.pydata.org/docs/user_guide/advanced.html">MultiIndex</a>.)</p>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopiert");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Kopiert");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../skript/einleitung.html" class="pagination-link" aria-label="Einleitung">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Einleitung</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../skript/plotting.html" class="pagination-link" aria-label="Grafikerstellung">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Grafikerstellung</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

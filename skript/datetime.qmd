@@ -1,0 +1,345 @@
+# Time Series
+Processing date and time information in Python is enabled through various modules. A brief introduction to some of these modules is given, as they are occasionally referenced in the documentation. Pandas provides a unified access to most of these functions and uses the NumPy data types `datetime64` and `timedelta64`.
+
+  - The data type `datetime64` represents a specific point in time on a specific date and belongs to the `Timestamp` class. The data type has nanosecond precision and can store timezone information.
+
+  - The data type `timedelta64` represents an absolute duration of time in nanoseconds and belongs to the `Timedelta` class.
+
+```{python}
+#| echo: false
+
+import numpy as np
+import pandas as pd
+```
+
+## Date and Time Information in Python
+In Python, there are several modules for handling date and time information.
+
+  - The `time` module provides time and date operations with objects of type `struct_time`. ([time module documentation](https://docs.python.org/3/library/time.html))
+
+  - The `datetime` module introduces the data types `datetime` and `timedelta`, along with additional methods for processing and outputting date and time information. The module can handle years from 1 to 9999 in the Gregorian calendar. ([datetime module documentation](https://docs.python.org/3/library/datetime.html#))
+       
+  - The `calendar` module provides various calendar functions and extends the range of dates that can be processed. Based on the Gregorian calendar, this extends infinitely in both directions. ([calendar module documentation](https://docs.python.org/3/library/calendar.html#module-calendar))
+
+  - The `pytz` module provides the IANA timezone database (Internet Assigned Numbers Authority, also called the Olsen database) for applications and operating systems. The IANA database includes time zones and changes since 1970. ([Wikipedia](https://en.wikipedia.org/wiki/Zeitzonen-Datenbank)) The `pytz` module ensures correct calculation of times at the end of daylight saving time across time zones. ([pytz documentation](https://pythonhosted.org/pytz/))
+
+  - NumPy introduces the data types `datetime64` and `timedelta64`. These are based on the Gregorian calendar and extend infinitely in both directions. <https://numpy.org/doc/stable/reference/arrays.datetime.html>
+
+  - Pandas uses the NumPy data types `datetime64` and `timedelta64` and adds many functions for processing date and time information from other packages. <https://pandas.pydata.org/docs/user_guide/timeseries.html>
+
+NumPy and Pandas can convert datetime objects from other modules into the `datetime64` data type.
+
+### Naive and Aware Datetime Objects
+Datetime objects are classified as naive or aware depending on whether they contain timezone information. Naive datetime objects lack this information, while aware datetime objects include it. Objects from the `time`, `datetime`, and Pandas modules have a timezone attribute, so they are aware. `np.datetime64` has been a naive data type since NumPy version 1.11.0 but still supports timezones for backward compatibility.
+
+::: {.border layout="[5, 90, 5]"}
+
+&nbsp;
+
+"Deprecated since version 1.11.0: NumPy does not store timezone information. For backwards compatibility, datetime64 still parses timezone offsets, which it handles by converting to UTC±00:00 (Zulu time). This behaviour is deprecated and will raise an error in the future." [NumPy Documentation](https://numpy.org/doc/stable/reference/arrays.datetime.html)  
+
+&nbsp;
+
+:::
+
+#### Timezones
+Pandas can handle timezones and convert datetime objects from one timezone to another. The `tz` argument can be used in various functions to specify the timezone.
+
+```{python}
+time_series = pd.Series(pd.date_range(start = "2023-03-26T00:00", end = "2023-03-27T00:00", freq = "3h", tz = "turkey"))
+time_series
+```
+
+The function `pd.to_datetime(arg, utc = True)` can be used to convert the timezone to Coordinated Universal Time (UTC).
+
+```{python}
+pd.to_datetime(time_series, utc = True)
+```
+
+Conversion to any desired timezone is possible using the method `pd.Series.dt.tz_convert(tz = 'utc')`.
+
+```{python}
+time_series.dt.tz_convert(tz = 'portugal')
+```
+
+::: {#nte-timezones .callout-note collapse="true"}
+## Listing Available Timezones
+The following code lists the timezones available in Python.
+
+```{python}
+from zoneinfo import available_timezones
+
+for timezone in sorted(available_timezones()):
+  print(timezone)
+```
+
+:::
+
+### Everything is Relative: The Epoch
+Python stores time relative to a reference point, the Unix time, known as the epoch. The epoch can be displayed using the function `pd.to_datetime(0)`. This function converts arguments into timestamps. Integers are interpreted as nanoseconds since the epoch. We will cover this function in more detail later.
+
+```{python}
+import pandas as pd
+print(pd.to_datetime(0))
+```
+
+::: {#wrn-datetimetimezones .callout-warning appearance="simple" collapse="true"}
+
+## Time – Atomic, Coordinated, or Universal?
+NumPy uses International Atomic Time (abbreviated TAI for French *Temps Atomique International*). TAI assumes each calendar day is exactly 86,400 seconds long, so it does not account for leap seconds. Atomic time forms the basis for Coordinated Universal Time (UTC).
+
+UTC stands for Coordinated Universal Time (also known as Greenwich Mean Time). The abbreviation UTC is a compromise between English and French. Coordinated Universal Time compensates for the slowing of Earth's rotation (astronomically measured as Universal Time, UT) with leap seconds to account for the slight lengthening of a day. TAI is therefore ahead of UTC. Since 1972, the difference between TAI and UTC is an integer number of seconds. Currently (2024), TAI is 37 seconds ahead of UTC.
+
+A conversion to Coordinated Universal Time is not yet implemented in NumPy. ([NumPy documentation](https://numpy.org/doc/stable/reference/arrays.datetime.html), [Wikipedia](https://en.wikipedia.org/wiki/Internationale_Atomzeit)).
+
+:::
+
+### Daylight Saving Time
+::: {.border layout="[5, 90, 5]"}
+
+&nbsp;
+
+"DST is Daylight Saving Time, an adjustment of the timezone by (usually) one hour during part of the year. DST rules are magic (determined by local law) and can change from year to year. The C library has a table containing the local rules (often it is read from a system file for flexibility) and is the only source of True Wisdom in this respect." ([time module documentation](https://docs.python.org/3/library/time.html))
+
+&nbsp;
+:::
+
+&nbsp;
+
+Pandas works with Coordinated Universal Time (UTC) by default. UTC itself is not a timezone and therefore does not observe daylight saving time. Daylight saving is applied depending on the timezone. For example, Turkey abolished daylight saving in 2016 (and permanently adopted summer time).
+
+In the following examples, a 24-hour time delta is added at 9 AM on the day before the DST change. Since the clock moves forward one hour during the night (morning of the next day), the resulting timestamp shows 10 AM if DST is in effect.
+
+```{python}
+print("No daylight saving in UTC:")
+print(pd.Timestamp("2025-03-29T09:00") + pd.Timedelta(24, "h"), "\n")
+
+print("Timezone with daylight saving:")
+print(pd.Timestamp("2025-03-29T09:00", tz="Europe/Berlin") + pd.Timedelta(24, "h"), "\n")
+
+print("No daylight saving in Turkey today:")
+print(pd.Timestamp("2025-03-29T09:00", tz="Turkey") + pd.Timedelta(24, "h"), "\n")
+
+print("Turkey before abolishing daylight saving:")
+print(pd.Timestamp("2014-03-30T09:00", tz="Turkey")  + pd.Timedelta(24, "h"))
+```
+
+A list of timezones can be found on Wikipedia: <https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>
+
+### Calendar
+The `calendar`, NumPy, and Pandas modules use the Gregorian calendar extended backward before its introduction in 1582, known as the [proleptic Gregorian calendar](https://en.wikipedia.org/wiki/Proleptic_Gregorian_calendar). While the `date` module only supports years 1–9999 CE, the `datetime64` data type can also handle years before the Common Era using [astronomical year numbering](https://en.wikipedia.org/wiki/Astronomical_year_numbering). This means there is a year 0 (the first year before CE), and preceding years are represented with negative numbers (-1 is the second year BCE). [NumPy Documentation](https://numpy.org/doc/stable/reference/arrays.datetime.html#datetime64-conventions-and-assumptions)
+
+## datetime in Pandas
+Pandas uses the NumPy data type `datetime64` to process date and time information. In Pandas, `datetime64` objects are created using the functions `pd.to_datetime()` or `pd.date_range()`.  
+*Note: Another option is the `pd.Timestamp()` function, which provides more extensive options for creating a timestamp but does not support string parsing.*
+
+`pd.to_datetime()` generates values of type `datetime64[ns]` (scalars created with `pd.to_datetime()` are returned as Timestamp objects, which do not have a `dtype` attribute). The function accepts the following inputs:
+
+  - datetime objects from other modules.
+
+  - Numbers and a time unit `pd.to_datetime(1, unit=None)` (default is nanoseconds). The `unit` argument accepts 'ns', 'ms', 's', 'm', 'h', 'D', 'W', 'M', 'Y' for nanosecond, millisecond, second, minute, hour, day, week, month, or year. The result is a timestamp relative to the epoch.
+
+```{python}
+print(pd.to_datetime(1000, unit = 'D'))
+print(pd.to_datetime(1000 * 1000, unit = 'h'))
+print(pd.to_datetime(1000 * 1000 * 1000, unit = 's'))
+```
+
+  - Strings representing a date or a date with time, formatted according to [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
+
+```{python}
+print(pd.to_datetime('2017'))
+print(pd.to_datetime('2017-01-01T00'))
+print(pd.to_datetime('2017-01-01 00:00:00'))
+```
+
+  - Strings in other formats using the argument `format = "%d/%m/%Y"` (see [strftime documentation for string formatting](https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior)).
+
+```{python}
+print(pd.to_datetime('Monday, 12. August `24', format = "%A, %d. %B `%y"))
+print(pd.to_datetime('Monday, 12. August 2024, 12:15 Uhr CET', format = "%A, %d. %B %Y, %H:%M Uhr %Z"))
+```
+
+  - Dictionary or DataFrame.
+
+```{python}
+print(pd.to_datetime({'year':[2020, 2024], 'month': [1, 11], 'day': [1, 21]}), "\n")
+print(pd.to_datetime(pd.DataFrame({'year':[2020, 2024], 'month': [1, 11], 'day': [1, 21]})))
+```
+
+The function `pd.date_range()` generates an array of type `DatetimeIndex` with dtype `datetime64`. Exactly three of the following four arguments are required to create a range:
+
+  - `start`: start of the range.
+
+  - `end`: end of the range (inclusive).
+
+  - `freq`: step size (e.g., year, day, business day, hour, or multiples such as '6h' — see [list of available strings](https://pandas.pydata.org/docs/user_guide/timeseries.html#timeseries-offset-aliases)).
+
+  - `periods`: number of values to generate.
+
+```{python}
+#| warning: false
+
+print(pd.date_range(start = '2017', end = '2024', periods = 3), "\n")
+
+print(pd.date_range(start = '2017', end = '2024', freq = 'Y'), "\n")
+
+print(pd.date_range(end = '2024', freq = 'h', periods = 3))
+```
+
+::: {#wrn-daterange .callout-warning appearance="simple" collapse="true"}
+## pd.date_range()
+The function `pd.date_range()` will no longer support the abbreviation 'Y' in the future. Instead, the abbreviations 'YS' (year start) or 'YE' (year end) can be used. Similarly, 'M' will be replaced by 'MS' (month start) or 'ME' (month end).
+:::
+
+## timedelta in Pandas
+
+Time differences are created using the function `pd.Timedelta()`. Time differences can be created either by specifying an integer and a time unit or by using keyword arguments (valid arguments are: weeks, days, hours, minutes, seconds, milliseconds, microseconds, nanoseconds).
+
+```{python}
+print(pd.Timedelta(1, 'D'))
+print(pd.Timedelta(days = 1, hours = 1))
+```
+
+**Important:** Unlike in NumPy, time differences in months and years are no longer supported by Pandas.
+
+```{python}
+try:
+  print(pd.Timedelta(1, 'Y'))
+except ValueError as error:
+  print(error)
+else:
+  print(pd.Timedelta(1, 'Y'))
+```
+
+Time differences can also be created using a string.
+
+```{python}
+print(pd.Timedelta('10sec'))
+print(pd.Timedelta('10min'))
+print(pd.Timedelta('10hours'))
+print(pd.Timedelta('10days'))
+print(pd.Timedelta('10w'))
+```
+
+Time series can be easily shifted using a time difference.
+
+```{python}
+pd.date_range(start = '2024-01-01T00:00', end = '2024-01-01T02:00', freq = '15min') + pd.Timedelta('30min')
+```
+
+## Accessing Time Series
+Pandas provides numerous attributes and methods to extract information from `datetime64` objects. An overview of all available attributes and methods can be obtained with `dir(pd.to_datetime(0))` or by the example code below.
+
+```{python}
+# Attributes
+print("Year:", pd.to_datetime(0).year)
+print("Month:", pd.to_datetime(0).month)
+print("Day:", pd.to_datetime(0).day)
+print("Hour:", pd.to_datetime(0).hour)
+print("Minute:", pd.to_datetime(0).minute)
+print("Second:", pd.to_datetime(0).second)
+print("Day of the year:", pd.to_datetime(0).dayofyear)
+print("Day of the week:", pd.to_datetime(0).dayofweek)
+print("Days in month:", pd.to_datetime(0).days_in_month)
+print("Leap year:", pd.to_datetime(0).is_leap_year)
+
+# Methods
+print("\nDate:", pd.to_datetime(0).date())
+print("Time:", pd.to_datetime(0).time())
+print("Weekday (0-6):", pd.to_datetime(0).weekday())
+print("Month name:", pd.to_datetime(0).month_name())
+```
+
+::: {#nte-attributeandmethods .callout-note collapse="true"}
+## Attributes and Methods of a datetime Object
+
+```{python}
+obj = pd.to_datetime(0)
+
+attributes = [attr for attr in dir(obj) if not (callable(getattr(obj, attr)) or attr.startswith('_'))]
+print("Attributes:")
+print(30 * "=")
+print(attributes)
+
+methods = [attr for attr in dir(obj) if (callable(getattr(obj, attr)) and not attr.startswith('__'))]
+print("\nMethods:")
+print(30 * "=")
+print(methods)
+```
+
+:::
+
+For `pd.Series`, access is done via the `.dt` accessor (see [.dt accessor](https://pandas.pydata.org/docs/user_guide/basics.html#basics-dt-accessors)). Accessing different information via an attribute (without parentheses) or a method (with parentheses) can differ (see the example below).
+
+:::: {.callout-note collapse="true"}
+## The dt Accessor
+
+```{python}
+# Attributes
+print("Date:", pd.Series(pd.to_datetime(0)).dt.date) # Difference
+print("Time:", pd.Series(pd.to_datetime(0)).dt.time) # Difference
+print("Year:", pd.Series(pd.to_datetime(0)).dt.year)
+print("Month:", pd.Series(pd.to_datetime(0)).dt.month)
+print("Day:", pd.Series(pd.to_datetime(0)).dt.day)
+print("Hour:", pd.Series(pd.to_datetime(0)).dt.hour)
+print("Minute:", pd.Series(pd.to_datetime(0)).dt.minute)
+print("Second:", pd.Series(pd.to_datetime(0)).dt.second)
+
+print("\nDay of the year:", pd.Series(pd.to_datetime(0)).dt.dayofyear)
+print("Day of the week:", pd.Series(pd.to_datetime(0)).dt.dayofweek)
+print("Weekday:", pd.Series(pd.to_datetime(0)).dt.weekday) # Difference
+print("Days in month:", pd.Series(pd.to_datetime(0)).dt.days_in_month)
+print("Leap year:", pd.Series(pd.to_datetime(0)).dt.is_leap_year)
+
+# Methods
+print("\nMonth name:", pd.Series(pd.to_datetime(0)).dt.month_name())
+```
+
+::::
+
+## Exercises
+
+1. How old are you in days? How old in seconds?
+
+2. What day of the week was your birthday?
+
+3. How many days are left until Christmas?
+
+4. Create a list of all leap years in the 20th century.
+
+:::: {#tip-solutionexercises .callout-tip collapse="true"}
+## Sample Solution
+
+Exercise 1
+
+Replace the string `'YYYY-MM-DD'` or, if you know the time of your birth, `'YYYY-MM-DDTHH:MM'` with your birthday.
+
+In Pandas, the keywords `pd.to_datetime('today')` and `pd.to_datetime('now')` are resolved in nanoseconds.
+
+```{.raw}
+print((pd.to_datetime('today') - pd.to_datetime('YYYY-MM-DD')).days)
+print((pd.to_datetime('now') - pd.to_datetime('YYYY-MM-DDTHH:MM')).total_seconds())
+```
+
+Exercise 2
+
+```{.raw}
+print(pd.to_datetime('YYYY-MM-DD').day_of_week)
+```
+
+Exercise 3
+
+```{.raw}
+(pd.to_datetime('2025-12-25') - pd.to_datetime('now')).days
+```
+
+Exercise 4
+
+```{python}
+leap_years = pd.date_range(start = '1901', end = '2000', freq = 'Y')
+leap_years = leap_years[leap_years.is_leap_year]
+print(leap_years.year)
+```
+
+::::

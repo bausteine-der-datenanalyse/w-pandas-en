@@ -1,0 +1,599 @@
+# Introduction
+The Pandas module was designed for working with structured data. Pandas makes analysis particularly easy for data presented in tabular form, as it provides the DataFrame—a user-friendly structure for handling different data types and missing values. Like NumPy, Pandas allows vectorized operations without having to loop through each element of a collection. Additionally, Pandas integrates functionalities from other modules and offers a unified interface for:
+
+  - Date and time information
+  - Plotting
+  - Reading files
+
+The Pandas module is loaded using the command `import pandas`. The abbreviation `pd` is commonly used. Since Pandas is built on top of NumPy, both modules are often imported together. Many functions and methods from NumPy and Pandas are compatible with each other.
+
+
+```{python}
+import numpy as np
+import pandas as pd
+```
+
+## The Series and DataFrame Data Structures
+Pandas introduces two classes: `Series` and `DataFrame`.
+
+  - `Series` are one-dimensional arrays that contain exactly one data type.
+
+  - `DataFrame` are two-dimensional arrays, composed column-wise of `Series`, allowing them to hold different data types. (Through hierarchical indexing, multi-dimensional data structures are possible, see [MultiIndex](https://pandas.pydata.org/docs/user_guide/advanced.html).)
+
+Both data structures have an index, which is displayed in the output. 
+```{python}
+#| echo: false
+
+print(f"The index starts at 0, just like in base Python.\n{pd.Series(['Morning shift', 'Morning shift', 'Evening shift'], dtype = 'string')}")
+```
+
+The index is numeric by default but can be set to any values.
+
+```{python}
+#| echo: false
+
+print(f"The index can be customized.\n{pd.Series(['Morning shift', 'Morning shift', 'Evening shift'], dtype = 'string', index=['Monday', 'Tuesday', 'Wednesday'])}")
+```
+
+### Series
+`Series` are created using the function `pd.Series(data)`. The `data` can be a single value, a collection, or a NumPy array.
+
+```{python}
+single_value_series = pd.Series('Hello World!')
+print(f"Series from a single value:\n{single_value_series}")
+
+numeric_series = pd.Series([1, 2, 3])
+print(f"\nSeries from a list:\n{numeric_series}")
+
+alphanumeric_series = pd.Series(('a', '5', 'g'))
+print(f"\nSeries from a tuple:\n{alphanumeric_series}")
+
+boolean_series = pd.Series(np.array([True, False, True])) # NumPy array
+print(f"\nSeries from a NumPy array:\n{boolean_series}")
+```
+
+When creating a `pd.Series`, various parameters can be passed:
+
+  - `pd.Series(data, dtype='float')` sets the data type of the Series.
+
+  - `pd.Series(data, index=['A1', 'B2', 'C3'])` provides values for the index.
+
+  - `pd.Series(data, name='the name')` assigns a name to the Series.
+
+```{python}
+numeric_series = pd.Series([1, 2, 3], dtype='float', index=['A1', 'B2', 'C3'], name='Floating point numbers')
+print(numeric_series)
+```
+
+For an existing Series, the name and index can be accessed and modified via the corresponding attributes. To change the data type, the method `pd.Series.astype()` is used. An overview of the data types available in Pandas can be found in the [Pandas documentation](https://pandas.pydata.org/docs/user_guide/basics.html#dtypes).
+
+```{python}
+print(f"Name of the Series: {numeric_series.name}")
+numeric_series.name = 'Floating point numbers'
+
+print(f"Index of the Series: {numeric_series.index}")
+numeric_series.index = ['one', 'two', 'three']
+
+numeric_series = numeric_series.astype('string')
+print(f"\nThe modified Series:\n{numeric_series}")
+```
+
+### Series Exercise
+Change the data type of the object `numeric_series` to integer and choose a new name for the Series.
+
+::: {#tip-dtype .callout-tip collapse="true"}
+## Example solution dtype
+```{python}
+numeric_series.name = 'Integers'
+numeric_series = numeric_series.astype('float')
+numeric_series = numeric_series.astype('int')
+
+print(numeric_series)
+```
+
+:::
+
+### DataFrame
+A `DataFrame` is created using the function `pd.DataFrame([data])`. The `data` is list-like but can consist of a single value, a Series, a NumPy array, or multiple Series and collections.
+
+```{python}
+single_value_df = pd.DataFrame(['Hello World!'])
+print(single_value_df, "\n")
+
+df_from_lists = pd.DataFrame([[1, 2, 3], [4, 5, 6]])
+print(df_from_lists, "\n")
+
+df_from_series = pd.DataFrame([alphanumeric_series, boolean_series])
+print(df_from_series, "\n")
+
+df_from_mixed = pd.DataFrame([np.array([True, False, True]), alphanumeric_series, [1, 2, 3]]) # NumPy array
+print(df_from_mixed)
+```
+
+When creating a DataFrame, various parameters can also be passed:
+
+  - `pd.DataFrame(data, dtype='float')` sets the data type for all values in the DataFrame. If this parameter is not provided, Pandas selects an appropriate data type for each column.
+
+  - `pd.DataFrame(data, index=['A1', 'B2', 'C3'])` provides values for the index.
+
+  - `pd.DataFrame(data, columns=['Column1', 'Column2'])` provides values for the column labels.
+
+To enter data column-wise, the DataFrame can be transposed using the `DataFrame.T` attribute. In this case, the column labels must be passed as the `index` argument and the index labels as the `columns` argument.
+
+```{python}
+df_transposed = pd.DataFrame([[1, 2, 3], [True, False, True]], index=['Column 1', 'Column 2'], columns=['Row 1', 'Row 2', 'Row 3']).T
+print(df_transposed)
+```
+
+A direct assignment of labels is possible by first creating the transposed DataFrame and then setting the labels using the `.index` and `.columns` attributes.
+
+```{python}
+df_transposed = pd.DataFrame([[1, 2, 3], [True, False, True]]).T
+df_transposed.columns = ['Column 1', 'Column 2']
+df_transposed.index = ['Row 1', 'Row 2', 'Row 3']
+print(df_transposed)
+```
+
+Creating transposed DataFrames has the drawback that Pandas manages the data types column-wise. When data of different types is entered row-wise, a data type suitable for all columns is chosen. In the following example, Pandas therefore selects the `object` data type for mixed types.
+
+```{python}
+df_transposed = pd.DataFrame([[1, 2, 3], ['a', 'b', 'c']], index=['Numbers', 'Letters']).T
+print(df_transposed)
+print(f"\n{df_transposed.dtypes}")
+```
+
+Alternatively, a DataFrame can be created directly from a dictionary. In this case, the keys are used as column labels.
+
+```{python}
+df = pd.DataFrame({'Column 1': [1, 2, 3], 'Column 2': [4.1, 5.6, 6.0]}, index=['top', 'middle', 'bottom'])
+print(df)
+```
+
+Additionally, a DataFrame can be expanded by assigning data.
+
+```{python}
+# create an empty DataFrame
+df = pd.DataFrame()
+
+# assign data
+df['Column label'] = [1, 2, 3]
+df['Second column'] = alphanumeric_series
+
+print(df)
+```
+
+::: {#tip-index .callout-tip collapse="false"}
+## The Index
+
+In most cases, an index ranging from 0 to n-1 is the most practical. A numeric index is helpful for selecting index ranges (slicing) and working with multiple data structures. Try creating a DataFrame from two Series with different indices to see what happens.
+
+Also, placing descriptive or measured variables in the index contradicts the concept of tidy data, a system for structuring datasets introduced in the [Structured Data Import Method Module](https://bausteine-der-datenanalyse.github.io/m-einlesen-strukturierter-datens-tze/einlesen-strukturierter-datens%C3%A4tze.html). 
+
+:::
+
+Existing DataFrames can be modified similarly to Series. To change the data type of one or more columns, use the method `pd.DataFrame.astype()`.
+
+```{python}
+df = pd.DataFrame({'Column 1': ['1', '2', '3'], 'Column 2': [True, False, True]})
+print(f"The data types of df:\n{df.dtypes}")
+
+# change data type of Column 1
+df['Column 1'] = df['Column 1'].astype('string')
+print(f"\nThe data types of df:\n{df.dtypes}")
+```
+
+Similarly, a data type can be assigned to all columns of a DataFrame.
+
+```{python}
+df = df.astype('string')
+print(f"\nThe data types of df:\n{df.dtypes}")
+```
+
+To assign different data types, a dictionary is used.
+
+```{python}
+df = df.astype({'Column 1': 'int', 'Column 2': 'bool'})
+print(f"\nThe data types of df:\n{df.dtypes}")
+```
+
+The column names and index of an existing `DataFrame` can be modified using the corresponding attributes or methods. Column names can be changed via the `pd.DataFrame.columns` attribute by passing a list whose length matches the number of columns. The index can be modified via the `pd.DataFrame.index` attribute by assigning a list whose length matches the number of rows.
+
+```{python}
+# change column names using the .columns attribute
+df.columns = ['Column1', 'Column2']
+df.index = [1, 2, 3]
+print(df)
+```
+
+With the method `pd.DataFrame.rename(columns={"old1": "new1", "old2": "new2"}, index={"old1": "new1", "old2": "new2"}, inplace=True)`, column and row labels can be passed as a dictionary. This allows changing all or selected labels. Using the argument `inplace=True` applies the changes directly without reassigning the object.
+
+```{python}
+df.rename(columns={'Column1': 'Column_1', 'Column2': 'Column_2'}, index={1: 'A1', 2: 'B2', 3: 'C3'}, inplace=True)
+print(df)
+```
+
+The method `pd.DataFrame.reset_index(inplace=True, drop=True)` resets the index to the default values. If the parameter `drop=False` is set, the old index is added as a column at index position 0 in the DataFrame.
+
+```{python}
+df.reset_index(inplace=True, drop=True)
+print(df)
+```
+
+### DataFrame Exercise
+Create a DataFrame.
+  
+  - The first column should contain the numbers from 1 to 12 and be labeled 'Number'. The second column should contain the month names of the year and be labeled 'Month'.
+  - Afterwards, add the Series `holidays` as a third column with the label 'Holidays'.  
+  `holidays = [False, False, False, True, False, True, True, True, False, True, False, True]`
+
+::: {#tip-exampledataframe .callout-tip collapse="true"}
+## Example Solution
+
+```{python}
+holidays = [False, False, False, True, False, True, True, True, False, True, False, True]
+
+df = pd.DataFrame({
+  'Number': list(range(1, 13)),
+  'Month': ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+})
+
+df['Holidays'] = holidays
+
+print(df)
+```
+
+:::
+
+## Descriptive Data Analysis with Pandas
+Pandas provides several convenient functions to describe the structure of a dataset and the data it contains. As an example dataset, we use data on the length of odontogenic cells in guinea pigs that received Vitamin C either directly (VC) or in the form of orange juice (OJ) at different doses.
+
+:::: {.border}
+
+::::: {#lst-readfile}
+```{python}
+filepath = "01-daten/ToothGrowth.csv"
+guinea_pigs = pd.read_csv(filepath_or_buffer=filepath, sep=',', header=0, 
+  names=['ID', 'len', 'supp', 'dose'], dtype={'ID': 'int', 'len': 'float', 'dose': 'float', 'supp': 'category'})
+```
+
+:::::
+
+Crampton, E. W. 1947. “THE GROWTH OF THE ODONTOBLASTS OF THE INCISOR TOOTH AS A CRITERION OF THE VITAMIN C INTAKE OF THE GUINEA PIG.” The Journal of Nutrition 33 (5): 491–504. <https://doi.org/10.1093/jn/33.5.491> 
+
+The dataset can be accessed in R using the command `ToothGrowth`.
+::::
+
+&nbsp;
+
+A snippet of the dataset:
+```{python}
+#| echo: false
+
+guinea_pigs.iloc[guinea_pigs.index % 10 == 0, :]
+```
+
+&nbsp;
+
+The method `pd.DataFrame.info()` generates a summary of the dataset.
+
+```{python}
+guinea_pigs.info()
+```
+
+The dimensions of a Series or a DataFrame can be accessed using the `shape` attribute. The DataFrame has 60 rows and 4 columns.
+
+```{python}
+print(guinea_pigs.shape)
+```
+
+The method `pd.DataFrame.describe()` generates descriptive statistics for a DataFrame. By default, all numeric columns are considered. Using the `include` parameter, you can specify which columns to include. `include='all'` includes all columns, which may not always be meaningful, as it will also summarize the column with the guinea pigs' ID numbers.
+
+```{python}
+print(guinea_pigs.describe(include='all'))
+```
+
+Using the `include` parameter, you can pass a list of data types to include. The `exclude` parameter works similarly to exclude certain data types from the output.
+
+```{python}
+print(guinea_pigs.describe(include=['float']))
+```
+
+```{python}
+print(guinea_pigs.describe(include=['category']))
+```
+
+The method `pd.DataFrame.count()` counts all non-missing values in each column, or with `pd.DataFrame.count(axis='columns')` in each row.
+
+```{python}
+guinea_pigs.count(axis='rows')  # the default value of axis is 'rows'
+```
+
+The method `pd.Series.value_counts()` counts the occurrences of each unique value in a Series. This method can also be applied to a DataFrame, in which case it counts the frequency of each unique row (which is not meaningful in this context).
+
+```{python}
+guinea_pigs['dose'].value_counts()
+```
+
+The method `pd.unique()` lists all unique values in a Series.
+
+```{python}
+guinea_pigs['dose'].unique()
+```
+
+## Slicing
+::: {.border}
+![two-dimensional dataset](00-images/two-dimensional-dataset-slicing-mf-mp.png){width="45%" fig-alt="A two-dimensional block representing a dataset. Arrows represent the two axes. The zero axis corresponds to length (top to bottom) and the first axis to the width of the dataset."}
+
+Slicing by Marc Fehr is licensed under [CC-BY-4.0](https://github.com/bausteine-der-datenanalyse/w-python-numpy-grundlagen#CC-BY-4.0-1-ov-file) and available on [GitHub](https://github.com/bausteine-der-datenanalyse/w-python-numpy-grundlagen). The graphic has been cropped to the shown part and the top label removed. 2024
+:::
+
+&nbsp;
+
+Pandas provides its own tools for selecting index ranges. The slice operator from base Python is therefore only briefly introduced.
+
+### Slice Operator
+With the slice operator, index ranges can be selected from a Series, similar to a list.
+
+```{python}
+ten_numbers = pd.Series(range(0, 10))
+print(ten_numbers[3:6])
+```
+
+The slice operator selects rows from a DataFrame.
+
+```{python}
+print(guinea_pigs[7:12])
+```
+
+By specifying a column name, the corresponding column is selected and returned as a Series. By appending a second slice operator, it is possible to retrieve values within a specific index range, similar to a one-dimensional dataset. This is called chained indexing.
+
+```{python}
+print(guinea_pigs['dose'][10:15], "\n")
+print(type(guinea_pigs['dose'][10:15]))
+```
+
+::: {#wrn-chainedassignment .callout-warning appearance="simple"}
+## Chained Indexing
+
+Chained indexing in Pandas may return either a copy of the object or a reference to the object's memory, depending on the context. In Pandas 3.0, chained indexing will no longer be supported, and creating a copy will become the standard. More information can be found at the linked resource.
+
+:::: {.border layout="[5, 90, 5]"}
+
+&nbsp;
+
+"Whether a copy or a reference is returned for a setting operation may depend on the context. This is sometimes called `chained assignment` and should be avoided. See [Returning a View versus Copy](https://pandas.pydata.org/docs/user_guide/indexing.html#indexing-view-versus-copy)."
+
+&nbsp;
+
+::::
+
+([Pandas Documentation](https://pandas.pydata.org/docs/user_guide/indexing.html))
+:::
+
+### Slicing with Pandas Methods
+For slicing Series and DataFrames, Pandas provides the methods `.iloc[]` and `.loc[]`.
+
+  - `.loc[]` works with index or column labels, but also accepts a boolean array.
+
+  - `.iloc[]` works with integers, but also accepts a boolean array.
+
+For slicing a Series, a range can be passed, e.g., `pd.Series.iloc[5:8]`. For slicing a DataFrame, two comma-separated ranges are passed: the first for rows, the second for columns, e.g., `pd.DataFrame.iloc[5, 2:4]`. To select all rows or columns, a colon can be used, e.g., `pd.DataFrame.iloc[5, :]`.
+
+#### Label-based Slicing with .loc[]
+
+For a Series, `.loc` interprets passed characters as index labels. Letters and other characters are passed as strings in quotes, e.g., `.loc['e']`; numbers without quotes. In addition to single values (`'a'` or `0`), lists or arrays (`['a', 'b', 'c']` or `[1, 2, 3]`) and slices can be passed (`'a':'c'` or `0:2`). Slicing with a single value returns a scalar.
+
+::: {#wrn-inklusiveslicing .callout-warning appearance="simple"}
+## Inclusive Slicing
+
+Unlike base Python and slicing with `.iloc[]`, label-based slicing in Pandas is inclusive, meaning the last selected position is included.
+:::
+
+```{python}
+# Numbers
+ten_numbers = pd.Series(range(0, 10))
+print("Return a single value:", ten_numbers.loc[5]) # single value
+print(ten_numbers.loc[[2, 4, 7]]) # list
+print(ten_numbers.loc[5:7], "\n") # slice
+
+# Letters and other characters
+six_numbers = pd.Series(list(range(0, 6)), index=['a', 'b', 'c', 'd', 'e', 'f'])
+print("Return a single value:", six_numbers.loc['c']) # single value
+print(six_numbers.loc[['c', 'f', 'a']]) # list
+print(six_numbers.loc['c':'e']) # slice
+```
+
+The interpretation as labels means that with a non-numeric index, passed numbers are not found.
+
+```{python}
+try:
+    print(six_numbers.loc[2:4])
+except Exception as error:
+    print(error)
+```
+
+For DataFrames, slicing works in the same way.
+
+```{python}
+print(guinea_pigs.loc[18:22, ['len', 'dose']])
+```
+
+### Index-based Slicing with .iloc[]
+The `.iloc[]` method allows selecting slices based on index positions. The method accepts the same types of inputs as `.loc[]`.
+
+::: {#wrn-exclusiveslicing .callout-warning appearance="simple"}
+## Exclusive Slicing
+
+When slicing with the `.iloc[]` method, Pandas behaves like base Python, counting exclusively.
+:::
+
+Slicing with single values returns a single value. The method also accepts a list or a slice.
+
+```{python}
+print("Return a single value:", guinea_pigs.iloc[27, 2]) # single value
+print(guinea_pigs.iloc[[27, 29, 52], 2:4]) # list and slice
+```
+
+#### The Methods .head() and .tail()
+Simplified versions of index-based slicing are the methods `.head(n=5)` and `.tail(n=5)`, which return the first or last n rows of a DataFrame or Series. The optional parameter `n` controls the number of displayed rows. These methods are useful for quickly getting an overview of a dataset.
+
+```{python}
+print(guinea_pigs.head(3), "\n")
+print(guinea_pigs.tail(3))
+```
+
+Series can also be viewed using these methods.
+
+```{python}
+print(guinea_pigs['len'].tail(3))
+```
+
+## Slicing Exercises
+1. Given a Pandas Series `temperatures_2021` with the average monthly temperatures, select the temperatures for the spring months (March to May).
+
+```{python}
+temperatures_2021 = pd.Series(
+    [2, 4, 7, 12, 19, 23, 25, 23, 18, 15, 9, 5],
+    index=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+           'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+)
+```
+
+2. Select the temperatures for the last three months of the year once using the slice operator and once using the Pandas methods.
+
+3. Using the `.loc[]` method, select the columns 'dose' and 'len' from the `guinea_pigs` DataFrame and display the first 4 and last 3 rows. (Code to read the file see @lst-readfile)  
+
+4. The methods `.loc[]` and `.iloc[]` also accept a boolean array as input. From the 'dose' column of the `guinea_pigs` DataFrame, return all rows with the value 2.0.
+
+::: {#tip-dose .callout-tip collapse="true"}
+## Example Solution Slicing
+
+Exercise 1
+```{python}
+print(temperatures_2021.loc[['Mar', 'Apr', 'May']])
+```
+
+Exercise 2
+```{python}
+print(temperatures_2021[len(temperatures_2021)-3:], "\n")
+print(temperatures_2021.iloc[len(temperatures_2021)-3:])
+```
+
+Exercise 3
+
+```{python}
+print(guinea_pigs.loc[:, ['dose', 'len']].head(n=4), "\n")
+print(guinea_pigs.loc[:, ['dose', 'len']].tail(n=3))
+```
+
+Exercise 4
+```{python}
+# Slice from Series
+# print(guinea_pigs['dose'].loc[guinea_pigs['dose'] == 2.0])
+
+# Slice from DataFrame
+print(guinea_pigs.loc[guinea_pigs['dose'] == 2.0, ['dose']])
+```
+
+:::
+
+## Combining Data Structures
+DataFrames are flexible data storage structures. Using the function `pd.concat()`, Series and DataFrames can be merged.
+
+ - Using the argument `pd.concat(ignore_index=True)` generates a new index.
+ - Using the argument `pd.concat(axis=1)` merges the passed objects column-wise.
+
+```{python}
+series_1 = pd.Series([1, 2])
+series_2 = pd.Series([4, 5])
+print(pd.concat([series_1, series_2]), "\n")
+print(pd.concat([series_1, series_2], ignore_index=True), "\n")
+print(pd.concat([series_1, series_2], ignore_index=True, axis=1))
+```
+
+Similarly, DataFrames can be combined.
+
+```{python}
+temperatures_2022 = pd.Series(
+    [3, 6, 9, 13, 18, 21, 24, 23, 19, 14, 8, 4],
+    index=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+           'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+)
+
+temperatures_2023 = pd.Series(
+    [-3, -1, 4, 9, 15, 20, 20, 19, 16, 15, 7, 6],
+    index=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+           'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+)
+
+temperatures_2024 = pd.Series(
+    [-1, 2, 5, 8, 17, 24, 25, 20, 17, 14, 9, 2],
+    index=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+           'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+)
+
+# Combine Series into DataFrames
+df1 = pd.concat([temperatures_2021, temperatures_2022], axis=1)
+df2 = pd.concat([temperatures_2023, temperatures_2024], axis=1)
+
+# Combine DataFrames
+temperatures = pd.concat([df1, df2], axis=1)
+temperatures.columns = [2021, 2022, 2023, 2024]
+print(temperatures)
+```
+
+## Inserting and Deleting in Data Structures
+The `del` operator from base Python deletes columns from a DataFrame `del DataFrame['column_name']`. However, Pandas also provides its own methods to add or remove entries row-wise or column-wise.
+
+  - `pd.DataFrame.drop(labels=None, axis=0, index=None, columns=None, inplace=False)` removes rows or columns by labels passed as a single value (`'Column 1'`) or as a list (`['Column 1', 'Column 2']`). The `axis` parameter controls whether rows or columns (`axis=1`) are removed. The `index` and `columns` parameters are alternative ways to pass row or column labels and replace `labels` and `axis`.
+
+  - `pd.DataFrame.insert(loc, column, value)` inserts a column at position `loc` with column name `column` and content `value`. If `value` is a Series with a different index, the values can be accessed via `value = Series.values` to insert into the existing index (otherwise, Pandas aligns indices and only inserts matching values).
+
+  - Row values can be inserted with `pd.DataFrame.loc[index] = value`. If `value` is a Series, use `value = Series.values` to access its values, otherwise Pandas will try to align the Series index with the DataFrame columns. If a single value is passed, it fills the entire row.
+
+## Exercises: Combining and Deleting
+Create an empty DataFrame `df = pd.DataFrame()`.
+
+1. Insert the columns 'len' and 'dose' from the `guinea_pigs` DataFrame.
+
+2. Delete all rows with odd row numbers from the DataFrame `df`.
+
+3. Using the index numbers of `df`, select the corresponding rows from the 'ID' column of the `guinea_pigs` DataFrame. Insert these as a column at index position 0 in `df`.
+
+::: {#tip-mergeanddelete .callout-tip collapse="true"}
+## Example Solution: Combining and Deleting
+
+Exercise 1
+```{python}
+df = pd.DataFrame()
+
+# Option 1
+df['len'] = guinea_pigs['len']
+
+# Option 2
+df.insert(loc=1, column='dose', value=guinea_pigs['dose'])
+
+print(df.head(), "\n", df.shape)
+```
+
+Exercise 2
+```{python}
+df = df.drop(index=range(1, len(df), 2))
+
+print(df.head(), "\n", df.shape)
+```
+
+Exercise 3
+```{python}
+df.insert(loc=0, column='ID', value=guinea_pigs.loc[df.index, 'ID'])
+
+print(df.head(), "\n")
+print(df.tail(), "\n")
+print("df.shape:", df.shape)
+```
+
+:::
+
+## References {-}
+<https://pandas.pydata.org/docs/user_guide/dsintro.html>
+<https://pandas.pydata.org/docs/user_guide/basics.html>

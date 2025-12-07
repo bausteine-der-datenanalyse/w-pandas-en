@@ -1,0 +1,486 @@
+# Operations
+Pandas, like NumPy, allows vectorized operations, which means calculations on a Series or DataFrame are applied to each element. This allows arithmetic operators to be used directly.
+
+```{python}
+#| echo: false
+# recreate DataFrame from previous chapter
+import numpy as np
+import pandas as pd
+
+# create DataFrame
+temperatures_2021 = pd.Series([2, 4, 7, 12, 19, 23, 25, 23, 18, 15, 9, 5])
+temperatures_2022 = pd.Series([3, 6, 9, 13, 18, 21, 24, 23, 19, 14, 8, 4])
+temperatures_2023 = pd.Series([-3, -1, 4, 9, 15, 20, 20, 19, 16, 15, 7, 6])
+temperatures_2024 = pd.Series([-1, 2, 5, 8, 17, 24, 25, 20, 17, 14, 9, 2])
+
+temperatures = pd.concat([temperatures_2021, temperatures_2022, temperatures_2023, temperatures_2024], axis=1)
+temperatures.columns = [2021, 2022, 2023, 2024]
+temperatures.index = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+# read guinea pig data
+file_path = "01-daten/ToothGrowth.csv"
+guinea_pigs = pd.read_csv(filepath_or_buffer=file_path, sep=',', header=0, \
+  names=['ID', 'len', 'supp', 'dose'], dtype={'ID': 'int', 'len': 'float', 'dose': 'float', 'supp': 'category'})
+```
+
+```{python}
+print("Temperatures in Celsius:")
+print(27 * "=")
+print(temperatures, "\n")
+
+print("Temperatures in Fahrenheit:")
+print(27 * "=")
+print(temperatures * 9/5 + 32)
+```
+
+Boolean operations can also be performed directly.
+
+```{python}
+print("Below Zero Temperatures:")
+print(27 * "=")
+print(temperatures < 0)
+```
+
+## Row- and Column-wise Operations
+Pandas includes a wide range of methods that perform arithmetic, summary, boolean, and index functions. A complete reference can be found here: <https://pandas.pydata.org/docs/reference/index.html>.
+
+By default, these functions are usually applied column-wise. Using the argument `axis=1` applies the function row-wise. These methods are also available for Series.
+
+Below, some methods are demonstrated as examples.
+
+### Arithmetic Functions
+The methods `pd.DataFrame.add()`, `pd.DataFrame.sub()`, `pd.DataFrame.mul()`, `pd.DataFrame.div()`, `pd.DataFrame.floordiv()`, `pd.DataFrame.mod()`, and `pd.DataFrame.pow()` correspond to the basic arithmetic operators +, -, *, /, //, %, **. They are particularly useful for chained operations.
+
+```{python}
+print("Temperatures in Fahrenheit:")
+print(27 * "=")
+print(temperatures.mul(9).div(5).add(32))
+```
+
+Additionally, the `fill_value` parameter can be used to specify a value for missing data (this value is used before the operation). Like NumPy's `np.nan`, Pandas also has a special missing value: `pd.NA` (pay attention to the data type of the output). Handling missing values is covered in detail in the [module on Reading Structured Datasets](https://bausteine-der-datenanalyse.github.io/m-einlesen-strukturierter-datensaetze/output/book/).
+
+```{python}
+#| warning: false
+missing_value = pd.Series([1, pd.NA, 3])
+print(missing_value.add(1, fill_value=-999), "\n")
+print(missing_value.add(1, fill_value=np.nan), "\n")
+print(missing_value.add(1, fill_value=pd.NA))
+```
+
+### Summary Functions
+
+  - `pd.DataFrame.mean()` computes the mean.
+  - `pd.DataFrame.median()` computes the median.
+  - `pd.DataFrame.mode()` computes the mode.
+  - `pd.DataFrame.sum()` computes the sum.
+  - `pd.DataFrame.cumsum()` computes the cumulative sum.
+  - `pd.DataFrame.min()` and `pd.DataFrame.max()` compute the minimum and maximum, respectively.
+  - `pd.DataFrame.cummin()` and `pd.DataFrame.cummax()` compute the cumulative minimum and maximum, respectively.
+
+```{python}
+# column-wise
+print("Average Annual Temperatures")
+print(27 * "=")
+print(temperatures.mean(), "\n")
+
+# row-wise
+print("Monthly Minimum Temperature")
+print(28 * "=")
+print(temperatures.min(axis=1))
+```
+
+### Boolean Functions
+Pandas, like base Python, offers various boolean functions.
+
+`pd.DataFrame.isin(values)` checks for each element in the DataFrame whether it is contained in `values`. Using the `~` operator, you can check whether elements of a DataFrame are **not** in `values`: `~pd.DataFrame.isin(values)`.  
+The behavior of the function depends on the data type of the object passed in `values`.
+
+  - If `values` is a list or a NumPy array, the result is True if there is a match with any of the contained elements.
+  - If `values` is a Series or a DataFrame, the match is checked positionally (see example).
+
+::: {#nte-isin .callout-note collapse="true"}
+## Class-dependent Function Behavior
+
+:::: {.panel-tabset}
+## Single Values or List
+For single values or a list, the match is checked element-wise.
+```{python}
+print(temperatures, "\n")
+
+print(temperatures.isin([2, 3]))
+```
+
+## NumPy Array
+For a NumPy array, the match is checked element-wise (see the next tab for comparison).
+```{python}
+print(type(temperatures[2021].values), "\n")
+
+print(temperatures.isin(temperatures[2021].values))
+```
+
+## Series
+For a Series, the match is checked positionally (see the previous tab). The index must match.
+```{python}
+print(temperatures.isin(temperatures[2021]), "\n")
+
+temperatures_2021_wrong_index = pd.Series([2, 4, 7, 12, 19, 23, 25, 23, 18, 15, 9, 5])
+temperatures_2021_wrong_index.index = ['A', 'B', 'C', 'D', 'E', 'F', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+print("The index of the Series is:\n['A', 'B', 'C', 'D', 'E', 'F', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].\nThe result at index positions A-F is always False.")
+print(temperatures.isin(temperatures_2021_wrong_index))
+```
+
+## DataFrame
+For a DataFrame, the match is checked positionally. Both the index and column names must match (see the Series tab for index rules).
+
+```{python}
+temperatures_2021_df = pd.DataFrame(temperatures[2021])
+print(temperatures.isin(temperatures_2021_df), "\n")
+
+temperatures_2021_df.columns = [2035]
+print(temperatures.isin(temperatures_2021_df), "\n")
+```
+
+::::
+:::
+
+::: {#tip-documentation .callout-tip}
+## Avoid Surprises
+
+Class-dependent function behavior can distort the results of a data analysis if unnoticed. To prevent this, follow these three general tips:
+
+1. Check the documentation of the respective function. Python and many modules evolve dynamically, so a function’s behavior can change.
+
+2. Proceed step by step and use the `print()` function to inspect intermediate results.
+
+3. For large datasets, it is often easier to work with custom test data. A ten-row DataFrame with the same data types and structure as your working dataset is easier to manage. Use such a test dataset to verify the functions you plan to use.
+:::
+
+A group of functions implements logical comparisons.
+
+| Function | Comparison |
+|---|---|
+| `pd.DataFrame.lt(other)` | less than |
+| `pd.DataFrame.le(other)` | less than or equal to |
+| `pd.DataFrame.eq(other)` | equal to |
+| `pd.DataFrame.ne(other)` | not equal to |
+| `pd.DataFrame.ge(other)` | greater than or equal to |
+| `pd.DataFrame.gt(other)` | greater than |
+
+```{python}
+print(temperatures.le(2), "\n")
+print(temperatures[2021].gt(5))
+```
+
+### Using the .agg() and .apply() Methods
+Pandas provides two methods to perform operations row- or column-wise. `DataFrame.agg()` (or `DataFrame.aggregate()`) aggregates a DataFrame row- or column-wise using a function. The Pandas method `DF.apply()` applies a function row- or column-wise to a DataFrame. The methods are very similar and usually produce the same result.
+
+Both functions perform row-wise operations when using the argument `axis=1`.
+
+::: {.panel-tabset}
+
+## Function
+```{python}
+def my_plus_ten(x):
+    y = x + 10
+    return y
+
+print(temperatures.agg(my_plus_ten), "\n")
+print(temperatures.apply(my_plus_ten))
+```
+
+## Function Name
+```{python}
+print(temperatures.agg("sum"), "\n")
+print(temperatures.apply("sum"))
+```
+
+## List of Functions
+```{python}
+print(temperatures.agg(["sum", "mean", "median"]), "\n")
+print(temperatures.apply(["sum", "mean", "median"]))
+```
+
+## Dictionary of Functions
+```{python}
+print(temperatures.agg({2021: "sum", 2022: "mean", 2023: "median", 2024: "min"}), "\n")
+print(temperatures.apply({2021: "sum", 2022: "mean", 2023: "median", 2024: "min"}), "\n")
+```
+
+:::
+
+A particularly useful feature is the ability to apply functions that normally operate on a Series to each element of the Series. This uses the lambda syntax: `lambda x: x + 1`. Lambda is a placeholder and can be read as "for each x, do:". For example, this can be used to determine the number of characters in each element.
+
+```{python}
+#| warning: false
+
+# Applied to the Series as a whole
+print(len(str(temperatures[2021])), "\n")
+
+# Applied element-wise
+print(temperatures[2021].agg(lambda x: len(str(x))), "\n") # deprecated
+print(temperatures[2021].apply(lambda x: len(str(x))), "\n")
+```
+
+For details on using [lambda expressions](https://docs.python.org/3/reference/expressions.html#lambda), refer to the Python documentation.
+
+For completeness, it is worth mentioning that the methods `.map()` and `.transform()` provide very similar alternatives. If interested, you can read about the differences [in this article](https://towardsdatascience.com/pandas-apply-map-or-transform-dd931659e9cf/).
+
+```{python}
+# print(temperatures[2021].map(lambda x: len(str(x))))
+# print(temperatures[2021].transform(lambda x: len(str(x))), "\n") 
+```
+
+## Exercises: Operations
+1. Determine the monthly median temperature for the DataFrame `temperatures`.
+
+2. Identify the months with a median temperature greater than or equal to 21 degrees.
+
+3. Display the index labels of these months.
+
+::: {#tip-solution-operations .callout-tip collapse="true"}
+## Sample Solution: Operations Exercises
+
+1. Task 
+
+```{python}
+print(temperatures.mean(axis=1))
+```
+
+2. Task 
+
+```{python}
+print(temperatures.mean(axis=1).ge(21))
+```
+
+3. Task 
+
+```{python}
+print(temperatures.index[temperatures.mean(axis=1).ge(21)], "\n")
+
+# as a list
+print(list(temperatures.index[temperatures.mean(axis=1).ge(21)]), "\n")
+```
+
+:::
+
+## Search and Replace
+To determine the index position of a specific value, the NumPy function `np.where()` can be used. It returns two arrays with the corresponding row and column numbers.
+
+```{python}
+print(np.where(temperatures == 4))
+```
+
+Among other locations, the value 4 can be found in row 1, column 0, or in row 2, column 2.
+
+```{python}
+print(temperatures.iloc[1, 0])
+print(temperatures.iloc[2, 2])
+```
+
+Pandas provides two methods to replace values.
+
+  - `pd.DataFrame.replace(to_replace, value, *, inplace=False)` replaces `to_replace` with `value`. Using the argument `inplace=True` modifies the object directly.
+
+  - `pd.where(cond, other=nan, inplace=False)` keeps values where `cond` is True and replaces all other values with `other` (default is a placeholder for missing values). Using the argument `inplace=True` modifies the object directly.
+
+The syntax of both functions differs slightly, as shown in the example below.
+```{python}
+print(temperatures.replace(to_replace=25, value=1000), "\n")
+print(temperatures.where(temperatures == 25, other=1000))
+```
+
+## Exercises: Search and Replace
+1. Determine the positions of values in the DataFrame `temperatures` that are less than 0 and display the values.
+
+2. Replace all values in the DataFrame `temperatures` that are less than 0 with the value 0 and display the result.
+
+::: {#tip-solution-search-replace .callout-tip collapse="true"}
+## Sample Solution: Search and Replace
+
+1. Task
+```{python}
+print(np.where(temperatures <= 0))
+print("Number of values:", len(np.where(temperatures <= 0)[0]))
+
+for i in range(len(np.where(temperatures <= 0)[0])):
+    print(temperatures.iloc[np.where(temperatures <= 0)[0][i], np.where(temperatures <= 0)[1][i]])
+```
+
+2. Task
+```{python}
+print(temperatures.where(temperatures > 0, other=0))
+```
+
+:::
+
+## Sorting
+The method `DataFrame.sort_index(axis=0, ascending=True, inplace=False)` sorts along an axis, by default in ascending order by the index. Passing the argument `axis=1` sorts the columns. Using `ascending=False` sorts in descending order. The argument `inplace=True` ensures, as usual, that the sorted result is stored directly in the object.
+
+```{python}
+print(temperatures.sort_index(), "\n")
+print(temperatures.sort_index(axis=1, ascending=False))
+```
+
+The method `DataFrame.sort_values(by, *, axis=0, ascending=True, inplace=False)` sorts values along an axis, by default along the index (`axis=0`). According to the [documentation](https://pandas.pydata.org/pandas-docs/version/2.1/reference/api/pandas.DataFrame.sort_values.html), the `by` parameter should be passed the column name as a string or a list of column names as strings to sort by. However, as shown in the example below, numeric column labels must also be passed in numeric form.
+
+When using the argument `axis=1` to sort along the second dimension, index labels should be provided accordingly.
+
+```{python}
+# Sorting by numeric column labels
+print(temperatures.sort_values(by=2021), "\n")
+print(temperatures.sort_values(by=[2021, 2023]), "\n")
+
+# Sorting by column labels passed as strings
+# results in KeyError, the error message is not fully caught
+try:
+    print(temperatures.sort_values(by='2021'))
+except Exception as error:
+    print(error)
+```
+
+## Exercises: Sorting
+1. Sort the DataFrame `guinea_pigs` in descending order by tooth length ('len'). Which guinea pig has the longest tooth-forming cell (return the ID)?
+
+2. Which guinea pig that received a dose of 1.0 has the longest tooth-forming cell (return the ID)?
+
+::: {#tip-sample-solution-sorting .callout-tip collapse="true"}
+## Sample Solution: Sorting
+
+1. Task
+```{python}
+print(guinea_pigs.sort_values(by='len', ascending=False).head(), "\n")
+
+print("The ID is:", guinea_pigs.sort_values(by='len', ascending=False).iloc[0, 0])
+```
+
+2. Task
+
+```{python}
+dose_1 = guinea_pigs[guinea_pigs['dose'] == 1.0]
+
+print(dose_1.sort_values(by='len', ascending=False).head(), "\n")
+
+print("The ID is:", dose_1.sort_values(by='len', ascending=False).iloc[0, 0])
+```
+
+:::
+
+## GroupBy
+The method `pd.groupby()` splits a DataFrame (or Series) into groups and returns a GroupBy object. The GroupBy object has the same columns and row labels as the original DataFrame, but is organized according to the grouping. Operations applied to the GroupBy object are executed separately for each group.
+
+This can be observed with the `guinea_pigs` dataset in the following panel.
+
+  1. Tab: The dataset contains 60 entries. The first 30 entries in the column 'supp' have the value VC for Vitamin C, and the last 30 entries have the value OJ for orange juice.
+  
+  2. Tab: Using the method `pd.groupby('supp')`, the dataset can be grouped according to the feature values in the column 'dose' (0.5, 1, and 2).
+
+  3. Tab: Operations can be applied to the GroupBy object. For example, the column 'len' can be selected and the mean length of the tooth-forming cell can be determined using the `.mean()` method.
+
+  4. Tab: It is also possible to group by multiple features by passing them as a list: `pd.groupby(by=['supp', 'dose'])`.
+
+::: {.panel-tabset}
+## DataFrame guinea_pigs
+
+```{python}
+print(guinea_pigs.head(n=12))
+```
+
+## guinea_pigs grouped by Supplement Type
+For the `.head()` method, the argument `n` was halved to display the same number of rows in the output, as this method is applied separately to each of the two groups (VC and OJ).
+
+```{python}
+#| warning: false
+print(guinea_pigs.groupby('supp').head(n=6))
+```
+
+## Tooth Length by Supplement Type
+```{python}
+#| warning: false
+print(guinea_pigs.groupby(by='supp')['len'].mean())
+```
+
+## Tooth Length by Supplement Type and Dose
+
+```{python}
+#| warning: false
+print(guinea_pigs.groupby(by=['supp', 'dose'])['len'].mean())
+```
+
+:::
+
+## Exercises: GroupBy
+
+The Motor Trend Car Road Tests (mtcars) dataset comes from the U.S. magazine Motor Trend from 1974 and contains data for 32 cars.
+
+::: {.border}
+
+:::: {#lst-readfile2}
+```{python}
+mtcars = pd.read_csv(filepath_or_buffer="01-daten/mtcars.csv", sep=",")
+mtcars.rename(columns={'Unnamed: 0': 'car'}, inplace=True)
+
+mtcars.head()
+```
+
+::::
+
+| Column | Description |
+|---|---|
+| mpg | Fuel consumption in miles per gallon |
+| cyl | Number of cylinders |
+| disp | Displacement in cubic inches |
+| hp | Horsepower |
+| drat | Rear axle ratio |
+| wt | Weight in 1000 pounds |
+| qsec | Quarter mile time |
+| vs | Engine (0 = V-engine, 1 = straight engine) |
+| am | Transmission (0 = automatic, 1 = manual) |
+| gear | Number of forward gears |
+| carb | Number of carburetors |
+
+Henderson and Velleman 1981. Building multiple regression models interactively. Biometrics 37: 391–411. The dataset is available on [GitHub](https://gist.github.com/seankross/a412dfbd88b3db70b74b) and in R.
+
+:::
+
+&nbsp;
+
+1. Group the dataset by the number of cylinders and determine the average fuel consumption for each group.
+
+2. Convert the fuel consumption to liters per 100 kilometers.
+
+3. Group the dataset by the number of cylinders and carburetors. Which group is fastest on the quarter mile?
+
+::: {#tip-solution-groupby .callout-tip collapse="true"}
+## Sample Solution: GroupBy
+
+1. Task
+
+```{python}
+mtcars.groupby(by='cyl')['mpg'].mean()
+```
+
+2. Task
+
+```{python}
+# 1 mile = 1.60934 kilometers
+# 1 gallon = 3.78541 liters
+
+mpg = mtcars.groupby(by='cyl')['mpg'].mean()
+
+liters_per_100km = 100 / (mpg * 1.60934 / 3.78541)
+
+print(liters_per_100km)
+```
+
+3. Task
+
+```{python}
+print(mtcars.groupby(by=['cyl', 'carb'])['qsec'].mean(), "\n")
+print(mtcars.groupby(by=['cyl', 'carb'])['qsec'].mean().index[-1], "\n")
+```
+
+The group with 8 cylinders and 8 carburetors is the fastest. (Note: This is a so-called [MultiIndex](https://pandas.pydata.org/docs/user_guide/advanced.html).)
+
+:::
+

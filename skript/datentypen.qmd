@@ -1,0 +1,97 @@
+# Data Types
+The Pandas module is specialized in handling different data types. A DataFrame can contain multiple data types (e.g., numbers and boolean values).
+
+```{python}
+#| echo: false
+
+import numpy as np
+import pandas as pd
+```
+
+NumPy supports the following data types:
+
+| NumPy Array Data Type  | Python Data Type |
+|---|---|
+| int_    | int    |
+| double    | float    |
+| cdouble    | complex    |
+| bytes_    | bytes    |
+| str_    | str    |
+| bool_    | bool    |
+| datetime64    | datetime.datetime    |
+| timedelta64    | datetime.timedelta    |
+
+&nbsp;
+
+NumPy data types have operating system–dependent equivalents. For example, an array of type `int_` will show as `int`, and an array of floating-point numbers will show as `float64`.
+
+```{python}
+scalar = np.array([2])
+print(scalar.dtype, "\n")
+
+scalar = np.array([2.1])
+print(scalar.dtype)
+```
+
+Additionally, each NumPy data type has a one-letter shorthand. For example, for strings, the shorthand `U` for Unicode characters is used along with the number of characters. (For all other data types, the number represents the number of bytes required in memory.) The output is prefixed with a character indicating the [byte order](https://en.wikipedia.org/wiki/Endianness) in memory: `'>'` (big-endian), `'<'` (little-endian), or `'='` (system default).
+
+```{python}
+scalar = np.array(['2'])
+print(scalar.dtype, "\n")
+
+scalar = np.array(['2.1'])
+print(scalar.dtype, "\n")
+
+# A data type with more memory can be assigned
+scalar = np.array([2], dtype = 'U3')
+print(scalar.dtype)
+```
+
+All synonyms and shorthands can be found in the [NumPy documentation](https://numpy.org/devdocs/reference/arrays.scalars.html).
+
+The Pandas module frequently uses NumPy data types, but it also introduces some additional data types. A complete list is available in the [Pandas documentation](https://pandas.pydata.org/docs/reference/arrays.html). The most important additional data types are:
+
+  - [Categorical](https://pandas.pydata.org/docs/user_guide/categorical.html) `dtype = 'category'` for categorical, i.e., unordered data.
+
+  - [Timezone-aware datetime](https://pandas.pydata.org/docs/reference/api/pandas.Timestamp.html#pandas.Timestamp) `dtype = 'datetime64[ns, US/Eastern]'`
+
+  - Extensions of NumPy data types with support for missing values, recognizable by capital letters.
+
+```{python}
+# NumPy data type int
+series = pd.Series([1, 2, 3], dtype = 'int')
+print(series, "\n")
+
+# NumPy int does not support missing values
+try:
+  series = pd.Series([1, 2, 3, np.nan], dtype = 'int')
+except Exception as error:
+    print(error, "\n")
+
+# Pandas Int64 supports missing values
+series = pd.Series([1, 2, 3, np.nan], dtype = 'Int64')
+print(series)
+```
+
+::: {#wrn-string .callout-warning appearance="simple" collapse="false"}
+## Pandas Data Type string
+Pandas uses the 'string' data type, like Python, which is immutable. This means there is no method that can modify an existing string. Operations with this data type return a new object of type 'string'.
+
+Passing the data type 'str' results in the use of the NumPy string data type (`dtype = 'str'`), which is mutable.
+
+Depending on the situation, using one or the other data type can be useful. For example, the NumPy 'str' type can be concatenated using the `pd.Series.sum()` method.
+
+```{python}
+# Using NumPy data type 'str'
+string_series = pd.Series(['H', 'a', 'l', 'l', 'o', '!'], dtype = 'str')
+print(f"Using NumPy data type 'str': {string_series.sum()}")
+
+# Using Pandas data type 'string'
+try:
+  string_series.astype('string').sum()
+except Exception as error:
+  print("\nUsing Pandas data type 'string':")
+  print(error)
+```
+
+:::
