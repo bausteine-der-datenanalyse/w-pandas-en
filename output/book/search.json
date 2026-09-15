@@ -4,29 +4,29 @@
     "href": "index.html",
     "title": "Bausteine Computergestützter Datenanalyse",
     "section": "",
-    "text": "Werkzeugbaustein Pandas",
+    "text": "Tool Module Pandas",
     "crumbs": [
-      "Werkzeugbaustein Pandas"
+      "Tool Module Pandas"
     ]
   },
   {
-    "objectID": "index.html#voraussetzungen",
-    "href": "index.html#voraussetzungen",
+    "objectID": "index.html#prerequisites",
+    "href": "index.html#prerequisites",
     "title": "Bausteine Computergestützter Datenanalyse",
-    "section": "Voraussetzungen",
-    "text": "Voraussetzungen\nThe following modules should already have been completed:\n\nw-Python-en\nw-NumPy-en\n\nThis module uses the following libraries:\n\nNumPy\nPandas\nMatplotlib\nzoneinfo (optional)\n\nThe module works with the following datasets:\n\nTooth growth in guinea pigs CSV file\nVehicle data from Motor Trend magazine GitHub\nPenguin measurements from Palmer Station GitHub\nMicrosoft stock price data Kaggle",
+    "section": "Prerequisites",
+    "text": "Prerequisites\nThe following modules should already have been completed:\n\nw-Python-en\nw-NumPy-en\n\nThis module uses the following libraries:\n\nNumPy\nPandas\nMatplotlib\nzoneinfo (optional)\n\nThe module works with the following datasets:\n\nTooth growth in guinea pigs CSV file\nVehicle data from Motor Trend magazine GitHub\nPenguin measurements from Palmer Station GitHub\nMicrosoft stock price data Kaggle",
     "crumbs": [
-      "Werkzeugbaustein Pandas"
+      "Tool Module Pandas"
     ]
   },
   {
-    "objectID": "index.html#lernziele",
-    "href": "index.html#lernziele",
+    "objectID": "index.html#learning-objectives",
+    "href": "index.html#learning-objectives",
     "title": "Bausteine Computergestützter Datenanalyse",
-    "section": "Lernziele",
-    "text": "Lernziele\nIn this module, you will learn …\n\nthe data structures of the Pandas module: Series and DataFrame.\nhow operations are executed in Pandas.\nhow to create plots using Pandas.\nhow to read (and write) files.",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nIn this module, you will learn …\n\nthe data structures of the Pandas module: Series and DataFrame.\nhow operations are executed in Pandas.\nhow to create plots using Pandas.\nhow to read (and write) files.",
     "crumbs": [
-      "Werkzeugbaustein Pandas"
+      "Tool Module Pandas"
     ]
   },
   {
@@ -294,7 +294,7 @@
     "href": "skript/datetime.html#timedelta-in-pandas",
     "title": "5  Time Series",
     "section": "5.3 timedelta in Pandas",
-    "text": "5.3 timedelta in Pandas\nTime differences are created using the function pd.Timedelta(). Time differences can be created either by specifying an integer and a time unit or by using keyword arguments (valid arguments are: weeks, days, hours, minutes, seconds, milliseconds, microseconds, nanoseconds).\n\nprint(pd.Timedelta(1, 'D'))\nprint(pd.Timedelta(days = 1, hours = 1))\n\n1 days 00:00:00\n1 days 01:00:00\n\n\nImportant: Unlike in NumPy, time differences in months and years are no longer supported by Pandas.\n\ntry:\n  print(pd.Timedelta(1, 'Y'))\nexcept ValueError as error:\n  print(error)\nelse:\n  print(pd.Timedelta(1, 'Y'))\n\nUnits 'M', 'Y', and 'y' are no longer supported, as they do not represent unambiguous timedelta values durations.\n\n\nTime differences can also be created using a string.\n\nprint(pd.Timedelta('10sec'))\nprint(pd.Timedelta('10min'))\nprint(pd.Timedelta('10hours'))\nprint(pd.Timedelta('10days'))\nprint(pd.Timedelta('10w'))\n\n0 days 00:00:10\n0 days 00:10:00\n0 days 10:00:00\n10 days 00:00:00\n70 days 00:00:00\n\n\n/tmp/ipykernel_3757/3776135813.py:5: Pandas4Warning: 'w' is deprecated and will be removed in a future version. Please use 'W' instead of 'w'.\n  print(pd.Timedelta('10w'))\n\n\nTime series can be easily shifted using a time difference.\n\npd.date_range(start = '2024-01-01T00:00', end = '2024-01-01T02:00', freq = '15min') + pd.Timedelta('30min')\n\nDatetimeIndex(['2024-01-01 00:30:00', '2024-01-01 00:45:00',\n               '2024-01-01 01:00:00', '2024-01-01 01:15:00',\n               '2024-01-01 01:30:00', '2024-01-01 01:45:00',\n               '2024-01-01 02:00:00', '2024-01-01 02:15:00',\n               '2024-01-01 02:30:00'],\n              dtype='datetime64[us]', freq='15min')",
+    "text": "5.3 timedelta in Pandas\nTime differences are created using the function pd.Timedelta(). Time differences can be created either by specifying an integer and a time unit or by using keyword arguments (valid arguments are: weeks, days, hours, minutes, seconds, milliseconds, microseconds, nanoseconds).\n\nprint(pd.Timedelta(1, 'D'))\nprint(pd.Timedelta(days = 1, hours = 1))\n\n1 days 00:00:00\n1 days 01:00:00\n\n\nImportant: Unlike in NumPy, time differences in months and years are no longer supported by Pandas.\n\ntry:\n  print(pd.Timedelta(1, 'Y'))\nexcept ValueError as error:\n  print(error)\nelse:\n  print(pd.Timedelta(1, 'Y'))\n\nUnits 'M', 'Y', and 'y' are no longer supported, as they do not represent unambiguous timedelta values durations.\n\n\nTime differences can also be created using a string.\n\nprint(pd.Timedelta('10sec'))\nprint(pd.Timedelta('10min'))\nprint(pd.Timedelta('10hours'))\nprint(pd.Timedelta('10days'))\nprint(pd.Timedelta('10w'))\n\n0 days 00:00:10\n0 days 00:10:00\n0 days 10:00:00\n10 days 00:00:00\n70 days 00:00:00\n\n\n/tmp/ipykernel_3535/3776135813.py:5: Pandas4Warning: 'w' is deprecated and will be removed in a future version. Please use 'W' instead of 'w'.\n  print(pd.Timedelta('10w'))\n\n\nTime series can be easily shifted using a time difference.\n\npd.date_range(start = '2024-01-01T00:00', end = '2024-01-01T02:00', freq = '15min') + pd.Timedelta('30min')\n\nDatetimeIndex(['2024-01-01 00:30:00', '2024-01-01 00:45:00',\n               '2024-01-01 01:00:00', '2024-01-01 01:15:00',\n               '2024-01-01 01:30:00', '2024-01-01 01:45:00',\n               '2024-01-01 02:00:00', '2024-01-01 02:15:00',\n               '2024-01-01 02:30:00'],\n              dtype='datetime64[us]', freq='15min')",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Time Series</span>"
     ]

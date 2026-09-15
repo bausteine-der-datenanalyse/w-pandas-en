@@ -156,7 +156,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Werkzeugbaustein Pandas</span></a>
+ <span class="menu-text">Tool Module Pandas</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -376,11 +376,11 @@ library(palmerpenguins)</code></pre>
 </div>
 <p>&nbsp;</p>
 <p>File-reading functions expect a path, which can be provided either positionally or as a keyword argument. The keyword depends on the file type; for a comma-separated CSV file, it is <code>filepath_or_buffer</code>.</p>
-<div id="f5ce66c0" class="cell" data-execution_count="2">
+<div id="2efbd4d2" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> <span class="st">'01-daten/penguins.csv'</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>A quick look at the data using the <code>penguins.head()</code> method:</p>
-<div id="544a6136" class="cell" data-execution_count="3">
+<div id="9fb4b5ea" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(penguins.head())</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  species     island  bill_length_mm  bill_depth_mm  flipper_length_mm  \
@@ -409,7 +409,7 @@ library(palmerpenguins)</code></pre>
 </div>
 <p>&nbsp;</p>
 <p>An overview of the dataset can be obtained using the <code>DataFrame.info()</code> method.</p>
-<div id="ef20c61f" class="cell" data-execution_count="4">
+<div id="cf3792f6" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(penguins.info())</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.DataFrame'&gt;
@@ -431,7 +431,7 @@ None</code></pre>
 </div>
 </div>
 <p>Some data types were not automatically recognized. The affected columns were assigned the generic type <code>object</code>. You can specify the data type when reading a file using the <code>dtype</code> argument. For multiple columns, this can be done with a dictionary in the form <code>{'column_name': 'dtype'}</code>. Using the <code>DataFrame.astype()</code> method, this can also be done afterwards.</p>
-<div id="ddc4336c" class="cell" data-execution_count="5">
+<div id="196eff8d" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> <span class="st">'01-daten/penguins.csv'</span>, dtype <span class="op">=</span> {<span class="st">'species'</span>: <span class="st">'category'</span>, <span class="st">'island'</span>: <span class="st">'category'</span>, <span class="st">'sex'</span>: <span class="st">'category'</span>})</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Afterwards</span></span>
@@ -465,7 +465,7 @@ None</code></pre>
 <li>Use <code>np.where()</code> to get their index positions.</li>
 <li>Use <code>DataFrame.drop()</code> to remove the corresponding rows.</li>
 </ul>
-<div id="30986d6c" class="cell" data-execution_count="6">
+<div id="acf77f07" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify missing values</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(penguins.<span class="bu">apply</span>(pd.isna).head(), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -508,7 +508,7 @@ dtype: bool
 </div>
 </div>
 <p>Check the cleaned dataset:</p>
-<div id="bef925fa" class="cell" data-execution_count="7">
+<div id="e7664dd9" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(penguins.info())</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.DataFrame'&gt;
@@ -545,7 +545,7 @@ None</code></pre>
 <p>Time series data for Microsoft stock is stored at ‘01-daten/Microsoft_Stock.csv’.</p>
 <div class="border">
 <p>Microsoft Stock - Time Series Analysis by Vijay V Venkitesh is licensed under <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a> and is available on <a href="https://www.kaggle.com/datasets/vijayvvenkitesh/microsoft-stock-time-series-analysis">Kaggle</a>. 2021</p>
-<div id="4fce46ca" class="cell" data-execution_count="8">
+<div id="55638b98" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>stock <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> <span class="st">'01-daten/Microsoft_Stock.csv'</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(stock.head(), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
@@ -598,7 +598,7 @@ Tipp&nbsp;6.1: Solution for Reading Time Series
 <ol type="1">
 <li>Task</li>
 </ol>
-<div id="3e6d432c" class="cell" data-execution_count="9">
+<div id="4c851eba" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>stock <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> <span class="st">'01-daten/Microsoft_Stock.csv'</span>,</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>        parse_dates <span class="op">=</span> [<span class="st">'Date'</span>], <span class="co"># alternatively: [0]</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        date_format <span class="op">=</span> <span class="st">'%m/</span><span class="sc">%d</span><span class="st">/%Y %H:%M:%S'</span>)</span>
@@ -633,7 +633,7 @@ None</code></pre>
 <li>Task</li>
 </ol>
 <p>The Pandas method <code>Series.dt.weekofyear()</code> is no longer supported (<a href="https://pandas.pydata.org/pandas-docs/version/1.5/reference/api/pandas.Series.dt.weekofyear.html">see documentation</a>). It has been replaced by <code>Series.dt.isocalendar().week</code>.</p>
-<div id="9d7d4d81" class="cell" data-execution_count="10">
+<div id="f906fcc9" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract year and week</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(stock[<span class="st">'Date'</span>].dt.isocalendar().week.head(), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(stock[<span class="st">'Date'</span>].dt.isocalendar().year.tail())</span>

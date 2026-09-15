@@ -157,7 +157,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Werkzeugbaustein Pandas</span></a>
+ <span class="menu-text">Tool Module Pandas</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -278,7 +278,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="timezones" class="level4">
 <h4 class="anchored" data-anchor-id="timezones">Timezones</h4>
 <p>Pandas can handle timezones and convert datetime objects from one timezone to another. The <code>tz</code> argument can be used in various functions to specify the timezone.</p>
-<div id="f0b5896a" class="cell" data-execution_count="2">
+<div id="3a188b47" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>time_series <span class="op">=</span> pd.Series(pd.date_range(start <span class="op">=</span> <span class="st">"2023-03-26T00:00"</span>, end <span class="op">=</span> <span class="st">"2023-03-27T00:00"</span>, freq <span class="op">=</span> <span class="st">"3h"</span>, tz <span class="op">=</span> <span class="st">"Turkey"</span>))</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>time_series</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -295,7 +295,7 @@ dtype: datetime64[us, Turkey]</code></pre>
 </div>
 </div>
 <p>The function <code>pd.to_datetime(arg, utc = True)</code> can be used to convert the timezone to Coordinated Universal Time (UTC).</p>
-<div id="6bd0173f" class="cell" data-execution_count="3">
+<div id="3592da13" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pd.to_datetime(time_series, utc <span class="op">=</span> <span class="va">True</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>0   2023-03-25 21:00:00+00:00
@@ -311,7 +311,7 @@ dtype: datetime64[us, UTC]</code></pre>
 </div>
 </div>
 <p>Conversion to any desired timezone is possible using the method <code>pd.Series.dt.tz_convert(tz = 'utc')</code>.</p>
-<div id="7dacb935" class="cell" data-execution_count="4">
+<div id="4179e133" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>time_series.dt.tz_convert(tz <span class="op">=</span> <span class="st">'Portugal'</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>0   2023-03-25 21:00:00+00:00
@@ -339,7 +339,7 @@ Beispiel&nbsp;5.1: Listing Available Timezones
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The following code lists the timezones available in Python.</p>
-<div id="51e10644" class="cell" data-execution_count="5">
+<div id="93d5721a" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> zoneinfo <span class="im">import</span> available_timezones</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> timezone <span class="kw">in</span> <span class="bu">sorted</span>(available_timezones()):</span>
@@ -954,7 +954,7 @@ localtime</code></pre>
 <section id="everything-is-relative-the-epoch" class="level3">
 <h3 class="anchored" data-anchor-id="everything-is-relative-the-epoch">Everything is Relative: The Epoch</h3>
 <p>Python stores time relative to a reference point, the Unix time, known as the epoch. The epoch can be displayed using the function <code>pd.to_datetime(0)</code>. This function converts arguments into timestamps. Integers are interpreted as nanoseconds since the epoch. We will cover this function in more detail later.</p>
-<div id="62f84123" class="cell" data-execution_count="6">
+<div id="ae62ed94" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="dv">0</span>))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -998,7 +998,7 @@ Hinweis&nbsp;5.1: Time – Atomic, Coordinated, or Universal?
 <p>&nbsp;</p>
 <p>Pandas works with Coordinated Universal Time (UTC) by default. UTC itself is not a timezone and therefore does not observe daylight saving time. Daylight saving is applied depending on the timezone. For example, Turkey abolished daylight saving in 2016 (and permanently adopted summer time).</p>
 <p>In the following examples, a 24-hour time delta is added at 9 AM on the day before the DST change. Since the clock moves forward one hour during the night (morning of the next day), the resulting timestamp shows 10 AM if DST is in effect.</p>
-<div id="74b0ae1d" class="cell" data-execution_count="7">
+<div id="6fa06652" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"No daylight saving in UTC:"</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timestamp(<span class="st">"2025-03-29T09:00"</span>) <span class="op">+</span> pd.Timedelta(<span class="dv">24</span>, <span class="st">"h"</span>), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1040,7 +1040,7 @@ Turkey before abolishing daylight saving:
 <li><p>datetime objects from other modules.</p></li>
 <li><p>Numbers and a time unit <code>pd.to_datetime(1, unit=None)</code> (default is nanoseconds). The <code>unit</code> argument accepts ‘ns’, ‘ms’, ‘s’, ‘m’, ‘h’, ‘D’, ‘W’, ‘M’, ‘Y’ for nanosecond, millisecond, second, minute, hour, day, week, month, or year. The result is a timestamp relative to the epoch.</p></li>
 </ul>
-<div id="5be673c8" class="cell" data-execution_count="8">
+<div id="6e6ac8ed" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="dv">1000</span>, unit <span class="op">=</span> <span class="st">'D'</span>))</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="dv">1000</span> <span class="op">*</span> <span class="dv">1000</span>, unit <span class="op">=</span> <span class="st">'h'</span>))</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="dv">1000</span> <span class="op">*</span> <span class="dv">1000</span> <span class="op">*</span> <span class="dv">1000</span>, unit <span class="op">=</span> <span class="st">'s'</span>))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1053,7 +1053,7 @@ Turkey before abolishing daylight saving:
 <ul>
 <li>Strings representing a date or a date with time, formatted according to <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>.</li>
 </ul>
-<div id="e2123d98" class="cell" data-execution_count="9">
+<div id="84e5e45e" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="st">'2017'</span>))</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="st">'2017-01-01T00'</span>))</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="st">'2017-01-01 00:00:00'</span>))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1066,7 +1066,7 @@ Turkey before abolishing daylight saving:
 <ul>
 <li>Strings in other formats using the argument <code>format = "%d/%m/%Y"</code> (see <a href="https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior">strftime documentation for string formatting</a>).</li>
 </ul>
-<div id="d23a3359" class="cell" data-execution_count="10">
+<div id="7080f07f" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="st">'Monday, 12. August `24'</span>, <span class="bu">format</span> <span class="op">=</span> <span class="st">"%A, </span><span class="sc">%d</span><span class="st">. %B `%y"</span>))</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="st">'Monday, 12. August 2024, 12:15 Uhr CET'</span>, <span class="bu">format</span> <span class="op">=</span> <span class="st">"%A, </span><span class="sc">%d</span><span class="st">. %B %Y, %H:%M Uhr %Z"</span>))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1077,7 +1077,7 @@ Turkey before abolishing daylight saving:
 <ul>
 <li>Dictionary or DataFrame.</li>
 </ul>
-<div id="b2e9a223" class="cell" data-execution_count="11">
+<div id="65f3139c" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime({<span class="st">'year'</span>:[<span class="dv">2020</span>, <span class="dv">2024</span>], <span class="st">'month'</span>: [<span class="dv">1</span>, <span class="dv">11</span>], <span class="st">'day'</span>: [<span class="dv">1</span>, <span class="dv">21</span>]}), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(pd.DataFrame({<span class="st">'year'</span>:[<span class="dv">2020</span>, <span class="dv">2024</span>], <span class="st">'month'</span>: [<span class="dv">1</span>, <span class="dv">11</span>], <span class="st">'day'</span>: [<span class="dv">1</span>, <span class="dv">21</span>]})))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1097,7 +1097,7 @@ dtype: datetime64[us]</code></pre>
 <li><p><code>freq</code>: step size (e.g., year, day, business day, hour, or multiples such as ‘6h’ — see <a href="https://pandas.pydata.org/docs/user_guide/timeseries.html#timeseries-offset-aliases">list of available strings</a>).</p></li>
 <li><p><code>periods</code>: number of values to generate.</p></li>
 </ul>
-<div id="f344de85" class="cell" data-execution_count="12">
+<div id="f696d7ad" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.date_range(start <span class="op">=</span> <span class="st">'2017'</span>, end <span class="op">=</span> <span class="st">'2024'</span>, periods <span class="op">=</span> <span class="dv">3</span>), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.date_range(start <span class="op">=</span> <span class="st">'2017'</span>, end <span class="op">=</span> <span class="st">'2024'</span>, freq <span class="op">=</span> <span class="st">'YE'</span>), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
@@ -1135,7 +1135,7 @@ Hinweis&nbsp;5.2: pd.date_range()
 <section id="timedelta-in-pandas" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="timedelta-in-pandas"><span class="header-section-number">5.3</span> timedelta in Pandas</h2>
 <p>Time differences are created using the function <code>pd.Timedelta()</code>. Time differences can be created either by specifying an integer and a time unit or by using keyword arguments (valid arguments are: weeks, days, hours, minutes, seconds, milliseconds, microseconds, nanoseconds).</p>
-<div id="92df374d" class="cell" data-execution_count="13">
+<div id="de246972" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timedelta(<span class="dv">1</span>, <span class="st">'D'</span>))</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timedelta(days <span class="op">=</span> <span class="dv">1</span>, hours <span class="op">=</span> <span class="dv">1</span>))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1144,7 +1144,7 @@ Hinweis&nbsp;5.2: pd.date_range()
 </div>
 </div>
 <p><strong>Important:</strong> Unlike in NumPy, time differences in months and years are no longer supported by Pandas.</p>
-<div id="2678390f" class="cell" data-execution_count="14">
+<div id="5d42fb3c" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(pd.Timedelta(<span class="dv">1</span>, <span class="st">'Y'</span>))</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ValueError</span> <span class="im">as</span> error:</span>
@@ -1156,7 +1156,7 @@ Hinweis&nbsp;5.2: pd.date_range()
 </div>
 </div>
 <p>Time differences can also be created using a string.</p>
-<div id="eed61e59" class="cell" data-execution_count="15">
+<div id="5df43512" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timedelta(<span class="st">'10sec'</span>))</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timedelta(<span class="st">'10min'</span>))</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timedelta(<span class="st">'10hours'</span>))</span>
@@ -1170,12 +1170,12 @@ Hinweis&nbsp;5.2: pd.date_range()
 70 days 00:00:00</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_3757/3776135813.py:5: Pandas4Warning: 'w' is deprecated and will be removed in a future version. Please use 'W' instead of 'w'.
+<pre><code>/tmp/ipykernel_3535/3776135813.py:5: Pandas4Warning: 'w' is deprecated and will be removed in a future version. Please use 'W' instead of 'w'.
   print(pd.Timedelta('10w'))</code></pre>
 </div>
 </div>
 <p>Time series can be easily shifted using a time difference.</p>
-<div id="6e29c9f7" class="cell" data-execution_count="16">
+<div id="689616a0" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>pd.date_range(start <span class="op">=</span> <span class="st">'2024-01-01T00:00'</span>, end <span class="op">=</span> <span class="st">'2024-01-01T02:00'</span>, freq <span class="op">=</span> <span class="st">'15min'</span>) <span class="op">+</span> pd.Timedelta(<span class="st">'30min'</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>DatetimeIndex(['2024-01-01 00:30:00', '2024-01-01 00:45:00',
@@ -1190,7 +1190,7 @@ Hinweis&nbsp;5.2: pd.date_range()
 <section id="accessing-time-series" class="level2" data-number="5.4">
 <h2 data-number="5.4" class="anchored" data-anchor-id="accessing-time-series"><span class="header-section-number">5.4</span> Accessing Time Series</h2>
 <p>Pandas provides numerous attributes and methods to extract information from <code>datetime64</code> objects. An overview of all available attributes and methods can be obtained with <code>dir(pd.to_datetime(0))</code> or by the example code below.</p>
-<div id="0ee40471" class="cell" data-execution_count="17">
+<div id="4d4d8af8" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Attributes</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Year:"</span>, pd.to_datetime(<span class="dv">0</span>).year)</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Month:"</span>, pd.to_datetime(<span class="dv">0</span>).month)</span>
@@ -1238,7 +1238,7 @@ Beispiel&nbsp;5.2: Attributes and Methods of a datetime Object
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="1702245c" class="cell" data-execution_count="18">
+<div id="ef5bcb76" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>obj <span class="op">=</span> pd.to_datetime(<span class="dv">0</span>)</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>attributes <span class="op">=</span> [attr <span class="cf">for</span> attr <span class="kw">in</span> <span class="bu">dir</span>(obj) <span class="cf">if</span> <span class="kw">not</span> (<span class="bu">callable</span>(<span class="bu">getattr</span>(obj, attr)) <span class="kw">or</span> attr.startswith(<span class="st">'_'</span>))]</span>
@@ -1276,7 +1276,7 @@ Methods:
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="5f40fc05" class="cell" data-execution_count="19">
+<div id="2c0fb129" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Attributes</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Date:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.date) <span class="co"># Difference</span></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Time:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.time) <span class="co"># Difference</span></span>
@@ -1362,7 +1362,7 @@ print((pd.to_datetime('now') - pd.to_datetime('YYYY-MM-DDTHH:MM')).total_seconds
 <p>Exercise 3</p>
 <pre class="raw"><code>(pd.to_datetime('2025-12-25') - pd.to_datetime('now')).days</code></pre>
 <p>Exercise 4</p>
-<div id="d1cd459f" class="cell" data-execution_count="20">
+<div id="f1944a61" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>leap_years <span class="op">=</span> pd.date_range(start <span class="op">=</span> <span class="st">'1901'</span>, end <span class="op">=</span> <span class="st">'2000'</span>, freq <span class="op">=</span> <span class="st">'YE'</span>)</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>leap_years <span class="op">=</span> leap_years[leap_years.is_leap_year]</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(leap_years.year)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>

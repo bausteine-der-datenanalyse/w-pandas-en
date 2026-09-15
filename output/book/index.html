@@ -97,7 +97,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Werkzeugbaustein Pandas</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Tool Module Pandas</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
@@ -129,7 +129,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Werkzeugbaustein Pandas</span></a>
+ <span class="menu-text">Tool Module Pandas</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -178,10 +178,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#werkzeugbaustein-pandas" id="toc-werkzeugbaustein-pandas" class="nav-link active" data-scroll-target="#werkzeugbaustein-pandas">Werkzeugbaustein Pandas</a>
+  <li><a href="#tool-module-pandas" id="toc-tool-module-pandas" class="nav-link active" data-scroll-target="#tool-module-pandas">Tool Module Pandas</a>
   <ul class="collapse">
-  <li><a href="#voraussetzungen" id="toc-voraussetzungen" class="nav-link" data-scroll-target="#voraussetzungen">Voraussetzungen</a></li>
-  <li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele">Lernziele</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -227,30 +227,30 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="werkzeugbaustein-pandas" class="level1 unnumbered">
-<h1 class="unnumbered">Werkzeugbaustein Pandas</h1>
-<div id="Lizenz" class="border">
+<section id="tool-module-pandas" class="level1 unnumbered">
+<h1 class="unnumbered">Tool Module Pandas</h1>
+<div id="License" class="border">
 <div class="quarto-layout-panel" data-layout="[20, 80]">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
-<p><img src="skript/00-bilder/CC-BY.svg" class="img-fluid" alt="Symbol des Lizenzhinweises Creative Commons BY"></p>
+<p><img src="skript/00-bilder/CC-BY.svg" class="img-fluid" alt="Symbol of the Creative Commons BY license notice"></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 80.0%;justify-content: flex-start;">
-<p>Bausteine Computergestützter Datenanalyse von Lukas Arnold, Simone Arnold, Florian Bagemihl, Matthias Baitsch, Marc Fehr, Franca Hollmann, Maik Poetzsch und Sebastian Seipel. Werkzeugbaustein Pandas von Marc Fehr und Maik Poetzsch ist lizensiert unter <a href="https://creativecommons.org/licenses/by/4.0/deed.de">CC BY 4.0</a>. Das Werk ist abrufbar auf <a href="https://github.com/bausteine-der-datenanalyse/w-pandas">GitHub</a>. Ausgenommen von der Lizenz sind alle Logos Dritter und anders gekennzeichneten Inhalte. 2025</p>
+<p>Building Blocks of Computer-Assisted Data Analysis by Lukas Arnold, Simone Arnold, Florian Bagemihl, Matthias Baitsch, Marc Fehr, Franca Hollmann, Maik Poetzsch, and Sebastian Seipel. Tool Module Pandas by Marc Fehr and Maik Poetzsch is licensed under <a href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a>. The work is available on <a href="https://github.com/bausteine-der-datenanalyse/w-pandas-en">GitHub</a>. Excluded from the license are all third-party logos and other content marked otherwise. 2025</p>
 </div>
 </div>
 </div>
-<p>Zitiervorschlag</p>
-<p>Arnold, Lukas, Simone Arnold, Matthias Baitsch, Marc Fehr, Franca Hollmann, Maik Poetzsch, und Sebastian Seipel. 2025. „Bausteine Computergestützter Datenanalyse. Werkzeugbaustein Pandas“. <a href="https://github.com/bausteine-der-datenanalyse/w-pandas" class="uri">https://github.com/bausteine-der-datenanalyse/w-pandas</a>.</p>
-<p>BibTeX-Vorlage</p>
+<p>Suggested Citation</p>
+<p>Arnold, Lukas, Simone Arnold, Matthias Baitsch, Marc Fehr, Franca Hollmann, Maik Poetzsch, and Sebastian Seipel. 2025. “Building Blocks of Computer-Assisted Data Analysis. Tool Module Pandas”. <a href="https://github.com/bausteine-der-datenanalyse/w-pandas-en" class="uri">https://github.com/bausteine-der-datenanalyse/w-pandas-en</a>.</p>
+<p>BibTeX Template</p>
 <pre><code>@misc{BCD-w-pandas-2025,
- title={Bausteine Computergestützter Datenanalyse. Werkzeugbaustein Pandas},
+ title={Building Blocks of Computer-Assisted Data Analysis. Tool Module Pandas},
  author={Arnold, Lukas and Arnold, Simone and Baitsch, Matthias and Fehr, Marc and Hollmann, Franca and Poetzsch, Maik and Seipel, Sebastian},
  year={2025},
- url={https://github.com/bausteine-der-datenanalyse/w-pandas}} </code></pre>
+ url={https://github.com/bausteine-der-datenanalyse/w-pandas-en}}</code></pre>
 </div>
-<section id="voraussetzungen" class="level2">
-<h2 class="anchored" data-anchor-id="voraussetzungen">Voraussetzungen</h2>
+<section id="prerequisites" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
 <p>The following modules should already have been completed:</p>
 <ul>
 <li>w-Python-en</li>
@@ -271,8 +271,8 @@ ul.task-list li input[type="checkbox"] {
 <li>Microsoft stock price data <a href="https://www.kaggle.com/datasets/vijayvvenkitesh/microsoft-stock-time-series-analysis">Kaggle</a></li>
 </ul>
 </section>
-<section id="lernziele" class="level2">
-<h2 class="anchored" data-anchor-id="lernziele">Lernziele</h2>
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
 <p>In this module, you will learn …</p>
 <ul>
 <li><p>the data structures of the Pandas module: Series and DataFrame.</p></li>
