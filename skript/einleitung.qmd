@@ -322,7 +322,7 @@ guinea_pigs['dose'].unique()
 
 ## Slicing
 ::: {.border}
-![two-dimensional dataset](00-images/two-dimensional-dataset-slicing-mf-mp.png){width="45%" fig-alt="A two-dimensional block representing a dataset. Arrows represent the two axes. The zero axis corresponds to length (top to bottom) and the first axis to the width of the dataset."}
+![two-dimensional dataset](00-bilder/zweidimensionaler-datensatz-slicing-mf-mp.png){width="45%" fig-alt="A two-dimensional block representing a dataset. Arrows represent the two axes. The zero axis corresponds to length (top to bottom) and the first axis to the width of the dataset."}
 
 Slicing by Marc Fehr is licensed under [CC-BY-4.0](https://github.com/bausteine-der-datenanalyse/w-python-numpy-grundlagen#CC-BY-4.0-1-ov-file) and available on [GitHub](https://github.com/bausteine-der-datenanalyse/w-python-numpy-grundlagen). The graphic has been cropped to the shown part and the top label removed. 2024
 :::
