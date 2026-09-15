@@ -1,32 +1,32 @@
-# Werkzeugbaustein Pandas {.unnumbered}
+# Tool Module Pandas {.unnumbered}
 
-::: {.border #Lizenz}
+::: {.border #License}
 
 :::: {layout="[20, 80]"}
-![](skript/00-bilder/CC-BY.svg){fig-alt="Symbol des Lizenzhinweises Creative Commons BY"}
+![](skript/00-bilder/CC-BY.svg){fig-alt="Symbol of the Creative Commons BY license notice"}
 
-Bausteine Computergestützter Datenanalyse von Lukas Arnold, Simone Arnold, Florian Bagemihl, Matthias Baitsch, Marc Fehr, Franca Hollmann, Maik Poetzsch und Sebastian Seipel. Werkzeugbaustein Pandas von Marc Fehr und Maik Poetzsch ist lizensiert unter [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.de). Das Werk ist abrufbar auf [GitHub](https://github.com/bausteine-der-datenanalyse/w-pandas). Ausgenommen von der Lizenz sind alle Logos Dritter und anders gekennzeichneten Inhalte. 2025
+Building Blocks of Computer-Assisted Data Analysis by Lukas Arnold, Simone Arnold, Florian Bagemihl, Matthias Baitsch, Marc Fehr, Franca Hollmann, Maik Poetzsch, and Sebastian Seipel. Tool Module Pandas by Marc Fehr and Maik Poetzsch is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.en). The work is available on [GitHub](https://github.com/bausteine-der-datenanalyse/w-pandas-en). Excluded from the license are all third-party logos and other content marked otherwise. 2025
 
 ::::
 
-Zitiervorschlag
+Suggested Citation
 
-Arnold, Lukas, Simone Arnold, Matthias Baitsch, Marc Fehr, Franca Hollmann, Maik Poetzsch, und Sebastian Seipel. 2025. „Bausteine Computergestützter Datenanalyse. Werkzeugbaustein Pandas“. <https://github.com/bausteine-der-datenanalyse/w-pandas>.
+Arnold, Lukas, Simone Arnold, Matthias Baitsch, Marc Fehr, Franca Hollmann, Maik Poetzsch, and Sebastian Seipel. 2025. “Building Blocks of Computer-Assisted Data Analysis. Tool Module Pandas”. <https://github.com/bausteine-der-datenanalyse/w-pandas-en>.
 
-BibTeX-Vorlage
+BibTeX Template
 
 ```
 @misc{BCD-w-pandas-2025,
- title={Bausteine Computergestützter Datenanalyse. Werkzeugbaustein Pandas},
+ title={Building Blocks of Computer-Assisted Data Analysis. Tool Module Pandas},
  author={Arnold, Lukas and Arnold, Simone and Baitsch, Matthias and Fehr, Marc and Hollmann, Franca and Poetzsch, Maik and Seipel, Sebastian},
  year={2025},
- url={https://github.com/bausteine-der-datenanalyse/w-pandas}} 
+ url={https://github.com/bausteine-der-datenanalyse/w-pandas-en}}
 ```
 
 :::
 
-## Voraussetzungen
+## Prerequisites
 {{< include skript/voraussetzungen.md >}}
 
-## Lernziele
+## Learning Objectives
 {{< include skript/lernziele.md >}}
