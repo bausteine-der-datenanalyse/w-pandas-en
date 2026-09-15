@@ -167,7 +167,7 @@ print(df)
 
 In most cases, an index ranging from 0 to n-1 is the most practical. A numeric index is helpful for selecting index ranges (slicing) and working with multiple data structures. Try creating a DataFrame from two Series with different indices to see what happens.
 
-Also, placing descriptive or measured variables in the index contradicts the concept of tidy data, a system for structuring datasets introduced in the [Structured Data Import Method Module](https://bausteine-der-datenanalyse.github.io/m-einlesen-strukturierter-datens-tze/einlesen-strukturierter-datens%C3%A4tze.html). 
+Also, placing descriptive or measured variables in the index contradicts the concept of tidy data, a system for structuring datasets introduced in the [Structured Data Import Method Module](https://bausteine-der-datenanalyse.github.io/m-einlesen-strukturierter-datensaetze/output/book/). 
 
 :::
 
