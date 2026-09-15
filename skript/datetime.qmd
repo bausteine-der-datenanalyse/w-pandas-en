@@ -59,7 +59,7 @@ pd.to_datetime(time_series, utc = True)
 Conversion to any desired timezone is possible using the method `pd.Series.dt.tz_convert(tz = 'utc')`.
 
 ```{python}
-time_series.dt.tz_convert(tz = 'portugal')
+time_series.dt.tz_convert(tz = 'Portugal')
 ```
 
 ::: {#nte-timezones .callout-note collapse="true"}
