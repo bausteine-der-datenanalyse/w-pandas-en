@@ -2,17 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.42">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; Zeitreihen – Bausteine Computergestützter Datenanalyse</title>
+<title>5&nbsp; Time Series – Bausteine Computergestützter Datenanalyse</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -21,8 +27,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +40,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -66,15 +73,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <link href="../skript/dateien.html" rel="next">
 <link href="../skript/datentypen.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-41b50336b84d19d21e4f3e93c35ff765.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-41d1ed59529443dc312b46011c211845.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -108,7 +116,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -117,7 +125,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../skript/datetime.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Zeitreihen</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../skript/datetime.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Time Series</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
@@ -132,7 +140,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../skript/00-bilder/logo_with_text_new.svg" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="../skript/00-bilder/logo_with_text_new.svg" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../skript/00-bilder/logo_with_text_new.svg" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Werkzeugbaustein Pandas</a> 
@@ -154,37 +163,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../skript/einleitung.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Einleitung</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../skript/operationen.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Operationen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Operations</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../skript/plotting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Grafikerstellung</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Plot Creation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../skript/datentypen.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Datentypen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data Types</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../skript/datetime.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Zeitreihen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Time Series</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../skript/dateien.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Dateien lesen und schreiben</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Reading and Writing Files</span></span></a>
   </div>
 </li>
     </ul>
@@ -197,17 +206,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#datums--und-zeitinformationen-in-python" id="toc-datums--und-zeitinformationen-in-python" class="nav-link active" data-scroll-target="#datums--und-zeitinformationen-in-python"><span class="header-section-number">5.1</span> Datums- und Zeitinformationen in Python</a>
+  <li><a href="#date-and-time-information-in-python" id="toc-date-and-time-information-in-python" class="nav-link active" data-scroll-target="#date-and-time-information-in-python"><span class="header-section-number">5.1</span> Date and Time Information in Python</a>
   <ul class="collapse">
-  <li><a href="#naive-und-bewusste-datetime-objekte" id="toc-naive-und-bewusste-datetime-objekte" class="nav-link" data-scroll-target="#naive-und-bewusste-datetime-objekte">Naive und bewusste Datetime-Objekte</a></li>
-  <li><a href="#alles-ist-relativ-die-epoche" id="toc-alles-ist-relativ-die-epoche" class="nav-link" data-scroll-target="#alles-ist-relativ-die-epoche">Alles ist relativ: die Epoche</a></li>
-  <li><a href="#zeitumstellung---dailight-saving-time" id="toc-zeitumstellung---dailight-saving-time" class="nav-link" data-scroll-target="#zeitumstellung---dailight-saving-time">Zeitumstellung - Dailight Saving Time</a></li>
-  <li><a href="#kalender" id="toc-kalender" class="nav-link" data-scroll-target="#kalender">Kalender</a></li>
+  <li><a href="#naive-and-aware-datetime-objects" id="toc-naive-and-aware-datetime-objects" class="nav-link" data-scroll-target="#naive-and-aware-datetime-objects">Naive and Aware Datetime Objects</a></li>
+  <li><a href="#everything-is-relative-the-epoch" id="toc-everything-is-relative-the-epoch" class="nav-link" data-scroll-target="#everything-is-relative-the-epoch">Everything is Relative: The Epoch</a></li>
+  <li><a href="#daylight-saving-time" id="toc-daylight-saving-time" class="nav-link" data-scroll-target="#daylight-saving-time">Daylight Saving Time</a></li>
+  <li><a href="#calendar" id="toc-calendar" class="nav-link" data-scroll-target="#calendar">Calendar</a></li>
   </ul></li>
   <li><a href="#datetime-in-pandas" id="toc-datetime-in-pandas" class="nav-link" data-scroll-target="#datetime-in-pandas"><span class="header-section-number">5.2</span> datetime in Pandas</a></li>
   <li><a href="#timedelta-in-pandas" id="toc-timedelta-in-pandas" class="nav-link" data-scroll-target="#timedelta-in-pandas"><span class="header-section-number">5.3</span> timedelta in Pandas</a></li>
-  <li><a href="#zugriff-auf-zeitreihen" id="toc-zugriff-auf-zeitreihen" class="nav-link" data-scroll-target="#zugriff-auf-zeitreihen"><span class="header-section-number">5.4</span> Zugriff auf Zeitreihen</a></li>
-  <li><a href="#aufgaben" id="toc-aufgaben" class="nav-link" data-scroll-target="#aufgaben"><span class="header-section-number">5.5</span> Aufgaben</a></li>
+  <li><a href="#accessing-time-series" id="toc-accessing-time-series" class="nav-link" data-scroll-target="#accessing-time-series"><span class="header-section-number">5.4</span> Accessing Time Series</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">5.5</span> Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -216,7 +225,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Zeitreihen</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Time Series</span></h1>
 </div>
 
 
@@ -233,48 +242,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Die Verarbeitung von Datums- und Zeitinformationen wird in Python durch verschiedene Module ermöglicht. Einleitend werden einige dieser Module kurz vorgestellt, da in der Dokumentation gelegentlich auf diese verwiesen wird. Pandas bietet einen einheitlichen Zugang zu den meisten dieser Funktionen und verwendet die NumPy Datentypen <code>datetime64</code> und <code>timedelta64</code>.</p>
+<p>Processing date and time information in Python is enabled through various modules. A brief introduction to some of these modules is given, as they are occasionally referenced in the documentation. Pandas provides a unified access to most of these functions and uses the NumPy data types <code>datetime64</code> and <code>timedelta64</code>.</p>
 <ul>
-<li><p>Der Datentyp <code>datetime64</code> beschreibt einen bestimmten Zeitpunkt an einem bestimmten Datum und gehört zu der Klasse <code>Timestamp</code>. Der Datentyp hat die Einheit Nanosekunden und kann Informationen über die Zeitzone speichern.</p></li>
-<li><p>Der Datentyp <code>timedelta64</code> beschreibt eine absolute Zeitdauer in der Einheit Nanosekunden und gehört zu der Klasse <code>Timedelta</code>.</p></li>
+<li><p>The data type <code>datetime64</code> represents a specific point in time on a specific date and belongs to the <code>Timestamp</code> class. The data type has nanosecond precision and can store timezone information.</p></li>
+<li><p>The data type <code>timedelta64</code> represents an absolute duration of time in nanoseconds and belongs to the <code>Timedelta</code> class.</p></li>
 </ul>
-<section id="datums--und-zeitinformationen-in-python" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="datums--und-zeitinformationen-in-python"><span class="header-section-number">5.1</span> Datums- und Zeitinformationen in Python</h2>
-<p>In Python gibt es einige Module zur Verarbeitung von Datums- und Zeitinformationen.</p>
+<section id="date-and-time-information-in-python" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="date-and-time-information-in-python"><span class="header-section-number">5.1</span> Date and Time Information in Python</h2>
+<p>In Python, there are several modules for handling date and time information.</p>
 <ul>
-<li><p>Das Modul time stellt Zeit- und Datumsoperationen mit Objekten vom Typ <code>struct_time</code> bereit. (<a href="https://docs.python.org/3/library/time.html">Dokumentation des Moduls time</a>)</p></li>
-<li><p>Das Modul datetime führt die Datentypen <code>datetime</code> und <code>timedelta</code>, zusätzliche Methoden für die Bearbeitung und die Ausgabe von Datums- und Zeitinformationen ein. Das Modul kann Jahreszahlen von 1 bis 9999 nach unserer Zeitrechnung im Gregorianischen Kalender verarbeiten. (<a href="https://docs.python.org/3/library/datetime.html#">Dokumentation des Moduls datetime</a>)</p></li>
-<li><p>Das Modul calendar führt verschiedene Kalenderfunktionen ein und erweitert den verarbeitbaren Zeitraum. Basierend auf dem Gregorianischen Kalender reicht dieser in beide Richtungen ins Unendliche. (<a href="https://docs.python.org/3/library/calendar.html#module-calendar">Dokumentation des Moduls calendar</a>)</p></li>
-<li><p>Das Modul pytz führt die IANA-Zeitzonendatenbank (Internet Assigned Numbers Authority) für Anwendungsprogramme und Betriebssysteme ein (auch Olsen-Datenbank genannt). Die IANA-Datenbank beinhaltet die Zeitzonen und Änderungen der Zeit seit 1970. (<a href="https://de.wikipedia.org/wiki/Zeitzonen-Datenbank">Wikipedia</a>) Das Modul pytz sorgt für eine korrekte Berechnung von Zeiten zum Ende der Zeitumstellung (Ende Sommerzeit) über Zeitzonen hinweg. (<a href="https://pythonhosted.org/pytz/">Dokumentation pytz</a>)</p></li>
-<li><p>NumPy führt die Datentypen <code>datetime64</code> und <code>timedelta64</code> ein. Diese basieren auf dem Gregorianischen Kalender und reichen in beide Richtungen ins Unendliche. <a href="https://numpy.org/doc/stable/reference/arrays.datetime.html" class="uri">https://numpy.org/doc/stable/reference/arrays.datetime.html</a></p></li>
-<li><p>Pandas nutzt die NumPy-Datentypen <code>datetime64</code> und <code>timedelta64</code> und ergänzt zahlreiche Funktionen zur Verarbeitung von Datums- und Zeitinformationen aus anderen Paketen. <a href="https://pandas.pydata.org/docs/user_guide/timeseries.html" class="uri">https://pandas.pydata.org/docs/user_guide/timeseries.html</a></p></li>
+<li><p>The <code>time</code> module provides time and date operations with objects of type <code>struct_time</code>. (<a href="https://docs.python.org/3/library/time.html">time module documentation</a>)</p></li>
+<li><p>The <code>datetime</code> module introduces the data types <code>datetime</code> and <code>timedelta</code>, along with additional methods for processing and outputting date and time information. The module can handle years from 1 to 9999 in the Gregorian calendar. (<a href="https://docs.python.org/3/library/datetime.html#">datetime module documentation</a>)</p></li>
+<li><p>The <code>calendar</code> module provides various calendar functions and extends the range of dates that can be processed. Based on the Gregorian calendar, this extends infinitely in both directions. (<a href="https://docs.python.org/3/library/calendar.html#module-calendar">calendar module documentation</a>)</p></li>
+<li><p>The <code>pytz</code> module provides the IANA timezone database (Internet Assigned Numbers Authority, also called the Olsen database) for applications and operating systems. The IANA database includes time zones and changes since 1970. (<a href="https://en.wikipedia.org/wiki/Zeitzonen-Datenbank">Wikipedia</a>) The <code>pytz</code> module ensures correct calculation of times at the end of daylight saving time across time zones. (<a href="https://pythonhosted.org/pytz/">pytz documentation</a>)</p></li>
+<li><p>NumPy introduces the data types <code>datetime64</code> and <code>timedelta64</code>. These are based on the Gregorian calendar and extend infinitely in both directions. <a href="https://numpy.org/doc/stable/reference/arrays.datetime.html" class="uri">https://numpy.org/doc/stable/reference/arrays.datetime.html</a></p></li>
+<li><p>Pandas uses the NumPy data types <code>datetime64</code> and <code>timedelta64</code> and adds many functions for processing date and time information from other packages. <a href="https://pandas.pydata.org/docs/user_guide/timeseries.html" class="uri">https://pandas.pydata.org/docs/user_guide/timeseries.html</a></p></li>
 </ul>
-<p>NumPy und Pandas können Datetime-Objekte anderer Module in den Datentyp <code>datetime64</code> umwandeln.</p>
-<section id="naive-und-bewusste-datetime-objekte" class="level3">
-<h3 class="anchored" data-anchor-id="naive-und-bewusste-datetime-objekte">Naive und bewusste Datetime-Objekte</h3>
-<p>Datetime-Objekte werden abhängig davon, ob sie Informationen über Zeitzonen enthalten, als naiv (naive) oder als bewusst (aware) bezeichnet. Naiven Datetime-Objekten fehlt diese Information, bewusste Datetime-Objekte enthalten diese. Objekte der Module time, datetime und Pandas verfügen über ein Zeitzonenattribut, sind also bewusst. <code>np.datetime64</code> ist seit NumPy-Version 1.11.0 ein naiver Datentyp, unterstützt aber Zeitzonen aus Gründen der Rückwärtskompatibilität.</p>
-<div>
-
-</div>
+<p>NumPy and Pandas can convert datetime objects from other modules into the <code>datetime64</code> data type.</p>
+<section id="naive-and-aware-datetime-objects" class="level3">
+<h3 class="anchored" data-anchor-id="naive-and-aware-datetime-objects">Naive and Aware Datetime Objects</h3>
+<p>Datetime objects are classified as naive or aware depending on whether they contain timezone information. Naive datetime objects lack this information, while aware datetime objects include it. Objects from the <code>time</code>, <code>datetime</code>, and Pandas modules have a timezone attribute, so they are aware. <code>np.datetime64</code> has been a naive data type since NumPy version 1.11.0 but still supports timezones for backward compatibility.</p>
 <div class="border quarto-layout-panel" data-layout="[5, 90, 5]">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 5.0%;justify-content: flex-start;">
 <p>&nbsp;</p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 90.0%;justify-content: flex-start;">
-<p>“Deprecated since version 1.11.0: NumPy does not store timezone information. For backwards compatibility, datetime64 still parses timezone offsets, which it handles by converting to UTC±00:00 (Zulu time). This behaviour is deprecated and will raise an error in the future.” <a href="https://numpy.org/doc/stable/reference/arrays.datetime.html">NumPy Dokumentation</a></p>
+<p>“Deprecated since version 1.11.0: NumPy does not store timezone information. For backwards compatibility, datetime64 still parses timezone offsets, which it handles by converting to UTC±00:00 (Zulu time). This behaviour is deprecated and will raise an error in the future.” <a href="https://numpy.org/doc/stable/reference/arrays.datetime.html">NumPy Documentation</a></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 5.0%;justify-content: flex-start;">
 <p>&nbsp;</p>
 </div>
 </div>
 </div>
-<section id="zeitzonen" class="level4">
-<h4 class="anchored" data-anchor-id="zeitzonen">Zeitzonen</h4>
-<p>Pandas kann mit Zeitzonen umgehen und datetime-Objekte von einer in eine andere Zeitzone umwandeln. Über das Argument <code>tz</code> kann in verschiedenen Funktionen die Zeitzone angegeben werden.</p>
-<div id="0caae48e" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>zeitreihe <span class="op">=</span> pd.Series(pd.date_range(start <span class="op">=</span> <span class="st">"2023-03-26T00:00"</span>, end <span class="op">=</span> <span class="st">"2023-03-27T00:00"</span>, freq <span class="op">=</span> <span class="st">"3h"</span>, tz <span class="op">=</span> <span class="st">"turkey"</span>))</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>zeitreihe</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="timezones" class="level4">
+<h4 class="anchored" data-anchor-id="timezones">Timezones</h4>
+<p>Pandas can handle timezones and convert datetime objects from one timezone to another. The <code>tz</code> argument can be used in various functions to specify the timezone.</p>
+<div id="f0b5896a" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>time_series <span class="op">=</span> pd.Series(pd.date_range(start <span class="op">=</span> <span class="st">"2023-03-26T00:00"</span>, end <span class="op">=</span> <span class="st">"2023-03-27T00:00"</span>, freq <span class="op">=</span> <span class="st">"3h"</span>, tz <span class="op">=</span> <span class="st">"Turkey"</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>time_series</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>0   2023-03-26 00:00:00+03:00
 1   2023-03-26 03:00:00+03:00
@@ -285,12 +291,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 6   2023-03-26 18:00:00+03:00
 7   2023-03-26 21:00:00+03:00
 8   2023-03-27 00:00:00+03:00
-dtype: datetime64[ns, Turkey]</code></pre>
+dtype: datetime64[us, Turkey]</code></pre>
 </div>
 </div>
-<p>Mit der Funktion <code>pd.to_datetime(arg, utc = True)</code> kann die Zeitzone in die koordinierte Universalzeit UTC umgewandelt werden.</p>
-<div id="b09eb642" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pd.to_datetime(zeitreihe, utc <span class="op">=</span> <span class="va">True</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The function <code>pd.to_datetime(arg, utc = True)</code> can be used to convert the timezone to Coordinated Universal Time (UTC).</p>
+<div id="6bd0173f" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pd.to_datetime(time_series, utc <span class="op">=</span> <span class="va">True</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>0   2023-03-25 21:00:00+00:00
 1   2023-03-26 00:00:00+00:00
@@ -301,12 +307,12 @@ dtype: datetime64[ns, Turkey]</code></pre>
 6   2023-03-26 15:00:00+00:00
 7   2023-03-26 18:00:00+00:00
 8   2023-03-26 21:00:00+00:00
-dtype: datetime64[ns, UTC]</code></pre>
+dtype: datetime64[us, UTC]</code></pre>
 </div>
 </div>
-<p>Eine Umwandlung in beliebige Zeitzonen ist mit der Methode <code>pd.Series.dt.tz_convert(tz = 'utc')</code> möglich.</p>
-<div id="de70f483" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>zeitreihe.dt.tz_convert(tz <span class="op">=</span> <span class="st">'portugal'</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Conversion to any desired timezone is possible using the method <code>pd.Series.dt.tz_convert(tz = 'utc')</code>.</p>
+<div id="7dacb935" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>time_series.dt.tz_convert(tz <span class="op">=</span> <span class="st">'Portugal'</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>0   2023-03-25 21:00:00+00:00
 1   2023-03-26 00:00:00+00:00
@@ -317,27 +323,27 @@ dtype: datetime64[ns, UTC]</code></pre>
 6   2023-03-26 16:00:00+01:00
 7   2023-03-26 19:00:00+01:00
 8   2023-03-26 22:00:00+01:00
-dtype: datetime64[ns, Portugal]</code></pre>
+dtype: datetime64[us, Portugal]</code></pre>
 </div>
 </div>
-<div id="nte-zeitzonen" class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div id="nte-timezones" class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Beispiel&nbsp;5.1: verfügbare Zeitzonen ermitteln
+Beispiel&nbsp;5.1: Listing Available Timezones
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Der folgende Code gibt die in Python verfügbaren Zeitzonen aus.</p>
-<div id="efb6da9f" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> zoneinfo <span class="im">import</span> available_timezones</span>
+<p>The following code lists the timezones available in Python.</p>
+<div id="51e10644" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> zoneinfo <span class="im">import</span> available_timezones</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> timezone <span class="kw">in</span> <span class="bu">sorted</span>(available_timezones()):</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(timezone)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(timezone)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Africa/Abidjan
 Africa/Accra
@@ -945,47 +951,44 @@ localtime</code></pre>
 </div>
 </section>
 </section>
-<section id="alles-ist-relativ-die-epoche" class="level3">
-<h3 class="anchored" data-anchor-id="alles-ist-relativ-die-epoche">Alles ist relativ: die Epoche</h3>
-<p>Python speichert Zeit relativ zu einem zeitlichen Bezugspunkt, der Unix-Zeit, der sogenannten Epoche. Die Epoche kann mit der Funktion <code>pd.to_datetime(0)</code> ausgegeben werden. Die Funktion konvertiert Argumente in Zeitpunkte (Timestamp). Ganzzahlen werden dabei als Nanosekunden seit der Epoche interpretiert. Die Funktion werden wir später noch ausführlicher behandeln.</p>
-<div id="70fc663e" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="dv">0</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="everything-is-relative-the-epoch" class="level3">
+<h3 class="anchored" data-anchor-id="everything-is-relative-the-epoch">Everything is Relative: The Epoch</h3>
+<p>Python stores time relative to a reference point, the Unix time, known as the epoch. The epoch can be displayed using the function <code>pd.to_datetime(0)</code>. This function converts arguments into timestamps. Integers are interpreted as nanoseconds since the epoch. We will cover this function in more detail later.</p>
+<div id="62f84123" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="dv">0</span>))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1970-01-01 00:00:00</code></pre>
 </div>
 </div>
 <div id="wrn-datetimetimezones" class="callout callout-style-simple callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Hinweis&nbsp;5.1: Zeit - atomar, koordiniert oder universal?
+Hinweis&nbsp;5.1: Time – Atomic, Coordinated, or Universal?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>NumPy nutzt die Internationale Atomzeit (abgekürzt TAI für französisch Temps Atomique International). Diese nimmt für jeden Kalendertag eine Länge von 86.400 Sekunden an, kennt also keine Schaltsekunde. Die Atomzeit bildet die Grundlage für die koordinierte Weltzeit UTC.</p>
-<p>UTC steht für Coordinated Universal Time (auch bekannt als Greenwich Mean Time). Das Kürzel UTC ist ein Kompromiss für die englische und die französische Sprache. Die koordinierte Weltzeit gleicht die Verlangsamung der Erdrotation (astronomisch gemessen als Universalzeit, Universal Time UT) durch Schaltsekunden aus, um die geringfügige Verlängerung eines Tages auszugleichen. Die TAI geht deshalb gegenüber der UTC vor. Seit 1972 unterscheiden sich beide Zeiten um eine ganzzahlige Anzahl von Sekunden. Aktuell (2024) geht die TAI 37 Sekunden gegenüber UTC vor.</p>
-<p>Eine Umwandlung in die koordinierte Weltzeit ist in NumPy bislang noch nicht umgesetzt. (<a href="https://numpy.org/doc/stable/reference/arrays.datetime.html">Dokumentation NumPy</a>, <a href="https://de.wikipedia.org/wiki/Internationale_Atomzeit">Wikipedia</a>).</p>
+<p>NumPy uses International Atomic Time (abbreviated TAI for French <em>Temps Atomique International</em>). TAI assumes each calendar day is exactly 86,400 seconds long, so it does not account for leap seconds. Atomic time forms the basis for Coordinated Universal Time (UTC).</p>
+<p>UTC stands for Coordinated Universal Time (also known as Greenwich Mean Time). The abbreviation UTC is a compromise between English and French. Coordinated Universal Time compensates for the slowing of Earth’s rotation (astronomically measured as Universal Time, UT) with leap seconds to account for the slight lengthening of a day. TAI is therefore ahead of UTC. Since 1972, the difference between TAI and UTC is an integer number of seconds. Currently (2024), TAI is 37 seconds ahead of UTC.</p>
+<p>A conversion to Coordinated Universal Time is not yet implemented in NumPy. (<a href="https://numpy.org/doc/stable/reference/arrays.datetime.html">NumPy documentation</a>, <a href="https://en.wikipedia.org/wiki/Internationale_Atomzeit">Wikipedia</a>).</p>
 </div>
 </div>
 </div>
 </section>
-<section id="zeitumstellung---dailight-saving-time" class="level3">
-<h3 class="anchored" data-anchor-id="zeitumstellung---dailight-saving-time">Zeitumstellung - Dailight Saving Time</h3>
-<div>
-
-</div>
+<section id="daylight-saving-time" class="level3">
+<h3 class="anchored" data-anchor-id="daylight-saving-time">Daylight Saving Time</h3>
 <div class="border quarto-layout-panel" data-layout="[5, 90, 5]">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 5.0%;justify-content: flex-start;">
 <p>&nbsp;</p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 90.0%;justify-content: flex-start;">
-<p>“DST is Daylight Saving Time, an adjustment of the timezone by (usually) one hour during part of the year. DST rules are magic (determined by local law) and can change from year to year. The C library has a table containing the local rules (often it is read from a system file for flexibility) and is the only source of True Wisdom in this respect.” (<a href="https://docs.python.org/3/library/time.html">Dokumentation time</a>)</p>
+<p>“DST is Daylight Saving Time, an adjustment of the timezone by (usually) one hour during part of the year. DST rules are magic (determined by local law) and can change from year to year. The C library has a table containing the local rules (often it is read from a system file for flexibility) and is the only source of True Wisdom in this respect.” (<a href="https://docs.python.org/3/library/time.html">time module documentation</a>)</p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 5.0%;justify-content: flex-start;">
 <p>&nbsp;</p>
@@ -993,54 +996,54 @@ Hinweis&nbsp;5.1: Zeit - atomar, koordiniert oder universal?
 </div>
 </div>
 <p>&nbsp;</p>
-<p>Pandas arbeitet standardmäßig mit der koordinierten Weltzeit UTC. Die UTC selbst ist keine Zeitzone und kennt deshalb keine Zeitumstellung. Die Zeitumstellung wird abhängig von der Zeitzone berücksichtigt. Beispielsweise wurde die Zeitumstellung in der Türkei 2016 abgeschafft (und die Sommerzeit dauerhaft eingeführt).</p>
-<p>In den folgenden Beispielen wird am Tag vor der Zeitumstellung um 9 Uhr eine Zeitdifferenz von 24 Stunden addiert. Da über die Nacht (der Morgen des Folgetages) die Uhr um eine Stunde vorgestellt wird, zeigt der resultierende Zeitstempel die Uhrzeit 10 Uhr an, sofern die Zeitumstellung gilt.</p>
-<div id="d9f6b5fc" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Keine Zeitumstellung in UTC:"</span>)</span>
+<p>Pandas works with Coordinated Universal Time (UTC) by default. UTC itself is not a timezone and therefore does not observe daylight saving time. Daylight saving is applied depending on the timezone. For example, Turkey abolished daylight saving in 2016 (and permanently adopted summer time).</p>
+<p>In the following examples, a 24-hour time delta is added at 9 AM on the day before the DST change. Since the clock moves forward one hour during the night (morning of the next day), the resulting timestamp shows 10 AM if DST is in effect.</p>
+<div id="74b0ae1d" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"No daylight saving in UTC:"</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timestamp(<span class="st">"2025-03-29T09:00"</span>) <span class="op">+</span> pd.Timedelta(<span class="dv">24</span>, <span class="st">"h"</span>), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Zeitzone mit Zeitumstellung:"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Timezone with daylight saving:"</span>)</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timestamp(<span class="st">"2025-03-29T09:00"</span>, tz<span class="op">=</span><span class="st">"Europe/Berlin"</span>) <span class="op">+</span> pd.Timedelta(<span class="dv">24</span>, <span class="st">"h"</span>), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Heute keine Zeitumstellung in Türkei:"</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"No daylight saving in Turkey today:"</span>)</span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timestamp(<span class="st">"2025-03-29T09:00"</span>, tz<span class="op">=</span><span class="st">"Turkey"</span>) <span class="op">+</span> pd.Timedelta(<span class="dv">24</span>, <span class="st">"h"</span>), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Türkei vor der Abschaffung der Zeitumstellung:"</span>)</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timestamp(<span class="st">"2014-03-30T09:00"</span>, tz<span class="op">=</span><span class="st">"Turkey"</span>)  <span class="op">+</span> pd.Timedelta(<span class="dv">24</span>, <span class="st">"h"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Turkey before abolishing daylight saving:"</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timestamp(<span class="st">"2014-03-30T09:00"</span>, tz<span class="op">=</span><span class="st">"Turkey"</span>)  <span class="op">+</span> pd.Timedelta(<span class="dv">24</span>, <span class="st">"h"</span>))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Keine Zeitumstellung in UTC:
+<pre><code>No daylight saving in UTC:
 2025-03-30 09:00:00 
 
-Zeitzone mit Zeitumstellung:
+Timezone with daylight saving:
 2025-03-30 10:00:00+02:00 
 
-Heute keine Zeitumstellung in Türkei:
+No daylight saving in Turkey today:
 2025-03-30 09:00:00+03:00 
 
-Türkei vor der Abschaffung der Zeitumstellung:
+Turkey before abolishing daylight saving:
 2014-03-31 10:00:00+03:00</code></pre>
 </div>
 </div>
-<p>Eine Liste der Zeitzonen finden Sie auf Wikipedia: <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" class="uri">https://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a></p>
+<p>A list of timezones can be found on Wikipedia: <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" class="uri">https://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a></p>
 </section>
-<section id="kalender" class="level3">
-<h3 class="anchored" data-anchor-id="kalender">Kalender</h3>
-<p>Die Module calendar, NumPy und Pandas verwenden den um die Zeit vor seiner Einführung 1582 erweiterten Gregorianische Kalender, den <a href="https://en.wikipedia.org/wiki/Proleptic_Gregorian_calendar">proleptischen Gregorianischen Kalender</a>. Während das Modul date nur die Jahre 1-9999 nach unserer Zeit unterstützt, erlaubt der Datentyp <code>datetime64</code> auch Jahre vor unserer Zeit in <a href="https://en.wikipedia.org/wiki/Astronomical_year_numbering">astronomischer Jahresnumerierung</a>. Das bedeutet, es gibt ein Jahr 0 (das erste Jahr vor unserer Zeit) und vorausgehende Jahre werden mit negativen Zahlen dargestellt (-1 ist das zweite Jahr vor unserer Zeit). <a href="https://numpy.org/doc/stable/reference/arrays.datetime.html#datetime64-conventions-and-assumptions">NumPy Dokumentation</a></p>
+<section id="calendar" class="level3">
+<h3 class="anchored" data-anchor-id="calendar">Calendar</h3>
+<p>The <code>calendar</code>, NumPy, and Pandas modules use the Gregorian calendar extended backward before its introduction in 1582, known as the <a href="https://en.wikipedia.org/wiki/Proleptic_Gregorian_calendar">proleptic Gregorian calendar</a>. While the <code>date</code> module only supports years 1–9999 CE, the <code>datetime64</code> data type can also handle years before the Common Era using <a href="https://en.wikipedia.org/wiki/Astronomical_year_numbering">astronomical year numbering</a>. This means there is a year 0 (the first year before CE), and preceding years are represented with negative numbers (-1 is the second year BCE). <a href="https://numpy.org/doc/stable/reference/arrays.datetime.html#datetime64-conventions-and-assumptions">NumPy Documentation</a></p>
 </section>
 </section>
 <section id="datetime-in-pandas" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="datetime-in-pandas"><span class="header-section-number">5.2</span> datetime in Pandas</h2>
-<p>Pandas nutzt den NumPy-Datentyp <code>datetime64</code>, um Datums- und Zeitinformationen zu verarbeiten. In Pandas werden <code>datetime64</code>-Objekte mit den Funktionen <code>pd.to_datetime()</code> oder <code>pd.date_range()</code> angelegt.<br>
-<em>Hinweis: Eine weitere Möglichkeit ist die Funktion <code>pd.Timestamp()</code>, die umfangreichere Möglichkeiten zur Erzeugung eines Zeitpunkts bietet, aber kein string-parsing unterstützt.</em></p>
-<p><code>pd.to_datetime()</code> erzeugt Werte des Datentyps <code>datetime64[ns]</code> (mit <code>pd.to_datetime()</code> erzeugte Skalare (Einzelwerte) werden als Timestamp (Zeitpunkt) ausgegeben, die kein Attribut <code>dtype</code> haben). Die Funktion <code>pd.to_datetime()</code> akzeptiert als Eingabewerte:</p>
+<p>Pandas uses the NumPy data type <code>datetime64</code> to process date and time information. In Pandas, <code>datetime64</code> objects are created using the functions <code>pd.to_datetime()</code> or <code>pd.date_range()</code>.<br>
+<em>Note: Another option is the <code>pd.Timestamp()</code> function, which provides more extensive options for creating a timestamp but does not support string parsing.</em></p>
+<p><code>pd.to_datetime()</code> generates values of type <code>datetime64[ns]</code> (scalars created with <code>pd.to_datetime()</code> are returned as Timestamp objects, which do not have a <code>dtype</code> attribute). The function accepts the following inputs:</p>
 <ul>
-<li><p>datetime-Objekte anderer Module.</p></li>
-<li><p>Zahlen und eine Zeiteinheit <code>pd.to_datetime(1, unit = None)</code> (Standard sind Nanosekunden). Das Argument <code>unit</code> nimmt die Werte ‘ns’, ‘ms’, ‘s’, ‘m’, ‘h’, ‘D’, ‘W’, ‘M’, ‘Y’ für Nanosekunde, Millisekunde, Sekunde, Minute, Stunde, Tag, Woche, Monat bzw. Jahr entgegen. Erzeugt wird ein Zeitpunkt relativ zur Epoche.</p></li>
+<li><p>datetime objects from other modules.</p></li>
+<li><p>Numbers and a time unit <code>pd.to_datetime(1, unit=None)</code> (default is nanoseconds). The <code>unit</code> argument accepts ‘ns’, ‘ms’, ‘s’, ‘m’, ‘h’, ‘D’, ‘W’, ‘M’, ‘Y’ for nanosecond, millisecond, second, minute, hour, day, week, month, or year. The result is a timestamp relative to the epoch.</p></li>
 </ul>
-<div id="1744f927" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="dv">1000</span>, unit <span class="op">=</span> <span class="st">'D'</span>))</span>
+<div id="5be673c8" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="dv">1000</span>, unit <span class="op">=</span> <span class="st">'D'</span>))</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="dv">1000</span> <span class="op">*</span> <span class="dv">1000</span>, unit <span class="op">=</span> <span class="st">'h'</span>))</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="dv">1000</span> <span class="op">*</span> <span class="dv">1000</span> <span class="op">*</span> <span class="dv">1000</span>, unit <span class="op">=</span> <span class="st">'s'</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="dv">1000</span> <span class="op">*</span> <span class="dv">1000</span> <span class="op">*</span> <span class="dv">1000</span>, unit <span class="op">=</span> <span class="st">'s'</span>))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1972-09-27 00:00:00
 2084-01-29 16:00:00
@@ -1048,12 +1051,12 @@ Türkei vor der Abschaffung der Zeitumstellung:
 </div>
 </div>
 <ul>
-<li>Zeichenketten, die ein Datum oder ein Datum mit Uhrzeit ausdrücken, formatiert nach <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>.</li>
+<li>Strings representing a date or a date with time, formatted according to <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>.</li>
 </ul>
-<div id="4713dbaf" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="st">'2017'</span>))</span>
+<div id="e2123d98" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="st">'2017'</span>))</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="st">'2017-01-01T00'</span>))</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="st">'2017-01-01 00:00:00'</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="st">'2017-01-01 00:00:00'</span>))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>2017-01-01 00:00:00
 2017-01-01 00:00:00
@@ -1061,59 +1064,59 @@ Türkei vor der Abschaffung der Zeitumstellung:
 </div>
 </div>
 <ul>
-<li>Anders formatierte Zeichenketten mit dem Argument <code>format = "%d/%m/%Y"</code> (siehe <a href="https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior">Dokumentation strftime zur string-Formatierung</a>).</li>
+<li>Strings in other formats using the argument <code>format = "%d/%m/%Y"</code> (see <a href="https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior">strftime documentation for string formatting</a>).</li>
 </ul>
-<div id="78ce5028" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="st">'Monday, 12. August `24'</span>, <span class="bu">format</span> <span class="op">=</span> <span class="st">"%A, </span><span class="sc">%d</span><span class="st">. %B `%y"</span>))</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="st">'Monday, 12. August 2024, 12:15 Uhr CET'</span>, <span class="bu">format</span> <span class="op">=</span> <span class="st">"%A, </span><span class="sc">%d</span><span class="st">. %B %Y, %H:%M Uhr %Z"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="d23a3359" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="st">'Monday, 12. August `24'</span>, <span class="bu">format</span> <span class="op">=</span> <span class="st">"%A, </span><span class="sc">%d</span><span class="st">. %B `%y"</span>))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="st">'Monday, 12. August 2024, 12:15 Uhr CET'</span>, <span class="bu">format</span> <span class="op">=</span> <span class="st">"%A, </span><span class="sc">%d</span><span class="st">. %B %Y, %H:%M Uhr %Z"</span>))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>2024-08-12 00:00:00
 2024-08-12 12:15:00+02:00</code></pre>
 </div>
 </div>
 <ul>
-<li>Dictionary oder DataFrame.</li>
+<li>Dictionary or DataFrame.</li>
 </ul>
-<div id="5bc055ac" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime({<span class="st">'year'</span>:[<span class="dv">2020</span>, <span class="dv">2024</span>], <span class="st">'month'</span>: [<span class="dv">1</span>, <span class="dv">11</span>], <span class="st">'day'</span>: [<span class="dv">1</span>, <span class="dv">21</span>]}), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(pd.DataFrame({<span class="st">'year'</span>:[<span class="dv">2020</span>, <span class="dv">2024</span>], <span class="st">'month'</span>: [<span class="dv">1</span>, <span class="dv">11</span>], <span class="st">'day'</span>: [<span class="dv">1</span>, <span class="dv">21</span>]})))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="b2e9a223" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime({<span class="st">'year'</span>:[<span class="dv">2020</span>, <span class="dv">2024</span>], <span class="st">'month'</span>: [<span class="dv">1</span>, <span class="dv">11</span>], <span class="st">'day'</span>: [<span class="dv">1</span>, <span class="dv">21</span>]}), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(pd.DataFrame({<span class="st">'year'</span>:[<span class="dv">2020</span>, <span class="dv">2024</span>], <span class="st">'month'</span>: [<span class="dv">1</span>, <span class="dv">11</span>], <span class="st">'day'</span>: [<span class="dv">1</span>, <span class="dv">21</span>]})))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>0   2020-01-01
 1   2024-11-21
-dtype: datetime64[ns] 
+dtype: datetime64[us] 
 
 0   2020-01-01
 1   2024-11-21
-dtype: datetime64[ns]</code></pre>
+dtype: datetime64[us]</code></pre>
 </div>
 </div>
-<p>Die Funktion <code>pd.date_range()</code> erzeugt ein Array vom Typ <code>DatetimeIndex</code> mit dtype <code>datetime64</code>. Genau drei der folgenden vier Argumente sind für die Erzeugung erforderlich:</p>
+<p>The function <code>pd.date_range()</code> generates an array of type <code>DatetimeIndex</code> with dtype <code>datetime64</code>. Exactly three of the following four arguments are required to create a range:</p>
 <ul>
-<li><p><code>start</code>: Beginn der Reihe.</p></li>
-<li><p><code>end</code>: Ende der Reihe (inklusiv)</p></li>
-<li><p><code>freq</code>: Schrittweite (bspw. Jahr, Tag, Geschäftstag, Stunde oder Vielfache wie ‘6h’ - siehe <a href="https://pandas.pydata.org/docs/user_guide/timeseries.html#timeseries-offset-aliases">Liste verfügbarer strings</a>)</p></li>
-<li><p><code>periods</code>: Anzahl der zu erzeugenden Werte.</p></li>
+<li><p><code>start</code>: start of the range.</p></li>
+<li><p><code>end</code>: end of the range (inclusive).</p></li>
+<li><p><code>freq</code>: step size (e.g., year, day, business day, hour, or multiples such as ‘6h’ — see <a href="https://pandas.pydata.org/docs/user_guide/timeseries.html#timeseries-offset-aliases">list of available strings</a>).</p></li>
+<li><p><code>periods</code>: number of values to generate.</p></li>
 </ul>
-<div id="3100791c" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.date_range(start <span class="op">=</span> <span class="st">'2017'</span>, end <span class="op">=</span> <span class="st">'2024'</span>, periods <span class="op">=</span> <span class="dv">3</span>), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<div id="f344de85" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.date_range(start <span class="op">=</span> <span class="st">'2017'</span>, end <span class="op">=</span> <span class="st">'2024'</span>, periods <span class="op">=</span> <span class="dv">3</span>), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.date_range(start <span class="op">=</span> <span class="st">'2017'</span>, end <span class="op">=</span> <span class="st">'2024'</span>, freq <span class="op">=</span> <span class="st">'Y'</span>), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.date_range(start <span class="op">=</span> <span class="st">'2017'</span>, end <span class="op">=</span> <span class="st">'2024'</span>, freq <span class="op">=</span> <span class="st">'YE'</span>), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.date_range(end <span class="op">=</span> <span class="st">'2024'</span>, freq <span class="op">=</span> <span class="st">'h'</span>, periods <span class="op">=</span> <span class="dv">3</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.date_range(end <span class="op">=</span> <span class="st">'2024'</span>, freq <span class="op">=</span> <span class="st">'h'</span>, periods <span class="op">=</span> <span class="dv">3</span>))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>DatetimeIndex(['2017-01-01', '2020-07-02', '2024-01-01'], dtype='datetime64[ns]', freq=None) 
+<pre><code>DatetimeIndex(['2017-01-01', '2020-07-02', '2024-01-01'], dtype='datetime64[us]', freq=None) 
 
 DatetimeIndex(['2017-12-31', '2018-12-31', '2019-12-31', '2020-12-31',
                '2021-12-31', '2022-12-31', '2023-12-31'],
-              dtype='datetime64[ns]', freq='YE-DEC') 
+              dtype='datetime64[us]', freq='YE-DEC') 
 
 DatetimeIndex(['2023-12-31 22:00:00', '2023-12-31 23:00:00',
                '2024-01-01 00:00:00'],
-              dtype='datetime64[ns]', freq='h')</code></pre>
+              dtype='datetime64[us]', freq='h')</code></pre>
 </div>
 </div>
 <div id="wrn-daterange" class="callout callout-style-simple callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1124,41 +1127,41 @@ Hinweis&nbsp;5.2: pd.date_range()
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Die Funktion <code>pd.date_range()</code> wird künftig das Kürzel ‘Y’ nicht mehr unterstützen. Stattdessen können die Kürzel ‘YS’ (Jahresbeginn) oder ‘YE’ (Jahresende) verwendet werden. Ebenso wird das Kürzel ‘M’ künftig durch ‘MS’ (Monatsstart), ‘ME’ (Monatsende) ersetzt.</p>
+<p>The function <code>pd.date_range()</code> will no longer support the abbreviation ‘Y’ in the future. Instead, the abbreviations ‘YS’ (year start) or ‘YE’ (year end) can be used. Similarly, ‘M’ will be replaced by ‘MS’ (month start) or ‘ME’ (month end).</p>
 </div>
 </div>
 </div>
 </section>
 <section id="timedelta-in-pandas" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="timedelta-in-pandas"><span class="header-section-number">5.3</span> timedelta in Pandas</h2>
-<p>Zeitdifferenzen werden mit der Funktion <code>pd.Timedelta()</code> erzeugt. Zeitdifferenzen können zum einen durch Angabe einer Ganzzahl und einer Zeiteinheit angelegt werden. Außerdem ist die Übergabe mit Argumenten möglich (zulässige Argumente sind: weeks, days, hours, minutes, seconds, milliseconds, microseconds, nanoseconds).</p>
-<div id="7a8fea00" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timedelta(<span class="dv">1</span>, <span class="st">'D'</span>))</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timedelta(days <span class="op">=</span> <span class="dv">1</span>, hours <span class="op">=</span> <span class="dv">1</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Time differences are created using the function <code>pd.Timedelta()</code>. Time differences can be created either by specifying an integer and a time unit or by using keyword arguments (valid arguments are: weeks, days, hours, minutes, seconds, milliseconds, microseconds, nanoseconds).</p>
+<div id="92df374d" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timedelta(<span class="dv">1</span>, <span class="st">'D'</span>))</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timedelta(days <span class="op">=</span> <span class="dv">1</span>, hours <span class="op">=</span> <span class="dv">1</span>))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1 days 00:00:00
 1 days 01:00:00</code></pre>
 </div>
 </div>
-<p><strong>Wichtig:</strong> Anders als in NumPy werden Zeitdifferenzen in Monaten und Jahren nicht mehr von Pandas unterstützt.</p>
-<div id="3f94fb96" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<p><strong>Important:</strong> Unlike in NumPy, time differences in months and years are no longer supported by Pandas.</p>
+<div id="2678390f" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(pd.Timedelta(<span class="dv">1</span>, <span class="st">'Y'</span>))</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ValueError</span> <span class="im">as</span> error:</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(error)</span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(pd.Timedelta(<span class="dv">1</span>, <span class="st">'Y'</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(pd.Timedelta(<span class="dv">1</span>, <span class="st">'Y'</span>))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Units 'M', 'Y', and 'y' are no longer supported, as they do not represent unambiguous timedelta values durations.</code></pre>
 </div>
 </div>
-<p>Zum anderen können Zeitdifferenzen mit einer Zeichenkette erzeugt werden.</p>
-<div id="625b75b6" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timedelta(<span class="st">'10sec'</span>))</span>
+<p>Time differences can also be created using a string.</p>
+<div id="eed61e59" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timedelta(<span class="st">'10sec'</span>))</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timedelta(<span class="st">'10min'</span>))</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timedelta(<span class="st">'10hours'</span>))</span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timedelta(<span class="st">'10days'</span>))</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timedelta(<span class="st">'10w'</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timedelta(<span class="st">'10w'</span>))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>0 days 00:00:10
 0 days 00:10:00
@@ -1166,89 +1169,93 @@ Hinweis&nbsp;5.2: pd.date_range()
 10 days 00:00:00
 70 days 00:00:00</code></pre>
 </div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/tmp/ipykernel_3757/3776135813.py:5: Pandas4Warning: 'w' is deprecated and will be removed in a future version. Please use 'W' instead of 'w'.
+  print(pd.Timedelta('10w'))</code></pre>
 </div>
-<p>Mit Hilfe einer Zeitdifferenz können Zeitreihen leicht verschoben werden.</p>
-<div id="818ef0c2" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>pd.date_range(start <span class="op">=</span> <span class="st">'2024-01-01T00:00'</span>, end <span class="op">=</span> <span class="st">'2024-01-01T02:00'</span>, freq <span class="op">=</span> <span class="st">'15min'</span>) <span class="op">+</span> pd.Timedelta(<span class="st">'30min'</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Time series can be easily shifted using a time difference.</p>
+<div id="6e29c9f7" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>pd.date_range(start <span class="op">=</span> <span class="st">'2024-01-01T00:00'</span>, end <span class="op">=</span> <span class="st">'2024-01-01T02:00'</span>, freq <span class="op">=</span> <span class="st">'15min'</span>) <span class="op">+</span> pd.Timedelta(<span class="st">'30min'</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>DatetimeIndex(['2024-01-01 00:30:00', '2024-01-01 00:45:00',
                '2024-01-01 01:00:00', '2024-01-01 01:15:00',
                '2024-01-01 01:30:00', '2024-01-01 01:45:00',
                '2024-01-01 02:00:00', '2024-01-01 02:15:00',
                '2024-01-01 02:30:00'],
-              dtype='datetime64[ns]', freq='15min')</code></pre>
+              dtype='datetime64[us]', freq='15min')</code></pre>
 </div>
 </div>
 </section>
-<section id="zugriff-auf-zeitreihen" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="zugriff-auf-zeitreihen"><span class="header-section-number">5.4</span> Zugriff auf Zeitreihen</h2>
-<p>Pandas bietet zahlreiche Attribute und Methoden, um Informationen aus <code>datetime64</code>-Objekten auszulesen. Eine Übersicht aller verfügbaren Attribute und Methoden liefert <code>dir(pd.to_datetime(0))</code> bzw. der im folgenden Beispiel gezeigte Code.</p>
-<div id="2324fa3e" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Attribute</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Jahr:"</span>, pd.to_datetime(<span class="dv">0</span>).year)</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Monat:"</span>, pd.to_datetime(<span class="dv">0</span>).month)</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Tag:"</span>, pd.to_datetime(<span class="dv">0</span>).day)</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Stunde:"</span>, pd.to_datetime(<span class="dv">0</span>).hour)</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Minute:"</span>, pd.to_datetime(<span class="dv">0</span>).minute)</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sekunde:"</span>, pd.to_datetime(<span class="dv">0</span>).second)</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Tag des Jahres:"</span>, pd.to_datetime(<span class="dv">0</span>).dayofyear)</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Wochentag:"</span>, pd.to_datetime(<span class="dv">0</span>).dayofweek)</span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Tage im Monat:"</span>, pd.to_datetime(<span class="dv">0</span>).days_in_month)</span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Schaltjahr:"</span>, pd.to_datetime(<span class="dv">0</span>).is_leap_year)</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Methoden</span></span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Datum:"</span>, pd.to_datetime(<span class="dv">0</span>).date())</span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Zeit:"</span>, pd.to_datetime(<span class="dv">0</span>).time())</span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Wochentag (0-6):"</span>, pd.to_datetime(<span class="dv">0</span>).weekday())</span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Monatsname:"</span>,  pd.to_datetime(<span class="dv">0</span>).month_name())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="accessing-time-series" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="accessing-time-series"><span class="header-section-number">5.4</span> Accessing Time Series</h2>
+<p>Pandas provides numerous attributes and methods to extract information from <code>datetime64</code> objects. An overview of all available attributes and methods can be obtained with <code>dir(pd.to_datetime(0))</code> or by the example code below.</p>
+<div id="0ee40471" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Attributes</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Year:"</span>, pd.to_datetime(<span class="dv">0</span>).year)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Month:"</span>, pd.to_datetime(<span class="dv">0</span>).month)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Day:"</span>, pd.to_datetime(<span class="dv">0</span>).day)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hour:"</span>, pd.to_datetime(<span class="dv">0</span>).hour)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Minute:"</span>, pd.to_datetime(<span class="dv">0</span>).minute)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Second:"</span>, pd.to_datetime(<span class="dv">0</span>).second)</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Day of the year:"</span>, pd.to_datetime(<span class="dv">0</span>).dayofyear)</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Day of the week:"</span>, pd.to_datetime(<span class="dv">0</span>).dayofweek)</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Days in month:"</span>, pd.to_datetime(<span class="dv">0</span>).days_in_month)</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Leap year:"</span>, pd.to_datetime(<span class="dv">0</span>).is_leap_year)</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Methods</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Date:"</span>, pd.to_datetime(<span class="dv">0</span>).date())</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Time:"</span>, pd.to_datetime(<span class="dv">0</span>).time())</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Weekday (0-6):"</span>, pd.to_datetime(<span class="dv">0</span>).weekday())</span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Month name:"</span>, pd.to_datetime(<span class="dv">0</span>).month_name())</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Jahr: 1970
-Monat: 1
-Tag: 1
-Stunde: 0
+<pre><code>Year: 1970
+Month: 1
+Day: 1
+Hour: 0
 Minute: 0
-Sekunde: 0
-Tag des Jahres: 1
-Wochentag: 3
-Tage im Monat: 31
-Schaltjahr: False
+Second: 0
+Day of the year: 1
+Day of the week: 3
+Days in month: 31
+Leap year: False
 
-Datum: 1970-01-01
-Zeit: 00:00:00
-Wochentag (0-6): 3
-Monatsname: January</code></pre>
+Date: 1970-01-01
+Time: 00:00:00
+Weekday (0-6): 3
+Month name: January</code></pre>
 </div>
 </div>
-<div id="nte-attributeundmethoden" class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div id="nte-attributeandmethods" class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Beispiel&nbsp;5.2: Attribute und Methoden eines datetime-Objekts
+Beispiel&nbsp;5.2: Attributes and Methods of a datetime Object
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="816047e9" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>objekt <span class="op">=</span> pd.to_datetime(<span class="dv">0</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>attribute <span class="op">=</span> [attr <span class="cf">for</span> attr <span class="kw">in</span> <span class="bu">dir</span>(objekt) <span class="cf">if</span> <span class="kw">not</span> (<span class="bu">callable</span>(<span class="bu">getattr</span>(objekt, attr)) <span class="kw">or</span> attr.startswith(<span class="st">'_'</span>))]</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Attribute:"</span>)</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">30</span> <span class="op">*</span> <span class="st">"="</span>)</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(attribute)</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>methoden <span class="op">=</span> [attr <span class="cf">for</span> attr <span class="kw">in</span> <span class="bu">dir</span>(objekt) <span class="cf">if</span> (<span class="bu">callable</span>(<span class="bu">getattr</span>(objekt, attr)) <span class="kw">and</span> <span class="kw">not</span> attr.startswith(<span class="st">'__'</span>))]</span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Methoden:"</span>)</span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">30</span> <span class="op">*</span> <span class="st">"="</span>)</span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(methoden)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="1702245c" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>obj <span class="op">=</span> pd.to_datetime(<span class="dv">0</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>attributes <span class="op">=</span> [attr <span class="cf">for</span> attr <span class="kw">in</span> <span class="bu">dir</span>(obj) <span class="cf">if</span> <span class="kw">not</span> (<span class="bu">callable</span>(<span class="bu">getattr</span>(obj, attr)) <span class="kw">or</span> attr.startswith(<span class="st">'_'</span>))]</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Attributes:"</span>)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">30</span> <span class="op">*</span> <span class="st">"="</span>)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(attributes)</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>methods <span class="op">=</span> [attr <span class="cf">for</span> attr <span class="kw">in</span> <span class="bu">dir</span>(obj) <span class="cf">if</span> (<span class="bu">callable</span>(<span class="bu">getattr</span>(obj, attr)) <span class="kw">and</span> <span class="kw">not</span> attr.startswith(<span class="st">'__'</span>))]</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Methods:"</span>)</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">30</span> <span class="op">*</span> <span class="st">"="</span>)</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(methods)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Attribute:
+<pre><code>Attributes:
 ==============================
 ['asm8', 'day', 'day_of_week', 'day_of_year', 'dayofweek', 'dayofyear', 'days_in_month', 'daysinmonth', 'fold', 'hour', 'is_leap_year', 'is_month_end', 'is_month_start', 'is_quarter_end', 'is_quarter_start', 'is_year_end', 'is_year_start', 'max', 'microsecond', 'min', 'minute', 'month', 'nanosecond', 'quarter', 'resolution', 'second', 'tz', 'tzinfo', 'unit', 'value', 'week', 'weekofyear', 'year']
 
-Methoden:
+Methods:
 ==============================
 ['_from_dt64', '_from_value_and_reso', '_round', 'as_unit', 'astimezone', 'ceil', 'combine', 'ctime', 'date', 'day_name', 'dst', 'floor', 'fromisocalendar', 'fromisoformat', 'fromordinal', 'fromtimestamp', 'isocalendar', 'isoformat', 'isoweekday', 'month_name', 'normalize', 'now', 'replace', 'round', 'strftime', 'strptime', 'time', 'timestamp', 'timetuple', 'timetz', 'to_datetime64', 'to_julian_date', 'to_numpy', 'to_period', 'to_pydatetime', 'today', 'toordinal', 'tz_convert', 'tz_localize', 'tzname', 'utcfromtimestamp', 'utcnow', 'utcoffset', 'utctimetuple', 'weekday']</code></pre>
 </div>
@@ -1256,117 +1263,113 @@ Methoden:
 </div>
 </div>
 </div>
-<p>Für <code>pd.Series</code> erfolgt der Zugriff über den .dt-Operator (siehe <a href="https://pandas.pydata.org/docs/user_guide/basics.html#basics-dt-accessors">.dt accessor</a>). Der Zugriff auf verschiedene Informationen über ein Attribut (ohne Klammern) oder über eine Methode (mit Klammern) unterscheidet sich jedoch teilweise (siehe folgendes Beispiel).</p>
+<p>For <code>pd.Series</code>, access is done via the <code>.dt</code> accessor (see <a href="https://pandas.pydata.org/docs/user_guide/basics.html#basics-dt-accessors">.dt accessor</a>). Accessing different information via an attribute (without parentheses) or a method (with parentheses) can differ (see the example below).</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Der dt-Operator
+<span class="screen-reader-only">Hinweis</span>The dt Accessor
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="c615f36e" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Attribute</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Datum:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.date) <span class="co"># Unterschied</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Zeit:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.time) <span class="co"># Unterschied</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Jahr"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.year)</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Monat"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.month)</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Tag"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.day)</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Stunde"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.hour)</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Minute"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.minute)</span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sekunde"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.second)</span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Tag des Jahres"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.dayofyear)</span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Wochentag:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.dayofweek)</span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Wochentag:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.weekday) <span class="co"># Unterschied</span></span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Tage im Monat:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.days_in_month)</span>
-<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Schaltjahr:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.is_leap_year)</span>
-<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Methoden</span></span>
-<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Name des Monats:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.month_name())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="5f40fc05" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Attributes</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Date:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.date) <span class="co"># Difference</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Time:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.time) <span class="co"># Difference</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Year:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.year)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Month:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.month)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Day:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.day)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hour:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.hour)</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Minute:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.minute)</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Second:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.second)</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Day of the year:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.dayofyear)</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Day of the week:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.dayofweek)</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Weekday:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.weekday) <span class="co"># Difference</span></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Days in month:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.days_in_month)</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Leap year:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.is_leap_year)</span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Methods</span></span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Month name:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.month_name())</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Datum: 0    1970-01-01
+<pre><code>Date: 0    1970-01-01
 dtype: object
-Zeit: 0    00:00:00
+Time: 0    00:00:00
 dtype: object
-Jahr 0    1970
+Year: 0    1970
 dtype: int32
-Monat 0    1
+Month: 0    1
 dtype: int32
-Tag 0    1
+Day: 0    1
 dtype: int32
-Stunde 0    0
+Hour: 0    0
 dtype: int32
-Minute 0    0
+Minute: 0    0
 dtype: int32
-Sekunde 0    0
+Second: 0    0
 dtype: int32
 
-Tag des Jahres 0    1
+Day of the year: 0    1
 dtype: int32
-Wochentag: 0    3
+Day of the week: 0    3
 dtype: int32
-Wochentag: 0    3
+Weekday: 0    3
 dtype: int32
-Tage im Monat: 0    31
+Days in month: 0    31
 dtype: int32
-Schaltjahr: 0    False
+Leap year: 0    False
 dtype: bool
 
-Name des Monats: 0    January
-dtype: object</code></pre>
+Month name: 0    January
+dtype: str</code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="aufgaben" class="level2" data-number="5.5">
-<h2 data-number="5.5" class="anchored" data-anchor-id="aufgaben"><span class="header-section-number">5.5</span> Aufgaben</h2>
+<section id="exercises" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="exercises"><span class="header-section-number">5.5</span> Exercises</h2>
 <ol type="1">
-<li><p>Wie alt sind Sie in Tagen? Wie alt in Sekunden?</p></li>
-<li><p>An welchem Wochentag war ihr Geburtstag?</p></li>
-<li><p>Wie viele Tage sind es noch bis Weihnachten?</p></li>
-<li><p>Erstellen Sie eine Liste aller Schaltjahre im 20. Jahrhundert.</p></li>
+<li><p>How old are you in days? How old in seconds?</p></li>
+<li><p>What day of the week was your birthday?</p></li>
+<li><p>How many days are left until Christmas?</p></li>
+<li><p>Create a list of all leap years in the 20th century.</p></li>
 </ol>
-<div id="tip-musterlösungaufgaben" class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div id="tip-solutionexercises" class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Tipp&nbsp;5.1: Musterlösung
+Tipp&nbsp;5.1: Sample Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Aufgabe 1</p>
-<p>Ersetzen sie in der Lösung die Zeichenkette ‘YYYY-MM-DD’ bzw., wenn Sie die Uhrzeit Ihrer Geburt kennen, die Zeichenkette ‘YYYY-MM-DDTHH:MM’ durch Ihren Geburtstag.</p>
-<p>In Pandas werden die Schlüsselwörter <code>pd.to_datetime('today')</code> und <code>pd.to_datetime('now')</code> in Nanosekunden aufgelöst.</p>
+<p>Exercise 1</p>
+<p>Replace the string <code>'YYYY-MM-DD'</code> or, if you know the time of your birth, <code>'YYYY-MM-DDTHH:MM'</code> with your birthday.</p>
+<p>In Pandas, the keywords <code>pd.to_datetime('today')</code> and <code>pd.to_datetime('now')</code> are resolved in nanoseconds.</p>
 <pre class="raw"><code>print((pd.to_datetime('today') - pd.to_datetime('YYYY-MM-DD')).days)
-print(pd.to_datetime('now') - pd.to_datetime('YYYY-MM-DDTHH:MM')).total_seconds())</code></pre>
-<p>Aufgabe 2</p>
-<p>´´´ {.raw} print(pd.to_datetime(‘YYYY-MM-DD’).day_of_week) ´´´</p>
-<p>Aufgabe 3</p>
-<pre><code>(pd.to_datetime('2025-12-25') - pd.to_datetime('now')).days</code></pre>
-<p>Aufgabe 4</p>
-<div id="316860f7" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>schaltjahre <span class="op">=</span> pd.date_range(start <span class="op">=</span> <span class="st">'1901'</span>, end <span class="op">=</span> <span class="st">'2000'</span>, freq <span class="op">=</span> <span class="st">'Y'</span>)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>schaltjahre <span class="op">=</span> schaltjahre[schaltjahre.is_leap_year]</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(schaltjahre.year)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+print((pd.to_datetime('now') - pd.to_datetime('YYYY-MM-DDTHH:MM')).total_seconds())</code></pre>
+<p>Exercise 2</p>
+<pre class="raw"><code>print(pd.to_datetime('YYYY-MM-DD').day_of_week)</code></pre>
+<p>Exercise 3</p>
+<pre class="raw"><code>(pd.to_datetime('2025-12-25') - pd.to_datetime('now')).days</code></pre>
+<p>Exercise 4</p>
+<div id="d1cd459f" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>leap_years <span class="op">=</span> pd.date_range(start <span class="op">=</span> <span class="st">'1901'</span>, end <span class="op">=</span> <span class="st">'2000'</span>, freq <span class="op">=</span> <span class="st">'YE'</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>leap_years <span class="op">=</span> leap_years[leap_years.is_leap_year]</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(leap_years.year)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Index([1904, 1908, 1912, 1916, 1920, 1924, 1928, 1932, 1936, 1940, 1944, 1948,
        1952, 1956, 1960, 1964, 1968, 1972, 1976, 1980, 1984, 1988, 1992, 1996],
       dtype='int32')</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_4052/3713700613.py:1: FutureWarning: 'Y' is deprecated and will be removed in a future version, please use 'YE' instead.
-  schaltjahre = pd.date_range(start = '1901', end = '2000', freq = 'Y')</code></pre>
 </div>
 </div>
 </div>
@@ -1378,236 +1381,243 @@ print(pd.to_datetime('now') - pd.to_datetime('YYYY-MM-DDTHH:MM')).total_seconds(
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Kopiert");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Kopiert");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopiert");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopiert");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
       }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-        return container.innerHTML
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1615,194 +1625,170 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../skript/datentypen.html" class="pagination-link" aria-label="Datentypen">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Datentypen</span></span>
+      <a href="../skript/datentypen.html" class="pagination-link" aria-label="Data Types">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data Types</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../skript/dateien.html" class="pagination-link" aria-label="Dateien lesen und schreiben">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Dateien lesen und schreiben</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../skript/dateien.html" class="pagination-link" aria-label="Reading and Writing Files">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Reading and Writing Files</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
