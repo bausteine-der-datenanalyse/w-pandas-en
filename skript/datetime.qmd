@@ -182,7 +182,7 @@ The function `pd.date_range()` generates an array of type `DatetimeIndex` with d
 
 print(pd.date_range(start = '2017', end = '2024', periods = 3), "\n")
 
-print(pd.date_range(start = '2017', end = '2024', freq = 'Y'), "\n")
+print(pd.date_range(start = '2017', end = '2024', freq = 'YE'), "\n")
 
 print(pd.date_range(end = '2024', freq = 'h', periods = 3))
 ```
@@ -337,7 +337,7 @@ Exercise 3
 Exercise 4
 
 ```{python}
-leap_years = pd.date_range(start = '1901', end = '2000', freq = 'Y')
+leap_years = pd.date_range(start = '1901', end = '2000', freq = 'YE')
 leap_years = leap_years[leap_years.is_leap_year]
 print(leap_years.year)
 ```
