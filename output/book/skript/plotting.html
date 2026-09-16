@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.10.18">
@@ -97,17 +97,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Keine Treffer",
-    "search-matching-documents-text": "Treffer",
-    "search-copy-link-title": "Link in die Suche kopieren",
-    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
-    "search-more-match-text": "weitere Treffer in diesem Dokument",
-    "search-more-matches-text": "weitere Treffer in diesem Dokument",
-    "search-clear-button-title": "Zurücksetzen",
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Abbrechen",
-    "search-submit-button-title": "Abschicken",
-    "search-label": "Suchen"
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <link rel="shortcut icon" href="skript/00-bilder/favicon_bcd_new.svg">
@@ -122,13 +122,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../skript/plotting.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Plot Creation</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -144,12 +144,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <img src="../skript/00-bilder/logo_with_text_new.svg" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Werkzeugbaustein Pandas</a> 
+      <a href="../">Pandas Tool Module</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Suchen"></div>
+        <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
@@ -203,7 +203,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
   <li><a href="#series" id="toc-series" class="nav-link active" data-scroll-target="#series"><span class="header-section-number">3.1</span> Series</a></li>
@@ -238,8 +238,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="series" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="series"><span class="header-section-number">3.1</span> Series</h2>
 <p>A Series is plotted against its index. By default, a line plot is drawn. The <code>xlabel</code> and <code>ylabel</code> parameters can be used to add axis labels.</p>
-<div id="7fc634ce" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>guinea_pigs[<span class="st">'len'</span>].plot(xlabel <span class="op">=</span> <span class="st">'Index'</span>, ylabel <span class="op">=</span> <span class="st">'len'</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="d4921b92" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>guinea_pigs[<span class="st">'len'</span>].plot(xlabel <span class="op">=</span> <span class="st">'Index'</span>, ylabel <span class="op">=</span> <span class="st">'len'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -266,8 +266,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>grid = True</code> adds grid lines</li>
 <li><code>xlim = (min, max)</code> / <code>ylim = (min, max)</code> sets the axis limits</li>
 </ul>
-<div id="dd01cf6e" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>guinea_pigs[<span class="st">'dose'</span>].value_counts().plot(kind <span class="op">=</span> <span class="st">'pie'</span>, ylabel <span class="op">=</span> <span class="st">'Dose'</span>, colormap <span class="op">=</span> <span class="st">'Blues'</span>, figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">6</span>), legend <span class="op">=</span> <span class="va">True</span>, title <span class="op">=</span> <span class="st">'Pie Chart of Vitamin C Dose'</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="eb654581" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>guinea_pigs[<span class="st">'dose'</span>].value_counts().plot(kind <span class="op">=</span> <span class="st">'pie'</span>, ylabel <span class="op">=</span> <span class="st">'Dose'</span>, colormap <span class="op">=</span> <span class="st">'Blues'</span>, figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">6</span>), legend <span class="op">=</span> <span class="va">True</span>, title <span class="op">=</span> <span class="st">'Pie Chart of Vitamin C Dose'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -280,8 +280,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="dataframe" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="dataframe"><span class="header-section-number">3.2</span> DataFrame</h2>
 <p>For DataFrames, additional options are available. Using the <code>x</code> and <code>y</code> parameters, you can select columns or rows to be plotted on the respective axes. <code>y</code> can also be a list containing multiple entries.</p>
-<div id="7d6dfd14" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>guinea_pigs.plot(x <span class="op">=</span> <span class="st">'ID'</span>, y <span class="op">=</span> [<span class="st">'dose'</span>, <span class="st">'len'</span>])</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="42b6521e" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>guinea_pigs.plot(x <span class="op">=</span> <span class="st">'ID'</span>, y <span class="op">=</span> [<span class="st">'dose'</span>, <span class="st">'len'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -292,8 +292,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>&nbsp;</p>
 <p>For DataFrames, the scatter plot is available as a plot type.</p>
-<div id="df465162" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>guinea_pigs.plot(x <span class="op">=</span> <span class="st">'ID'</span>, y <span class="op">=</span> <span class="st">'len'</span>, kind <span class="op">=</span> <span class="st">'scatter'</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="f459179c" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>guinea_pigs.plot(x <span class="op">=</span> <span class="st">'ID'</span>, y <span class="op">=</span> <span class="st">'len'</span>, kind <span class="op">=</span> <span class="st">'scatter'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -306,8 +306,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="subplots" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="subplots"><span class="header-section-number">3.3</span> Subplots</h2>
 <p>Using the argument <code>subplots = True</code> creates separate subplots. The argument <code>sharex = True</code> is automatically set, so both subplots share the same x-axis. The <code>title</code> parameter can be given a list of titles for each subplot.</p>
-<div id="a6dd8933" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>guinea_pigs.plot(x <span class="op">=</span> <span class="st">'ID'</span>, y <span class="op">=</span> [<span class="st">'dose'</span>, <span class="st">'len'</span>], subplots <span class="op">=</span> <span class="va">True</span>, title <span class="op">=</span> [<span class="st">'Vitamin C Dose'</span>, <span class="st">'Length of Tooth-Forming Cells'</span>])<span class="op">;</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="dcb80524" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>guinea_pigs.plot(x <span class="op">=</span> <span class="st">'ID'</span>, y <span class="op">=</span> [<span class="st">'dose'</span>, <span class="st">'len'</span>], subplots <span class="op">=</span> <span class="va">True</span>, title <span class="op">=</span> [<span class="st">'Vitamin C Dose'</span>, <span class="st">'Length of Tooth-Forming Cells'</span>])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -318,8 +318,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>&nbsp;</p>
 <p>The argument <code>sharey = True</code> is also available. The <code>sharex</code> argument is set to False.</p>
-<div id="369aab6f" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>guinea_pigs.plot(x <span class="op">=</span> <span class="st">'ID'</span>, y <span class="op">=</span> [<span class="st">'dose'</span>, <span class="st">'len'</span>], subplots <span class="op">=</span> <span class="va">True</span>, sharex <span class="op">=</span> <span class="va">False</span>, sharey <span class="op">=</span> <span class="va">True</span>, title <span class="op">=</span> [<span class="st">'Vitamin C Dose'</span>, <span class="st">'Length of Tooth-Forming Cells'</span>])<span class="op">;</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c823da3d" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>guinea_pigs.plot(x <span class="op">=</span> <span class="st">'ID'</span>, y <span class="op">=</span> [<span class="st">'dose'</span>, <span class="st">'len'</span>], subplots <span class="op">=</span> <span class="va">True</span>, sharex <span class="op">=</span> <span class="va">False</span>, sharey <span class="op">=</span> <span class="va">True</span>, title <span class="op">=</span> [<span class="st">'Vitamin C Dose'</span>, <span class="st">'Length of Tooth-Forming Cells'</span>])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -330,11 +330,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>&nbsp;</p>
 <p>To fix overlapping x-axis labels, a command from the <code>matplotlib.pyplot</code> module must be used.</p>
-<div id="65595f33" class="cell" data-execution_count="8">
+<div id="abb1ea38" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>guinea_pigs.plot(x <span class="op">=</span> <span class="st">'ID'</span>, y <span class="op">=</span> [<span class="st">'dose'</span>, <span class="st">'len'</span>], subplots <span class="op">=</span> <span class="va">True</span>, sharex <span class="op">=</span> <span class="va">False</span>, sharey <span class="op">=</span> <span class="va">True</span>, title <span class="op">=</span> [<span class="st">'Vitamin C Dose'</span>, <span class="st">'Length of Tooth-Forming Cells'</span>])<span class="op">;</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -345,13 +345,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>&nbsp;</p>
 <p>To set a y-axis label for each subplot, matplotlib must also be used.</p>
-<div id="db43ba92" class="cell" data-execution_count="9">
+<div id="ab11d25b" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>my_plot <span class="op">=</span> guinea_pigs.plot(x <span class="op">=</span> <span class="st">'ID'</span>, y <span class="op">=</span> [<span class="st">'dose'</span>, <span class="st">'len'</span>], subplots <span class="op">=</span> <span class="va">True</span>, sharex <span class="op">=</span> <span class="va">False</span>, sharey <span class="op">=</span> <span class="va">True</span>, title <span class="op">=</span> [<span class="st">'Vitamin C Dose'</span>, <span class="st">'Length of Tooth-Forming Cells'</span>])<span class="op">;</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>my_plot[<span class="dv">0</span>].set_ylabel(<span class="st">'Milligrams per Day'</span>)</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>my_plot[<span class="dv">1</span>].set_ylabel(<span class="st">'Micron'</span>)</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -390,12 +390,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       // flash "checked"
       button.classList.add('code-copy-button-checked');
       var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Kopiert");
+      button.setAttribute("title", "Copied!");
       let tooltip;
       if (window.bootstrap) {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Kopiert");
+        button.setAttribute("data-bs-title", "Copied!");
         tooltip = new bootstrap.Tooltip(button, 
           { trigger: "manual", 
             customClass: "code-copy-button-tooltip",
