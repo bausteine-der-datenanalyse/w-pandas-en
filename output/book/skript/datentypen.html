@@ -272,7 +272,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <p>&nbsp;</p>
 <p>NumPy data types have operating system–dependent equivalents. For example, an array of type <code>int_</code> will show as <code>int</code>, and an array of floating-point numbers will show as <code>float64</code>.</p>
-<div id="71052356" class="cell" data-execution_count="2">
+<div id="49732814" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>scalar <span class="op">=</span> np.array([<span class="dv">2</span>])</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(scalar.dtype, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -285,7 +285,7 @@ float64</code></pre>
 </div>
 </div>
 <p>Additionally, each NumPy data type has a one-letter shorthand. For example, for strings, the shorthand <code>U</code> for Unicode characters is used along with the number of characters. (For all other data types, the number represents the number of bytes required in memory.) The output is prefixed with a character indicating the <a href="https://en.wikipedia.org/wiki/Endianness">byte order</a> in memory: <code>'&gt;'</code> (big-endian), <code>'&lt;'</code> (little-endian), or <code>'='</code> (system default).</p>
-<div id="7afffe5f" class="cell" data-execution_count="3">
+<div id="2ef33175" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>scalar <span class="op">=</span> np.array([<span class="st">'2'</span>])</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(scalar.dtype, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -310,7 +310,7 @@ float64</code></pre>
 <li><p><a href="https://pandas.pydata.org/docs/reference/api/pandas.Timestamp.html#pandas.Timestamp">Timezone-aware datetime</a> <code>dtype = 'datetime64[ns, US/Eastern]'</code></p></li>
 <li><p>Extensions of NumPy data types with support for missing values, recognizable by capital letters.</p></li>
 </ul>
-<div id="641d8a67" class="cell" data-execution_count="4">
+<div id="03446392" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NumPy data type int</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>series <span class="op">=</span> pd.Series([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], dtype <span class="op">=</span> <span class="st">'int'</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(series, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
@@ -354,7 +354,7 @@ Note&nbsp;4.1: Pandas Data Type string
 <p>Pandas uses the ‘string’ data type, like Python, which is immutable. This means there is no method that can modify an existing string. Operations with this data type return a new object of type ‘string’.</p>
 <p>Passing the data type ‘str’ results in the use of the NumPy string data type (<code>dtype = 'str'</code>), which is mutable.</p>
 <p>Depending on the situation, using one or the other data type can be useful. For example, the NumPy ‘str’ type can be concatenated using the <code>pd.Series.sum()</code> method.</p>
-<div id="ea36534c" class="cell" data-execution_count="5">
+<div id="f42466e6" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using NumPy data type 'str'</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>string_series <span class="op">=</span> pd.Series([<span class="st">'H'</span>, <span class="st">'a'</span>, <span class="st">'l'</span>, <span class="st">'l'</span>, <span class="st">'o'</span>, <span class="st">'!'</span>], dtype <span class="op">=</span> <span class="st">'str'</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Using NumPy data type 'str': </span><span class="sc">{</span>string_series<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">"</span>)</span>

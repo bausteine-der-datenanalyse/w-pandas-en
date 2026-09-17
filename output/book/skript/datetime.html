@@ -278,7 +278,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="timezones" class="level4">
 <h4 class="anchored" data-anchor-id="timezones">Timezones</h4>
 <p>Pandas can handle timezones and convert datetime objects from one timezone to another. The <code>tz</code> argument can be used in various functions to specify the timezone.</p>
-<div id="390c0d39" class="cell" data-execution_count="2">
+<div id="a0194fc6" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>time_series <span class="op">=</span> pd.Series(pd.date_range(start <span class="op">=</span> <span class="st">"2023-03-26T00:00"</span>, end <span class="op">=</span> <span class="st">"2023-03-27T00:00"</span>, freq <span class="op">=</span> <span class="st">"3h"</span>, tz <span class="op">=</span> <span class="st">"Turkey"</span>))</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>time_series</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -295,7 +295,7 @@ dtype: datetime64[ns, Turkey]</code></pre>
 </div>
 </div>
 <p>The function <code>pd.to_datetime(arg, utc = True)</code> can be used to convert the timezone to Coordinated Universal Time (UTC).</p>
-<div id="362d3cb0" class="cell" data-execution_count="3">
+<div id="151d4511" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pd.to_datetime(time_series, utc <span class="op">=</span> <span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>0   2023-03-25 21:00:00+00:00
@@ -311,7 +311,7 @@ dtype: datetime64[ns, UTC]</code></pre>
 </div>
 </div>
 <p>Conversion to any desired timezone is possible using the method <code>pd.Series.dt.tz_convert(tz = 'utc')</code>.</p>
-<div id="242cb68c" class="cell" data-execution_count="4">
+<div id="f3d1e946" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>time_series.dt.tz_convert(tz <span class="op">=</span> <span class="st">'Portugal'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>0   2023-03-25 21:00:00+00:00
@@ -339,7 +339,7 @@ Example&nbsp;5.1: Listing Available Timezones
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The following code lists the timezones available in Python.</p>
-<div id="e1e62eea" class="cell" data-execution_count="5">
+<div id="2b6495cc" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> zoneinfo <span class="im">import</span> available_timezones</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> timezone <span class="kw">in</span> <span class="bu">sorted</span>(available_timezones()):</span>
@@ -954,7 +954,7 @@ localtime</code></pre>
 <section id="everything-is-relative-the-epoch" class="level3">
 <h3 class="anchored" data-anchor-id="everything-is-relative-the-epoch">Everything is Relative: The Epoch</h3>
 <p>Python stores time relative to a reference point, the Unix time, known as the epoch. The epoch can be displayed using the function <code>pd.to_datetime(0)</code>. This function converts arguments into timestamps. Integers are interpreted as nanoseconds since the epoch. We will cover this function in more detail later.</p>
-<div id="292cd054" class="cell" data-execution_count="6">
+<div id="bd9e7797" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="dv">0</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -998,7 +998,7 @@ Note&nbsp;5.1: Time – Atomic, Coordinated, or Universal?
 <p>&nbsp;</p>
 <p>Pandas works with Coordinated Universal Time (UTC) by default. UTC itself is not a timezone and therefore does not observe daylight saving time. Daylight saving is applied depending on the timezone. For example, Turkey abolished daylight saving in 2016 (and permanently adopted summer time).</p>
 <p>In the following examples, a 24-hour time delta is added at 9 AM on the day before the DST change. Since the clock moves forward one hour during the night (morning of the next day), the resulting timestamp shows 10 AM if DST is in effect.</p>
-<div id="ab09a249" class="cell" data-execution_count="7">
+<div id="61335a98" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"No daylight saving in UTC:"</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timestamp(<span class="st">"2025-03-29T09:00"</span>) <span class="op">+</span> pd.Timedelta(<span class="dv">24</span>, <span class="st">"h"</span>), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1040,7 +1040,7 @@ Turkey before abolishing daylight saving:
 <li><p>datetime objects from other modules.</p></li>
 <li><p>Numbers and a time unit <code>pd.to_datetime(1, unit=None)</code> (default is nanoseconds). The <code>unit</code> argument accepts ‘ns’, ‘ms’, ‘s’, ‘m’, ‘h’, ‘D’, ‘W’, ‘M’, ‘Y’ for nanosecond, millisecond, second, minute, hour, day, week, month, or year. The result is a timestamp relative to the epoch.</p></li>
 </ul>
-<div id="2cca68b1" class="cell" data-execution_count="8">
+<div id="9aa4bfb1" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="dv">1000</span>, unit <span class="op">=</span> <span class="st">'D'</span>))</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="dv">1000</span> <span class="op">*</span> <span class="dv">1000</span>, unit <span class="op">=</span> <span class="st">'h'</span>))</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="dv">1000</span> <span class="op">*</span> <span class="dv">1000</span> <span class="op">*</span> <span class="dv">1000</span>, unit <span class="op">=</span> <span class="st">'s'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1053,7 +1053,7 @@ Turkey before abolishing daylight saving:
 <ul>
 <li>Strings representing a date or a date with time, formatted according to <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>.</li>
 </ul>
-<div id="2cb186a3" class="cell" data-execution_count="9">
+<div id="8491d838" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="st">'2017'</span>))</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="st">'2017-01-01T00'</span>))</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="st">'2017-01-01 00:00:00'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1066,7 +1066,7 @@ Turkey before abolishing daylight saving:
 <ul>
 <li>Strings in other formats using the argument <code>format = "%d/%m/%Y"</code> (see <a href="https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior">strftime documentation for string formatting</a>).</li>
 </ul>
-<div id="5bea0137" class="cell" data-execution_count="10">
+<div id="a44fe6b0" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="st">'Monday, 12. August `24'</span>, <span class="bu">format</span> <span class="op">=</span> <span class="st">"%A, </span><span class="sc">%d</span><span class="st">. %B `%y"</span>))</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(<span class="st">'Monday, 12. August 2024, 12:15 Uhr CET'</span>, <span class="bu">format</span> <span class="op">=</span> <span class="st">"%A, </span><span class="sc">%d</span><span class="st">. %B %Y, %H:%M Uhr %Z"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1077,7 +1077,7 @@ Turkey before abolishing daylight saving:
 <ul>
 <li>Dictionary or DataFrame.</li>
 </ul>
-<div id="5b923938" class="cell" data-execution_count="11">
+<div id="e69058cf" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime({<span class="st">'year'</span>:[<span class="dv">2020</span>, <span class="dv">2024</span>], <span class="st">'month'</span>: [<span class="dv">1</span>, <span class="dv">11</span>], <span class="st">'day'</span>: [<span class="dv">1</span>, <span class="dv">21</span>]}), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.to_datetime(pd.DataFrame({<span class="st">'year'</span>:[<span class="dv">2020</span>, <span class="dv">2024</span>], <span class="st">'month'</span>: [<span class="dv">1</span>, <span class="dv">11</span>], <span class="st">'day'</span>: [<span class="dv">1</span>, <span class="dv">21</span>]})))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1097,7 +1097,7 @@ dtype: datetime64[ns]</code></pre>
 <li><p><code>freq</code>: step size (e.g., year, day, business day, hour, or multiples such as ‘6h’ — see <a href="https://pandas.pydata.org/docs/user_guide/timeseries.html#timeseries-offset-aliases">list of available strings</a>).</p></li>
 <li><p><code>periods</code>: number of values to generate.</p></li>
 </ul>
-<div id="96a3bd27" class="cell" data-execution_count="12">
+<div id="7f2721b7" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.date_range(start <span class="op">=</span> <span class="st">'2017'</span>, end <span class="op">=</span> <span class="st">'2024'</span>, periods <span class="op">=</span> <span class="dv">3</span>), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.date_range(start <span class="op">=</span> <span class="st">'2017'</span>, end <span class="op">=</span> <span class="st">'2024'</span>, freq <span class="op">=</span> <span class="st">'YE'</span>), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
@@ -1135,7 +1135,7 @@ Note&nbsp;5.2: pd.date_range()
 <section id="timedelta-in-pandas" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="timedelta-in-pandas"><span class="header-section-number">5.3</span> timedelta in Pandas</h2>
 <p>Time differences are created using the function <code>pd.Timedelta()</code>. Time differences can be created either by specifying an integer and a time unit or by using keyword arguments (valid arguments are: weeks, days, hours, minutes, seconds, milliseconds, microseconds, nanoseconds).</p>
-<div id="bd65ac1b" class="cell" data-execution_count="13">
+<div id="e893349a" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timedelta(<span class="dv">1</span>, <span class="st">'D'</span>))</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timedelta(days <span class="op">=</span> <span class="dv">1</span>, hours <span class="op">=</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1143,12 +1143,12 @@ Note&nbsp;5.2: pd.date_range()
 1 days 01:00:00</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_3743/2995744407.py:2: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+<pre><code>/tmp/ipykernel_3620/2995744407.py:2: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   print(pd.Timedelta(days = 1, hours = 1))</code></pre>
 </div>
 </div>
 <p><strong>Important:</strong> Unlike in NumPy, time differences in months and years are no longer supported by Pandas.</p>
-<div id="3759f169" class="cell" data-execution_count="14">
+<div id="f09f8ce1" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(pd.Timedelta(<span class="dv">1</span>, <span class="st">'Y'</span>))</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ValueError</span> <span class="im">as</span> error:</span>
@@ -1160,7 +1160,7 @@ Note&nbsp;5.2: pd.date_range()
 </div>
 </div>
 <p>Time differences can also be created using a string.</p>
-<div id="0b682647" class="cell" data-execution_count="15">
+<div id="0eced8d8" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timedelta(<span class="st">'10sec'</span>))</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timedelta(<span class="st">'10min'</span>))</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.Timedelta(<span class="st">'10hours'</span>))</span>
@@ -1174,23 +1174,23 @@ Note&nbsp;5.2: pd.date_range()
 70 days 00:00:00</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_3743/3776135813.py:1: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+<pre><code>/tmp/ipykernel_3620/3776135813.py:1: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   print(pd.Timedelta('10sec'))
-/tmp/ipykernel_3743/3776135813.py:2: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+/tmp/ipykernel_3620/3776135813.py:2: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   print(pd.Timedelta('10min'))
-/tmp/ipykernel_3743/3776135813.py:3: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+/tmp/ipykernel_3620/3776135813.py:3: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   print(pd.Timedelta('10hours'))
-/tmp/ipykernel_3743/3776135813.py:4: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+/tmp/ipykernel_3620/3776135813.py:4: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   print(pd.Timedelta('10days'))
-/tmp/ipykernel_3743/3776135813.py:5: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+/tmp/ipykernel_3620/3776135813.py:5: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   print(pd.Timedelta('10w'))</code></pre>
 </div>
 </div>
 <p>Time series can be easily shifted using a time difference.</p>
-<div id="e2fd6390" class="cell" data-execution_count="16">
+<div id="c2e5f788" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>pd.date_range(start <span class="op">=</span> <span class="st">'2024-01-01T00:00'</span>, end <span class="op">=</span> <span class="st">'2024-01-01T02:00'</span>, freq <span class="op">=</span> <span class="st">'15min'</span>) <span class="op">+</span> pd.Timedelta(<span class="st">'30min'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_3743/2191239578.py:1: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+<pre><code>/tmp/ipykernel_3620/2191239578.py:1: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
   pd.date_range(start = '2024-01-01T00:00', end = '2024-01-01T02:00', freq = '15min') + pd.Timedelta('30min')</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="16">
@@ -1206,7 +1206,7 @@ Note&nbsp;5.2: pd.date_range()
 <section id="accessing-time-series" class="level2" data-number="5.4">
 <h2 data-number="5.4" class="anchored" data-anchor-id="accessing-time-series"><span class="header-section-number">5.4</span> Accessing Time Series</h2>
 <p>Pandas provides numerous attributes and methods to extract information from <code>datetime64</code> objects. An overview of all available attributes and methods can be obtained with <code>dir(pd.to_datetime(0))</code> or by the example code below.</p>
-<div id="8b6fbdb7" class="cell" data-execution_count="17">
+<div id="8660a95b" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Attributes</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Year:"</span>, pd.to_datetime(<span class="dv">0</span>).year)</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Month:"</span>, pd.to_datetime(<span class="dv">0</span>).month)</span>
@@ -1254,7 +1254,7 @@ Example&nbsp;5.2: Attributes and Methods of a datetime Object
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="d765315a" class="cell" data-execution_count="18">
+<div id="7b169bdf" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>obj <span class="op">=</span> pd.to_datetime(<span class="dv">0</span>)</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>attributes <span class="op">=</span> [attr <span class="cf">for</span> attr <span class="kw">in</span> <span class="bu">dir</span>(obj) <span class="cf">if</span> <span class="kw">not</span> (<span class="bu">callable</span>(<span class="bu">getattr</span>(obj, attr)) <span class="kw">or</span> attr.startswith(<span class="st">'_'</span>))]</span>
@@ -1292,7 +1292,7 @@ Methods:
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="9e7ca479" class="cell" data-execution_count="19">
+<div id="20961e56" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Attributes</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Date:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.date) <span class="co"># Difference</span></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Time:"</span>, pd.Series(pd.to_datetime(<span class="dv">0</span>)).dt.time) <span class="co"># Difference</span></span>
@@ -1378,7 +1378,7 @@ print((pd.to_datetime('now') - pd.to_datetime('YYYY-MM-DDTHH:MM')).total_seconds
 <p>Exercise 3</p>
 <pre class="raw"><code>(pd.to_datetime('2025-12-25') - pd.to_datetime('now')).days</code></pre>
 <p>Exercise 4</p>
-<div id="cd3bcae3" class="cell" data-execution_count="20">
+<div id="20728665" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>leap_years <span class="op">=</span> pd.date_range(start <span class="op">=</span> <span class="st">'1901'</span>, end <span class="op">=</span> <span class="st">'2000'</span>, freq <span class="op">=</span> <span class="st">'YE'</span>)</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>leap_years <span class="op">=</span> leap_years[leap_years.is_leap_year]</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(leap_years.year)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
