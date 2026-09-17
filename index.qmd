@@ -5,7 +5,7 @@
 :::: {layout="[20, 80]"}
 ![](skript/00-bilder/CC-BY.svg){fig-alt="Symbol of the Creative Commons BY license notice"}
 
-Building Blocks of Computer-Assisted Data Analysis by Lukas Arnold, Simone Arnold, Florian Bagemihl, Matthias Baitsch, Marc Fehr, Franca Hollmann, Maik Poetzsch, and Sebastian Seipel. Tool Module Pandas by Marc Fehr and Maik Poetzsch is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.en). The work is available on [GitHub](https://github.com/bausteine-der-datenanalyse/w-pandas-en). Excluded from the license are all third-party logos and other content marked otherwise. 2025
+Building Blocks of Computer-Assisted Data Analysis by Lukas Arnold, Simone Arnold, Florian Bagemihl, Matthias Baitsch, Marc Fehr, Franca Hollmann, Maik Poetzsch, and Sebastian Seipel. Tool Module Pandas by Marc Fehr and Maik Poetzsch is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.en). The work is available on [GitHub](https://github.com/bausteine-der-datenanalyse/w-pandas-en). Excluded from the license are all third-party logos and other content marked otherwise. 2026
 
 ::::
 
